@@ -61,8 +61,8 @@ Gem::Specification.new do |s|
   #  user's system when installing your gem.
   s.add_dependency("sass",      ["~> 3.3"])
   s.add_dependency("SassyCast",   ["~> 1.1"])
-  s.add_dependency("SassyLists",   ["~> 2.2"])
   s.add_dependency("sassy-math",   ["~> 1.5"])
   s.add_dependency("SassyStrings",   ["~> 1.1"])
+  s.add_dependency("SassyLists",   ["~> 2.2"])
   s.add_dependency("sassy-maps",   ["~> 0.4"])
 end
