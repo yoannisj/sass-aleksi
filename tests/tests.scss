@@ -5,13 +5,8 @@
 @import "bootcamp";
 @import "../stylesheets/aleksi";
 
-$null: null;
-$bool: true;
-$number: 10;
-$color: rgba(125, 125, 125, 0.5);
-$string: 'foo';
-$list: 10 false 'hello' 2em;
-$map: ('number': 10, 'bool': false, 'string': 'hello', 'em': 2em);
+// Import variables to use during tests
+@import "aleksi/variables";
 
 @include runner-start;
 

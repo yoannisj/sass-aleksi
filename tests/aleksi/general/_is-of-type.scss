@@ -6,30 +6,30 @@
 {
   @include it('should verify if a value is of the given type')
   {
-    @include should(expect( is-of-type($bool, 'bool') ), to(be( true )));
-    @include should(expect( is-of-type($bool, 'null') ), to(be( false )));
+    @include should(expect( is-of-type($true, 'bool') ), to(be( true )));
+    @include should(expect( is-of-type($false, 'null') ), to(be( false )));
 
-    @include should(expect( is-of-type($color, 'color') ), to(be( true )));
-    @include should(expect( is-of-type($color, 'number') ), to(be( false )));
+    @include should(expect( is-of-type($rgb, 'color') ), to(be( true )));
+    @include should(expect( is-of-type($hex, 'number') ), to(be( false )));
 
-    @include should(expect( is-of-type($number, 'number') ), to(be( true )));
-    @include should(expect( is-of-type($number, 'list') ), to(be( false )));
+    @include should(expect( is-of-type($int, 'number') ), to(be( true )));
+    @include should(expect( is-of-type($float, 'list') ), to(be( false )));
 
-    @include should(expect( is-of-type($string, 'string') ), to(be( true )));
-    @include should(expect( is-of-type($string, 'null') ), to(be( false )));
+    @include should(expect( is-of-type($word, 'string') ), to(be( true )));
+    @include should(expect( is-of-type($sentence, 'null') ), to(be( false )));
 
-    @include should(expect( is-of-type($list, 'list') ), to(be( true )));
-    @include should(expect( is-of-type($list, 'number') ), to(be( false )));
+    @include should(expect( is-of-type($str-list, 'list') ), to(be( true )));
+    @include should(expect( is-of-type($mix-list, 'number') ), to(be( false )));
 
-    @include should(expect( is-of-type($map, 'map') ), to(be( true )));
-    @include should(expect( is-of-type($map, 'list') ), to(be( false )));
-    @include should(expect( is-of-type($map, 'color') ), to(be( false )));
+    @include should(expect( is-of-type($str-map, 'map') ), to(be( true )));
+    @include should(expect( is-of-type($str-map, 'list') ), to(be( false )));
+    @include should(expect( is-of-type($mix-map, 'color') ), to(be( false )));
   }
 
   @include it('should test the value against a list of space separated types')
   {
-    @include should(expect( is-of-type($number, 'number' 'list' 'string') ), to(be( true )));
-    @include should(expect( is-of-type($number, 'list' 'map' 'string') ), to(be( false )));
+    @include should(expect( is-of-type($int, 'number' 'list' 'string') ), to(be( true )));
+    @include should(expect( is-of-type($int, 'list' 'map' 'string') ), to(be( false )));
   }
 
   @include it('should accept strings or the unquoted null as types to test against')
@@ -41,11 +41,11 @@
 
   @include it('should accept arbitrary types to stay future-proof')
   {
-    @include should(expect( is-of-type($number, foo) ), to(be(false)));
+    @include should(expect( is-of-type($rgba, foo) ), to(be(false)));
   }
 
   @include xit('should throw an error when not testing against a type name or the unquoted null')
   {
-    @include should(expect( is-of-type($map, false) ), to(be( false )));
+    @include should(expect( is-of-type($str-map, false) ), to(be( false )));
   }
- }
+}

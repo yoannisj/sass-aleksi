@@ -1,0 +1,54 @@
+// =============================================================================
+// =ALEKSI - TEST VARIABLES
+// =============================================================================
+// Global variables intended to be used accross unit tests.
+
+// NULL
+$null: null;
+
+// BOOLEAN
+$true: true;
+$false: false;
+
+// NUMBERS
+$int: 10;
+$float: 1.37;
+$px: 10px;
+$em: 1.5em;
+$rem: 2rem;
+$percentage: 50%;
+
+// COLORS
+$rgb: rgb(125, 125, 125);
+$rgba: rgba(125, 125, 125, 0.5);
+$hex: #ff7755;
+$short-hex: #c3d;
+$hsl: hsl(185deg, 20%, 60%);
+$hsla: hsla(185deg, 20%, 60%, 0.5);
+
+// STRINGS
+$unquoted: sans-serif;
+$word: 'foo';
+$sentence: 'look, the quick brown fox!';
+
+// LISTS
+$str-list: 'foo' 'bar' 'baz';
+$mix-list: 10 false 'foo' null 30% sans-serif 4em;
+
+// MAPS
+$str-map: (
+  'en': 'hello',
+  'fr': 'bonjour',
+  'es': 'ola',
+  'de': 'hallo',
+);
+
+$mix-map: (
+  'number': 10,
+  'false': false,
+  'string': 'foo',
+  'null': null,
+  'percentage': 30%,
+  'unquoted': sans-serif,
+  'em': 4em
+);
