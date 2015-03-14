@@ -1,0 +1,22 @@
+// =============================================================================
+// =ALEKSI - TESTS
+// =============================================================================
+
+@import "bootcamp";
+@import "../stylesheets/aleksi";
+
+$null: null;
+$bool: true;
+$number: 10;
+$color: rgba(125, 125, 125, 0.5);
+$string: 'foo';
+$list: 10 false 'hello' 2em;
+$map: ('number': 10, 'bool': false, 'string': 'hello', 'em': 2em);
+
+@include runner-start;
+
+// Import tests to run here
+// ------------------------
+@import "aleksi/general/is-of-type";
+
+@include runner-end;

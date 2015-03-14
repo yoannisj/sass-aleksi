@@ -6,15 +6,15 @@
 @import "SassyLists/every";
 @import "aleksi/general/throw";
 
-// =is-of-type( $value, $types )
+// =is-of-type( $value, $type )
 // -----------------------------------------------------------------------------
 /// Checks if a value is of the given type. Also accepts a list of types to
 /// allow multiple types.
 ///
 /// @param {any} $value - The value to analyze.
-/// @param {any} $types - The type(s) to check `$value` against.
+/// @param {any} $type - The type(s) to check `$value` against.
 ///
-/// @return {bool} - Whether the value's type corresponds to `$types`.
+/// @return {bool} - Whether the value's type corresponds to `$type`.
 ///
 /// @example scss
 ///   $foo: is-of-type('hello', 'string');
@@ -27,15 +27,28 @@
 /// @access public
 /// @since 0.1.0
 
-@function is-of-type( $value, $types )
+@function is-of-type( $value, $type )
 {
-  @if type-of($types) == list {
-    @each $type in $types {
-      @if type-of($type) != string {
-        $e: throw-error('$type must be a string or a list of strings.');
+  // accept a list of multiple types to test against
+  @if type-of($type) == list {
+    @each $t in $type {
+      @if is-of-type($value, $t) {
+        @return true;
       }
     }
+    // stop if none of the types in $type correspond
+    @return false;
   }
 
-  @return if( index($types, type-of($value)), true, false);
+  // accept the unquoted `null` as a data-type
+  @if $type == null {
+    @return if( $value == null, true, false );
+  }
+
+  // only test against valid type names
+  @else if type-of($type) != string {
+    $e: throw-error('$type must be a string or a list of strings.');
+  }
+
+  @return if( type-of($value) == $type, true, false );
 }
