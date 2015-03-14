@@ -1,0 +1,130 @@
+// =============================================================================
+// =ALEKSI - THROW
+// =============================================================================
+//// Tools to throw errors and warnings.
+////
+//// @group General
+//// @author [Yoannis Jamar](http://yoannis.me)
+////
+//// @todo Fork SassyLogger to add support inside of functions.
+
+// =_throw( $type, $message )
+// -----------------------------------------------------------------------------
+/// Throws a warning or an error to the console with the given `$message`.
+///
+/// @param {string} $type - The type of log message you want to throw (either 'warn' or 'error')
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns null
+/// @throw `$type` is not a valid Sass logging directive.
+/// @throw `$message` must be a string.
+///
+/// @access private
+/// @since 0.1.0
+
+@function _throw( $type, $message )
+{
+  @if not index('warn' 'error', $type) {
+    @return _throw('error', '$type is not a valud Sass logging directive');
+  }
+
+  @if type-of($message) != string {
+    @return _throw('error', '$message must be a string');
+  }
+
+  @if $type == 'warn' {
+    @warn #{$message};
+  }
+
+  @else if $type == 'error' {
+    @error #{$message};
+  }
+
+  @return null;
+}
+
+// =throw-warning( $message )
+// -----------------------------------------------------------------------------
+/// Throws a warning to the console with the given `$message`.
+///
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns `null`.
+///
+/// @access public
+/// @since 0.1.0
+
+@function throw-warning( $message )
+{
+  @return _throw('warning', $message);
+}
+
+// =throw-error( $message )
+// -----------------------------------------------------------------------------
+/// Throws an error to the console with the given `$message`.
+///
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns `null`.
+///
+/// @access public
+/// @since 0.1.0
+
+@function throw-error( $message )
+{
+  @return _throw('error', $message);
+}
+
+// =MIXINS
+// =============================================================================
+
+// =_throw( $type, $message )
+// -----------------------------------------------------------------------------
+/// Throws a warning or an error to the console with the given `$message`.
+///
+/// @param {string} $type - The type of log message you want to throw (either 'warn' or 'error')
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns null
+/// @throw `$type` is not a valid Sass logging directive.
+/// @throw `$message` must be a string.
+///
+/// @access private
+/// @since 0.1.0
+
+@mixin _throw( $type, $message )
+{
+  $exception: _throw($type, $message);
+}
+
+// =throw-warning( $message )
+// -----------------------------------------------------------------------------
+/// Throws a warning to the console with the given `$message`.
+///
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns `null`.
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin throw-warning( $message )
+{
+  @include _throw('warning', $message);
+}
+
+// =throw-error( $message )
+// -----------------------------------------------------------------------------
+/// Throws an error to the console with the given `$message`.
+///
+/// @param {string} $message - The message to print in the Sass console.
+///
+/// @return {null} - Always returns `null`.
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin throw-error( $message )
+{
+  @include _throw('error', $message );
+}

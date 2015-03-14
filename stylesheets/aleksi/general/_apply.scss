@@ -1,0 +1,38 @@
+// =============================================================================
+// =ALEKSI - APPLY
+// =============================================================================
+//// @group General
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/walk";
+
+// =apply( $value, $func[, $args... ])
+// -----------------------------------------------------------------------------
+/// Applies the given function to a value. Delegates to `walk()` if `$value is
+/// a list, arglist or map. On any other value types, it acts like an alias to
+/// `call()` (with `$name` and `$value` arguments inverted).
+///
+/// @param {any} $value - The value to modify.
+/// @param {string} $func - The name of the function to apply to `$value`.
+/// @param {argList} $args... - Additional arguments to pass to `$func`.
+///
+/// @return {any} - The modified value for `$value`.
+/// @throw Can not apply function '#{$func}' because it doesn't exist.
+///
+/// @example scss
+///   $foo: apply(rgb(120,70,20), 'hue');
+///     // => 18.75deg
+///   $bar: apply('lots' 'of' 'laugh', 'str-slice', 1, 2);
+///     // => 'l' 'o' 'l'
+///
+/// @access public
+/// @since 0.1.0
+
+@function apply( $value, $func, $args... )
+{
+  @if is-of-type($value, 'list' 'arglist' 'map') {
+    @return walk($value, $func, $args...);
+  }
+
+  @return call($func, $value, $args...);
+}

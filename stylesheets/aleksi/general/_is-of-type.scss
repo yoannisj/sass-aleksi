@@ -1,0 +1,41 @@
+// =============================================================================
+// =ALEKSI - IS-OF-TYPE
+// =============================================================================
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists/every";
+@import "aleksi/general/throw";
+
+// =is-of-type( $value, $types )
+// -----------------------------------------------------------------------------
+/// Checks if a value is of the given type. Also accepts a list of types to
+/// allow multiple types.
+///
+/// @param {any} $value - The value to analyze.
+/// @param {any} $types - The type(s) to check `$value` against.
+///
+/// @return {bool} - Whether the value's type corresponds to `$types`.
+///
+/// @example scss
+///   $foo: is-of-type('hello', 'string');
+///     // => true
+///   $bar: is-of-type('hello', number string null);
+///     // => true
+///   $bar: is-of-type(10, string bool null);
+///     // => false
+///
+/// @access public
+/// @since 0.1.0
+
+@function is-of-type( $value, $types )
+{
+  @if type-of($types) == list {
+    @each $type in $types {
+      @if type-of($type) != string {
+        $e: throw-error('$type must be a string or a list of strings.');
+      }
+    }
+  }
+
+  @return if( index($types, type-of($value)), true, false);
+}

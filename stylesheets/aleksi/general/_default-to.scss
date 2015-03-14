@@ -1,0 +1,36 @@
+// =============================================================================
+// =ALEKSI - DEFAULT-TO
+// =============================================================================
+//// Tools that help working with logical directives and operators.
+////
+//// @group Aleksi.general
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =default-to( $values... )
+// -----------------------------------------------------------------------------
+/// Returns the first truethy value in the given argument's list. You'll usually
+/// want to provide a raw, truethy value as last argument to serve as default.
+///
+/// @param $values... {argList} - The ordered list of values to
+/// @return {any} - The first truethy value in `$values` or `null` if none was found.
+///
+/// @example scss
+///   $foo: default-to(null, false, 'bar');
+///     // => 'bar'
+///   $bar: default-to(false, 'wiz', 'baz');
+///     // => 'wiz'
+///   $baz: default-to( 10, 'foo', null, true);
+///     // => 10
+///
+/// @access public
+
+@function default-to( $values... )
+{
+  @each $value in $values {
+    @if $value {
+      @return $value;
+    }
+  }
+
+  @return null;
+}
