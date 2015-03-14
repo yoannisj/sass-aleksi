@@ -1,0 +1,25 @@
+{
+  "name": "Aleksi",
+  "version": "0.1.0",
+  "description": "A collection of useful Sass functions and mixins.",
+  "homepage": "https://github.com/yoannisj/aleksi",
+  "license": "MIT",
+  "author": {
+    "name": "Yoannis Jamar",
+    "email": "yoannis.j@gmail.com",
+    "url": "http://yoannis.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoannisj/aleksi/aleksi.git"
+  },
+  "devDependencies": {
+    "bootcamp": "^1.1.7",
+    "grunt": "^0.4.5",
+    "grunt-contrib-sass": "^0.8.1",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
