@@ -1,0 +1,13 @@
+# MAC OSX
+# -------
+.DS_Store
+
+# SASS/COMPASS
+# ------------
+.sass-cache
+*.sassc
+*.scssc
+
+# RUBY GEMS
+# ---------
+*.gem
