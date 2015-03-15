@@ -1,0 +1,44 @@
+// =============================================================================
+// =ALEKSI - PREVIOUS
+// =============================================================================
+//// @group Lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =previous( $list, $value )
+// -----------------------------------------------------------------------------
+/// Returns the item sitting previous to the given value in alist. If the value
+/// is found multiple times, it will use the first one. If the value was not
+/// found or is in first position in the list, it will return `null`.
+///
+/// @param {list} $list - The list in which to search.
+/// @param {list} $value - The value to search in `$list`.
+///
+/// @return {any} - The value sitting next to `$value` in `$list`.
+/// @throw Warning if `$value` was not found in `$list`.
+/// @throw Warning if `$value` is the first value in `$list`.
+///
+/// @example scss
+///   $foo: next( 'foo' 'bar' 'baz', 'bar');
+///     // => 'foo'
+///   $bar: next( 'foo' 'bar' 'baz', 'foo');
+///     // => null
+///   $baz: next( 'foo' 'bar' 'baz', 'wiz');
+///     // => null
+///
+/// @access public
+/// @since 0.1.0
+
+@function previous( $list, $value )
+{
+  $index: index($list, $value);
+
+  @if $index == null {
+    @return throw-warning('previous():: #{inspect($value)} could not be found in #{inspect($list)}.');
+  }
+
+  @else if $index == 1 {
+    @return throw-warning('previous():: #{inspect($value)} is the first item in #{inspect($list)}.');
+  }
+
+  @return nth($list, $index - 1);
+}

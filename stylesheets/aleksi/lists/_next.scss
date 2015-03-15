@@ -1,0 +1,44 @@
+// =============================================================================
+// =ALEKSI - NEXT
+// =============================================================================
+//// @group Lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =next( $list, $value )
+// -----------------------------------------------------------------------------
+/// Returns the item sitting next to the given value in alist. If the value is
+/// found multiple times, it will use the first one. If the value was not found
+/// or is in last position in the list, it will return `null`.
+///
+/// @param {list} $list - The list in which to search.
+/// @param {list} $value - The value to search in `$list`.
+///
+/// @return {any} - The value sitting previous to `$value` in `$list`.
+/// @throw Warning if `$value` was not found in `$list`.
+/// @throw Warning if `$value` is the last value in `$list`.
+///
+/// @example scss
+///   $foo: next( 'foo' 'bar' 'baz', 'bar');
+///     // => 'baz'
+///   $bar: next( 'foo' 'bar' 'baz', 'baz');
+///     // => null
+///   $baz: next( 'foo' 'bar' 'baz', 'wiz');
+///     // => null
+///
+/// @access public
+/// @since 0.1.0
+
+@function next( $list, $value )
+{
+  $index: index($list, $value);
+
+  @if $index == null {
+    @return throw-warning('next():: #{inspect($value)} could not be found in #{inspect($list)}.');
+  }
+
+  @else if $index == length($list) {
+    @return throw-warning('next():: #{inspect($value)} is the last item in #{inspect($list)}.');
+  }
+
+  @return nth($list, $index + 1);
+}
