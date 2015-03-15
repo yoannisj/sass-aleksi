@@ -10,8 +10,17 @@
 
 @include runner-start;
 
-// Import tests to run here
-// ------------------------
+// GENERAL
+@import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
+@import "aleksi/general/default-to";
+@import "aleksi/general/walk";
+@import "aleksi/general/apply";
+
+// LISTS
+@import "aleksi/lists/list-walk";
+
+// MAPS
+@import "aleksi/maps/map-walk";
 
 @include runner-end;

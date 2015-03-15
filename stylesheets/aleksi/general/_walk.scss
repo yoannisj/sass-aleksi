@@ -4,6 +4,7 @@
 //// @group General
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "SassyCast";
 @import "aleksi/general/throw";
 @import "aleksi/lists/list-walk";
 @import "aleksi/maps/map-walk";
@@ -17,7 +18,6 @@
 /// @param {arglist} $args... - Additional arguments passed to '$func`.
 ///
 /// @return {list|arglist|map} - The list, arglist or map with modified values.
-/// @throw Error '$value' must be a list, an arglist or a map.
 ///
 /// @example scss
 ///   $foo: map-walk(('foo': 'bar', 'bar': 'baz'), 'to-upper-case');
@@ -28,14 +28,12 @@
 ///     // => 'FOO'
 ///
 /// @access public
-/// @since version
+/// @since 0.1.0
 ///
 /// @todo Description
 
 @function walk( $value, $func, $args... )
 {
-  $type: type-of($value);
-
   @if is-of-type($value, 'list' 'arglist') {
     @return list-walk($value, $func, $args...);
   }
@@ -44,9 +42,6 @@
     @return map-walk($value, $func, $args...);
   }
 
-  @else {
-    $e: throw-error('$value must be a list, an arglist or a map.');
-  }
-
-  @return null;
+  $e: throw-warning('Walking over a simple value #{inspect($value)} — resulting value will be returned inside a list.');
+  @return list-walk(to-list($value), $func, $args...);
 }

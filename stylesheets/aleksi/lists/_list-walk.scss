@@ -31,8 +31,8 @@
 
 @function list-walk( $list, $func, $args... )
 {
-  @if type-of($list) != list {
-    $e: throw-warning('Walking over a non-list value #{$list}.');
+  @if not is-of-type($list, 'list' 'arglist') {
+    @return throw-error('list-walk():: $list must be a list or arglist, was #{inspect($list)}.');
   }
 
   $res: ();

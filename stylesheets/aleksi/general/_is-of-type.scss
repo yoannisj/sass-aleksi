@@ -47,7 +47,7 @@
 
   // only test against valid type names
   @else if type-of($type) != string {
-    $e: throw-error('$type must be a string or a list of strings.');
+    $e: throw-error('$type must be a string or a list of strings, was #{inspect($type)}.');
   }
 
   @return if( type-of($value) == $type, true, false );

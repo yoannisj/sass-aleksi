@@ -25,11 +25,11 @@
 @function _throw( $type, $message )
 {
   @if not index('warn' 'error', $type) {
-    @return _throw('error', '$type is not a valud Sass logging directive');
+    @return _throw('error', '#{inspect($type)} is not a valid directive for Sass\'s console.');
   }
 
   @if type-of($message) != string {
-    @return _throw('error', '$message must be a string');
+    @return _throw('error', '$message must be a string, was #{inspect($message)}.');
   }
 
   @if $type == 'warn' {
@@ -56,7 +56,7 @@
 
 @function throw-warning( $message )
 {
-  @return _throw('warning', $message);
+  @return _throw('warn', $message);
 }
 
 // =throw-error( $message )
@@ -110,7 +110,7 @@
 
 @mixin throw-warning( $message )
 {
-  @include _throw('warning', $message);
+  @include _throw('warn', $message);
 }
 
 // =throw-error( $message )

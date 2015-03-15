@@ -29,7 +29,7 @@
 @function map-walk( $map, $func, $args... )
 {
   @if type-of($map) != map {
-    $e: throw-error('$map must be a map.');
+    $e: throw-error('map-walk():: $map must be a map, was #{inspect($map)}.');
   }
 
   $res: ();
@@ -63,7 +63,7 @@
 @function map-walk-keys( $map, $func, $args... )
 {
   @if type-of($map) != map {
-    $e: throw-error('$map must be a map.');
+    $e: throw-error('map-walk-keys():: $map must be a map, was #{inspect($map)}.');
   }
 
   $res: ();

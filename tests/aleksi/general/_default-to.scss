@@ -1,0 +1,25 @@
+// =============================================================================
+// =ALEKSI TESTS - DEFAULT-TO
+// =============================================================================
+
+@include describe('The default-to function')
+{
+  @include it('should return the first truethy value from the passed arguments')
+  {
+    @include should(expect( default-to($null, $false, $int, $word, $false, $rem) ), to(equal( $int )));
+    @include should(expect( default-to($null, $false, $rem) ), to(equal( $rem )));
+    @include should(expect( default-to($null, $false, $int, $word, $false, $rem) ), not-to(equal( $word )));
+  }
+
+  @include it('should accept an empty string as a truethy value')
+  {
+    @include should(expect( default-to($null, '', $int) ), to(equal( '' )));
+    @include should(expect( default-to($null, '', $int) ), not-to(equal( $int )));
+  }
+
+  @include it('should return null if no truethy value was passed')
+  {
+    @include should(expect( default-to($null, $false) ), to(equal( null )));
+    @include should(expect( default-to($null, $false) ), not-to(equal( $false )));
+  }
+}

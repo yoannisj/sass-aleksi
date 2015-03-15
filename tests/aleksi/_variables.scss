@@ -21,6 +21,7 @@ $percentage: 50%;
 // COLORS
 $rgb: rgb(125, 125, 125);
 $rgba: rgba(125, 125, 125, 0.5);
+$rgba-darkened: rgba(99, 99, 99, 0.5);
 $hex: #ff7755;
 $short-hex: #c3d;
 $hsl: hsl(185deg, 20%, 60%);
@@ -29,26 +30,82 @@ $hsla: hsla(185deg, 20%, 60%, 0.5);
 // STRINGS
 $unquoted: sans-serif;
 $word: 'foo';
+$word-upper-case: 'FOO';
+$word-sliced: 'fo';
 $sentence: 'look, the quick brown fox!';
 
 // LISTS
+$num-list: 10 30px 1.5em 2rem 50%;
+$num-list-units: '' 'px' 'em' 'rem' '%';
 $str-list: 'foo' 'bar' 'baz';
+$str-list-upper-case: 'FOO' 'BAR' 'BAZ';
+$str-list-sliced: 'fo' 'ba' 'ba';
 $mix-list: 10 false 'foo' null 30% sans-serif 4em;
+$mix-list-types: 'number' 'bool' 'string' 'null' 'number' 'string' 'number';
 
 // MAPS
 $str-map: (
   'en': 'hello',
   'fr': 'bonjour',
   'es': 'ola',
-  'de': 'hallo',
+);
+
+$str-map-upper-case: (
+  'en': 'HELLO',
+  'fr': 'BONJOUR',
+  'es': 'OLA'
+);
+
+$str-map-sliced: (
+  'en': 'he',
+  'fr': 'bo',
+  'es': 'ol'
+);
+
+$str-map-keys-upper-case: (
+  'EN': 'hello',
+  'FR': 'bonjour',
+  'ES': 'ola'
+);
+
+$str-map-keys-inserted: (
+  'lang-en': 'hello',
+  'lang-fr': 'bonjour',
+  'lang-es': 'ola'
+);
+
+$num-map: (
+  'unitless': 10,
+  'px': 30px,
+  'em': 1.5em,
+  'rem': 2rem,
+  'percentage': 50%
+);
+
+$num-map-units: (
+  'unitless': '',
+  'px': 'px',
+  'em': 'em',
+  'rem': 'rem',
+  'percentage': '%'
 );
 
 $mix-map: (
-  'number': 10,
-  'false': false,
-  'string': 'foo',
-  'null': null,
-  'percentage': 30%,
-  'unquoted': sans-serif,
-  'em': 4em
+  'int'        : 10,
+  'false'      : false,
+  'word'       : 'foo',
+  'null'       : null,
+  'percentage' : 30%,
+  'unquoted'   : sans-serif,
+  'em'         : 4em
+);
+
+$mix-map-types: (
+  'int'        : 'number',
+  'false'      : 'bool',
+  'word'       : 'string',
+  'null'       : 'null',
+  'percentage' : 'number',
+  'unquoted'   : 'string',
+  'em'         : 'number'
 );
