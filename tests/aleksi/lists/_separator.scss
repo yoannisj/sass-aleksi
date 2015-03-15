@@ -1,0 +1,63 @@
+// =============================================================================
+// =ALEKSI TESTS - SET-LIST-SEPARATOR
+// =============================================================================
+
+@import "SassyCast";
+
+@include describe('The set-list-separator function')
+{
+  $comma-str-list: 'foo', 'bar', 'baz';
+  $comma-num-list: 10, 30px, 1.5em, 2rem, 50%;
+  $comma-true: ($true,);
+  $comma-int: ($int,);
+  $comma-word: ($word,);
+
+  @include it('should translate a list to the given separator')
+  {
+    @include should(expect( set-list-separator($str-list, 'comma')), to(equal( $comma-str-list )));
+    @include should(expect( set-list-separator($num-list, 'comma')), to(equal( $comma-num-list )));
+
+    @include should(expect( set-list-separator($comma-str-list, 'space')), to(equal( $str-list )));
+    @include should(expect( set-list-separator($comma-num-list, 'space')), to(equal( $num-list )));
+  }
+
+  @include it('should not modify lists that already use the target separator')
+  {
+    @include should(expect( set-list-separator($str-list, 'space')), to(equal( $str-list )));
+    @include should(expect( set-list-separator($num-list, 'space')), to(equal( $num-list )));
+  }
+
+  @include it('should work on single values')
+  {
+    @include should(expect( set-list-separator($true, 'comma') ), to(be( $comma-true )));
+    @include should(expect( set-list-separator($int, 'comma') ), to(be( $comma-int )));
+    @include should(expect( set-list-separator($word, 'comma') ), to(be( $comma-word )));
+
+    @include should(expect( set-list-separator($true, 'space') ), to(be( to-list($true) )));
+    @include should(expect( set-list-separator($int, 'space') ), to(be( to-list($int) )));
+    @include should(expect( set-list-separator($word, 'space') ), to(be( to-list($word) )));
+  }
+
+  @include it('should throw a warning when passing a map, and return the map as is')
+  {
+    @include should(expect( set-list-separator($str-map, 'comma') ), to(be( $str-map )));
+    @include should(expect( set-list-separator($str-map, 'space') ), to(be( $str-map )));
+  }
+
+  @include it('should be aliased as to-separator')
+  {
+    @include should(expect( set-list-separator($str-list, 'comma') ), to(equal( to-separator($str-list, 'comma') )));
+  }
+
+  @include it('should have the shortcuts to-comma-list, to-space-list, switch-list-separator, switch-separator')
+  {
+    @include should(expect( set-list-separator($str-list, 'comma') ), to(equal( to-comma-list($str-list) )));
+    @include should(expect( set-list-separator($str-list, 'space') ), to(equal( to-space-list($comma-str-list) )));
+
+    @include should(expect( set-list-separator($str-list, 'comma') ), to(equal( switch-list-separator($str-list) )));
+    @include should(expect( set-list-separator($str-list, 'space') ), to(equal( switch-list-separator($comma-str-list) )));
+
+    @include should(expect( set-list-separator($str-list, 'comma') ), to(equal( switch-separator($str-list) )));
+    @include should(expect( set-list-separator($str-list, 'space') ), to(equal( switch-separator($comma-str-list) )));
+  }
+}

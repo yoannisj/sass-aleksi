@@ -46,31 +46,31 @@ $mix-list-types: 'number' 'bool' 'string' 'null' 'number' 'string' 'number';
 // MAPS
 $str-map: (
   'en': 'hello',
-  'fr': 'bonjour',
+  'fr': 'salut',
   'es': 'ola',
 );
 
 $str-map-upper-case: (
   'en': 'HELLO',
-  'fr': 'BONJOUR',
+  'fr': 'SALUT',
   'es': 'OLA'
 );
 
 $str-map-sliced: (
   'en': 'he',
-  'fr': 'bo',
+  'fr': 'sa',
   'es': 'ol'
 );
 
 $str-map-keys-upper-case: (
   'EN': 'hello',
-  'FR': 'bonjour',
+  'FR': 'salut',
   'ES': 'ola'
 );
 
 $str-map-keys-inserted: (
   'lang-en': 'hello',
-  'lang-fr': 'bonjour',
+  'lang-fr': 'salut',
   'lang-es': 'ola'
 );
 
