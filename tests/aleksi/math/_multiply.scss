@@ -1,0 +1,33 @@
+// =============================================================================
+// =ALEKSI TESTS - MULTIPLY
+// =============================================================================
+
+@include describe('The multiply function')
+{
+  @include it('should calculate the product of two numbers')
+  {
+    @include should(expect( multiply(10, 5) ), to(equal( 50 )));
+    @include should(expect( multiply(10em, 5) ), to(equal( 50em )));
+  }
+
+  @include it('should calculate the product of multiple numbers successively')
+  {
+    @include should(expect( multiply(10, 5, 3) ), to(equal( 150 )));
+    @include should(expect( multiply(10, 5, 3, 2, 1) ), to(equal( 300 )));
+  }
+
+  @include it('should warn if one of the arguments is not a number, and return null')
+  {
+    @include should(expect( multiply(10, 'hello') ), to(equal( null )));
+    @include should(expect( multiply(10, null) ), to(equal( null )));
+    @include should(expect( multiply(10, false) ), to(equal( null )));
+    @include should(expect( multiply(10 5, 3) ), to(equal( null )));
+  }
+
+  @include it('should be aliased as mult')
+  {
+    @include should(expect( multiply(10, 5) ), to(equal( mult(10, 5) )));
+    @include should(expect( multiply(10, 5, 3) ), to(equal( mult(10, 5, 3) )));
+    @include should(expect( multiply(10, 'hello') ), to(equal( mult(10, 'hello') )));
+  }
+}

@@ -50,3 +50,15 @@
 
   @return $sum;
 }
+
+// =sum( $terms... )
+// -----------------------------------------------------------------------------
+/// @alias add
+///
+/// @access public
+/// @since 0.1.0
+
+@function sum( $terms... )
+{
+  @return add($terms...);
+}

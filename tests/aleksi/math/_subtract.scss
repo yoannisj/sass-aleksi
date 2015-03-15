@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI TESTS - SUBTRACT
+// =============================================================================
+
+@include describe('The subtract function')
+{
+  @include it('should calculate the difference between two numbers')
+  {
+    @include should(expect( subtract(10, 5) ), to(equal( 5 )));
+    @include should(expect( subtract(10em, 5) ), to(equal( 5em )));
+  }
+
+  @include it('should calculate the diffence between multiple numbers successively')
+  {
+    @include should(expect( subtract(10, 5, 3) ), to(equal( 2 )));
+    @include should(expect( subtract(10em, 5, 3em) ), to(equal( 2em )));
+    @include should(expect( subtract(10, 5, 3, 2, 1) ), to(equal( -1 )));
+  }
+
+  @include it('should warn if one of the arguments is not a number, and return null')
+  {
+    @include should(expect( subtract(10, 'hello') ), to(equal( null )));
+    @include should(expect( subtract(10, null) ), to(equal( null )));
+    @include should(expect( subtract(10, false) ), to(equal( null )));
+    @include should(expect( subtract(10 5, 3) ), to(equal( null )));
+  }
+
+  @include it('should be aliased as diff')
+  {
+    @include should(expect( subtract(10, 5) ), to(equal( diff(10, 5) )));
+    @include should(expect( subtract(10, 5, 3) ), to(equal( diff(10, 5, 3) )));
+    @include should(expect( subtract(10, 'hello') ), to(equal( diff(10, 'hello') )));
+  }
+}
