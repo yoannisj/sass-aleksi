@@ -1,0 +1,64 @@
+// =============================================================================
+// =ALEKSI - MULTIPLY
+// =============================================================================
+//// @group Math
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists/every";
+@import "SassyLists/slice";
+
+// =multiply( $terms... )
+// -----------------------------------------------------------------------------
+/// Calculates the product between two or more numbers. Usefull when relying on
+/// `call()`, `walk()` or `apply()` for mathematical operations.
+/// **Note**: passing more then 2 arguments will multiply them successively.
+/// **Note**: if one of the terms is not a number, it will return `null`.
+///
+/// @param {arglist} $terms - The operators in the multiplication.
+///
+/// @return {number|null} - The product resulting from multiplying `$terms`.
+/// @throw Warning if one of the terms is not a number.
+///
+/// @example scss
+///   $foo: multiply(10, 5);
+///     // => 50
+///   $bar: multiply(10, 'hello')
+///     // => null
+///   $baz: multiply(10 5, 3)
+///     // => null
+///   $wiz: multiply(10, 5, 3)
+///     // => 150
+///
+/// @access public
+/// @since 0.1.0
+
+@function multiply( $terms... )
+{
+  @if not sl-every($terms, 'is-of-type', 'number') {
+    @return throw-warning('multiply():: all $terms must be numbers — returning null.');
+  }
+
+  @if length($terms) < 2 {
+    @return thow-error('multiply():: wrong number of arguments, 1 instead of 2 or more.');
+  }
+
+  $prod: nth($terms, 1);
+
+  @each $term in sl-slice($terms, 2) {
+    $prod: $prod * $term;
+  }
+
+  @return $prod;
+}
+
+// =mult( $terms... )
+// -----------------------------------------------------------------------------
+/// @alias multiply
+///
+/// @acces public
+/// @since 0.1.0
+
+@function mult( $terms... )
+{
+  @return multiply( $terms... );
+}

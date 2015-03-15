@@ -1,0 +1,64 @@
+// =============================================================================
+// =ALEKSI - SUBTRACT
+// =============================================================================
+//// @group Math
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists/every";
+@import "SassyLists/slice";
+
+// =subtract( $terms... )
+// -----------------------------------------------------------------------------
+/// Calculates the difference between two or more numbers. Usefull when relying
+/// on `call()`, `walk()` or `apply()` for mathematical operations.
+/// **Note**: passing more then 2 arguments will subtract them successively.
+/// **Note**: if one of the terms is not a number, it will return `null`.
+///
+/// @param {arglist} $terms... - The operators in the subtraction.
+///
+/// @return {number|null} - The difference resulting from subtracting `$terms`.
+/// @throw Warning if one of the terms is not a number.
+///
+/// @example scss
+///   $foo: subtract(10, 5);
+///     // => 5
+///   $bar: subtract(10, 'hello')
+///     // => null
+///   $baz: subtract(10 5, 3)
+///     // => null
+///   $wiz: subtract(10, 5, 3)
+///     // => 2
+///
+/// @access public
+/// @since 0.1.0
+
+@function subtract( $terms... )
+{
+  @if not sl-every($terms, 'is-of-type', 'number') {
+    @return throw-warning('subtract():: all $terms must be numbers — returning null.');
+  }
+
+  @if length($terms) < 2 {
+    @return thow-error('subtract():: wrong number of arguments, 1 instead of 2 or more.');
+  }
+
+  $diff: nth($terms, 1);
+
+  @each $term in sl-slice($terms, 2) {
+    $diff: $diff - $term;
+  }
+
+  @return $diff;
+}
+
+// =diff( $terms... )
+// -----------------------------------------------------------------------------
+/// @alis subtract
+///
+/// @access public
+/// @since 0.1.0
+
+@function diff( $terms... )
+{
+  @return subtract($terms...);
+}

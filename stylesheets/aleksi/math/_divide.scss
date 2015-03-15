@@ -1,0 +1,64 @@
+// =============================================================================
+// =ALEKSI - DIVIDE
+// =============================================================================
+//// @group Math
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists/every";
+@import "SassyLists/slice";
+
+// =divide( $terms... )
+// -----------------------------------------------------------------------------
+/// Calculates the quotient between two or more numbers. Usefull when relying on
+/// `call()`, `walk()` or `apply()` for mathematical operations.
+/// **Note**: passing more then 2 arguments will divide them successively.
+/// **Note**: if one of the terms is not a number, it will return `null`.
+///
+/// @param {arglist} $terms - The operators in the division.
+///
+/// @return {number|null} - The quotient resulting from dividing `$terms`.
+/// @throw Warning if one of the terms is not a number.
+///
+/// @example scss
+///   $foo: divide(10, 5);
+///     // => 50
+///   $bar: divide(10, 'hello')
+///     // => null
+///   $baz: divide(10 5, 3)
+///     // => null
+///   $wiz: divide(10, 5, 3)
+///     // => 0.66667
+///
+/// @access public
+/// @since 0.1.0
+
+@function divide( $terms... )
+{
+  @if not sl-every($terms, 'is-of-type', 'number') {
+    @return throw-warning('divide():: all $terms must be numbers — returning null.');
+  }
+
+  @if length($terms) < 2 {
+    @return thow-error('divide():: wrong number of arguments, 1 instead of 2 or more.');
+  }
+
+  $quot: nth($terms, 1);
+
+  @each $term in sl-slice($terms, 2) {
+    $quot: $quot / $term;
+  }
+
+  @return $quot;
+}
+
+// =div( $terms... )
+// -----------------------------------------------------------------------------
+/// @alias divide
+///
+/// @acces public
+/// @since 0.1.0
+
+@function div( $terms... )
+{
+  @return divide( $terms... );
+}

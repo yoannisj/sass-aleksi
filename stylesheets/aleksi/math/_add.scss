@@ -1,0 +1,52 @@
+// =============================================================================
+// =ALEKSI - ADD
+// =============================================================================
+//// @group Math
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists/every";
+@import "SassyLists/slice";
+
+// =add( $terms... )
+// -----------------------------------------------------------------------------
+/// Calculates the sum between two or more numbers. Usefull when relying on
+/// `call()`, `walk()` or `apply()` for mathematical operations.
+/// **Note**: passing more then 2 arguments will add them successively.
+/// **Note**: if one of the terms is not a number, it will return `null`.
+///
+/// @param {arglist} $terms - The operators in the addition.
+///
+/// @return {number|null} - The sum resulting from adding `$terms`.
+/// @throw Warning if one of the terms is not a number.
+///
+/// @example scss
+///   $foo: add(10, 5);
+///     // => 15
+///   $bar: add(10, 'hello')
+///     // => null
+///   $baz: add(10 5, 3)
+///     // => null
+///   $wiz: add(10, 5, 3)
+///     // => 18
+///
+/// @access public
+/// @since 0.1.0
+
+@function add( $terms... )
+{
+  @if not sl-every($terms, 'is-of-type', 'number') {
+    @return throw-warning('add():: all $terms must be numbers — returning null.');
+  }
+
+  @if length($terms) < 2 {
+    @return thow-error('add():: wrong number of arguments, 1 instead of 2 or more.');
+  }
+
+  $sum: nth($terms, 1);
+
+  @each $term in sl-slice($terms, 2) {
+    $sum: $sum + $term;
+  }
+
+  @return $sum;
+}
