@@ -4,9 +4,9 @@ Aleksi is a collection of useful Sass functions and mixins. It bundles other lib
 
 The firstname *Aleksi* means 'helper of man' in russian.
 
-## Dependencies
+## Dependencies and Bundling
 
-Aleski requires the following Sass/Compass extensions to be installed:
+Aleski requires Compass and will import only the needed parts from compass. Additionally, it depends on the following Sass/Compass extensions:
 
 + [Sass (~> 3.3)](https://github.com/sass/sass)
 + [SassyCast (~> 1.1.1)](https://github.com/HugoGiraudel/SassyCast)
@@ -15,4 +15,4 @@ Aleski requires the following Sass/Compass extensions to be installed:
 + [SassyLists (~> 2.2)](https://github.com/at-import/SassyLists)
 + [Sassy-Maps (0.4.0)](https://github.com/at-import/Sassy-Maps/)
 
-It won't load these extensions completely though — only the parts it needs. If you want to be sure you have access to an extensions full functionality, import its main stylesheet additionally (e.g. `@import "SassyLists";`).
+These extensions are bundled with Aleksi, adding `@import "aleksi";` to your stylesheet will give you access to all their functionalities. Be sure to check out their respective documentations to take the most out of Aleksi.

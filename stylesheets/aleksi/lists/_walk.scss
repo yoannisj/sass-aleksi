@@ -4,20 +4,25 @@
 //// @group General
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyCast";
+@import "SassyLists";
 @import "aleksi/general/throw";
-@import "aleksi/lists/list-walk";
 @import "aleksi/maps/map-walk";
 
-// =walk( $value, $func[, $args... ])
+// =walk( $list, $func[, $args... ])
 // -----------------------------------------------------------------------------
 /// Applies the given function to each value inside a list, arglist or a map.
+/// **Note**: SassyLists offers the similar `sl-walk()` function. The difference
+/// is that Aleksi's `walk()` function will delegate to `map-walk()` when the
+/// first argument is a map.
+/// **Note**: When passed a simple value (not a list, arglist or map), it will
+/// apply the function to it and return the result inside a single item list.
 ///
-/// @param {list|arglist|map} $value [default] - The value to walk over
+/// @param {list|arglist|map} $list [default] - The value to walk over
 /// @param {string} $func - The name of the function to apply to each value.
 /// @param {arglist} $args... - Additional arguments passed to '$func`.
 ///
 /// @return {list|arglist|map} - The list, arglist or map with modified values.
+/// @throw Warning when walking over a simple value.
 ///
 /// @example scss
 ///   $foo: map-walk(('foo': 'bar', 'bar': 'baz'), 'to-upper-case');
@@ -29,19 +34,17 @@
 ///
 /// @access public
 /// @since 0.1.0
-///
-/// @todo Description
 
-@function walk( $value, $func, $args... )
+@function walk( $list, $func, $args... )
 {
-  @if is-of-type($value, 'list' 'arglist') {
-    @return list-walk($value, $func, $args...);
+  @if type-of($list) == 'map' {
+    @return map-walk($list, $func, $args...);
   }
 
-  @else if is-of-type($value, 'map') {
-    @return map-walk($value, $func, $args...);
+  @else if is-of-type($list, 'list' 'arglist') {
+    @return sl-walk($list, $func, $args...);
   }
 
-  $e: throw-warning('Walking over a simple value #{inspect($value)} — resulting value will be returned inside a list.');
-  @return list-walk(to-list($value), $func, $args...);
+  $e: throw-warning('Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.');
+  @return sl-walk($list, $func, $args...);
 }

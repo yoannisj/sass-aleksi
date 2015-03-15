@@ -14,7 +14,6 @@
 @import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
 @import "aleksi/general/default-to";
-@import "aleksi/general/walk";
 @import "aleksi/general/apply";
 
 // MATH
@@ -24,7 +23,7 @@
 @import "aleksi/math/divide";
 
 // LISTS
-@import "aleksi/lists/list-walk";
+@import "aleksi/lists/walk";
 
 // MAPS
 @import "aleksi/maps/map-walk";

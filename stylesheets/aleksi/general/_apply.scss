@@ -4,13 +4,16 @@
 //// @group General
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "aleksi/general/walk";
+@import "aleksi/lists/walk";
+@import "aleksi/maps/map-walk";
 
 // =apply( $value, $func[, $args... ])
 // -----------------------------------------------------------------------------
 /// Applies the given function to a value. Delegates to `walk()` if `$value is
 /// a list, arglist or map. On any other value types, it acts like an alias to
-/// `call()` (with `$name` and `$value` arguments inverted).
+/// `call()` (with `$name` and `$value` arguments inverted). That means that,
+/// contrary to how `call()` behaves, simple values won't be returned as a
+/// single item list.
 ///
 /// @param {any} $value - The value to modify.
 /// @param {string} $func - The name of the function to apply to `$value`.

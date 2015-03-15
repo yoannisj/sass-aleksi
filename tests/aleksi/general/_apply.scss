@@ -10,6 +10,11 @@
     @include should(expect( apply($hsl, 'hue') ), to(equal( 185deg )));
   }
 
+  @include it('should not return simple values inside a list')
+  {
+    @include should(expect( apply($word, 'to-upper-case') ), not-to(have-type-of( 'list' )));
+  }
+
   @include it('should accepts additional arguments and pass them over to the function')
   {
     @include should(expect( apply($word, 'str-slice', 1, 2) ), to(equal( $word-sliced )));
