@@ -1,0 +1,17 @@
+// =============================================================================
+// =ALEKSI TESTS - PREPEND
+// =============================================================================
+
+@include describe('The prepend function')
+{
+  @include it('should do the opposite of append')
+  {
+    @include should(expect( prepend($str-list, 'wiz') ), to(equal( append('wiz', $str-list) )));
+    @include should(expect( prepend('wiz', $num-list) ), to(equal( append($num-list, 'wiz') )));
+    @include should(expect( prepend($num-list, $str-list) ), to(equal( append($str-list, $num-list) )));
+    @include should(expect( length(prepend($num-list, $str-list)) ), to(equal( length(append($str-list, $num-list)) )));
+
+    @include should(expect( prepend($num-list, $str-map) ), to(be( append($str-map, $num-list) )));
+    @include should(expect( length(prepend($num-list, $str-map)) ), to(equal( length(append($str-map, $num-list)) )));
+  }
+}

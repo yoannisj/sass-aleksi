@@ -1,0 +1,42 @@
+// =============================================================================
+// =ALESKI - PREPEND
+// =============================================================================
+//// @group Lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists";
+@import "aleksi/lists/switch-list-separator";
+
+// =prepend( $list, $value[, $separator ])
+// -----------------------------------------------------------------------------
+/// A simple function to prepend an item to any other value.
+/// **Note**: SassyLists provides a similar 'sl-prepend()' function, but passing
+/// it a list or a map will return a flattened list instead of nested.
+/// Aleksi's `prepend()` function will instead behave like sass's native
+/// `append()` function by nesting lists and maps (unless the $separator
+/// argument suggests otherwise).
+///
+/// @param {list} $list - The list to which $value shoudl be prepended.
+/// @param {list} $value - The value to prepend to $list.
+/// @param {string} $separator (list-separator($list))- The list separator to use when prepending.
+///
+/// @return {list} - A copy of $list, with $value added in first position.
+/// @throw Error if $separator is neither 'space' nor 'comma'.
+///
+/// @example scss
+///   $foo: prepend('bar', 5);
+///     // => 5 'bar'
+///   $bar: prepend( 10 false 'baz', null 'wiz');
+///     // => 'baz' null 'wiz' 10 false;
+///   $baz: prepend( 10 false 'baz', ('en': 'hello', 'es': 'ola'));
+///     // => ('en': 'hello', 'es': 'ola') 10 false 'baz';
+///   $wiz: prepend( (10, false, 'baz'), ('en': 'hello', 'es': 'ola'));
+///     // => ('en': 'hello', 'es': 'ola'), 10, false, 'baz';
+///
+/// @access public
+/// @since 0.1.0
+
+@function prepend( $list, $value, $separator: list-separator($list) )
+{
+  @return append($value, $list, $separator);
+}
