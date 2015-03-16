@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI TESTS - LIST-FILTER
+// =============================================================================
+
+@import "SassyCast";
+
+@include describe('The list-filter function')
+{
+  @include it('should remove list items that do not pass a test function')
+  {
+    @include should(expect( list-filter(10 5px 1.4 3em 25, 'unitless') ), to(equal( 10 1.4 25 )));
+    @include should(expect( list-filter(1em 5px 1.4 3em 2.5em, 'comparable', 1em) ), to(equal( 1em 1.4 3em 2.5em )));
+    @include should(expect( list-filter('foo' 'bar' 'baz', 'str-index', 'a') ), to(equal( 'bar' 'baz' )));
+    @include should(expect( list-filter('hello' 'salut' 'ola', 'str-index', 'l') ), to(equal( 'hello' 'salut' 'ola' )));
+  }
+
+  @include it('should work on single values, and return a list')
+  {
+    @include should(expect( list-filter($int, 'unitless') ), to(be( to-list($int) )));
+    @include should(expect( list-filter($int, 'unitless') ), to(have-type-of( 'list' )));
+
+    @include should(expect( list-filter($px, 'unitless') ), not-to(equal( $px )));
+    @include should(expect( list-filter($px, 'unitless') ), to(have-type-of( 'list' )));
+  }
+
+  @include it('when passed a map, it should delegate to map-filter the test on the map values')
+  {
+    @include should(expect( list-filter($str-map, 'str-index', 'a') ), to(equal( map-filter($str-map, 'str-index', 'a') )));
+  }
+}

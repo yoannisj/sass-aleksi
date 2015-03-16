@@ -1,0 +1,81 @@
+// =============================================================================
+// =ALEKSI - MAP-FILTER
+// =============================================================================
+//// @group Maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "sassy-maps/map-set";
+
+// =map-filter( $map, $test, $args... )
+// -----------------------------------------------------------------------------
+/// Removes items in a map with a value that doesn't pass a given test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///
+/// @param {map} $map - The map with the item values to test.
+/// @param {string} $test - The name of the test function to run on each item's value.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {map} - `$map` without the items that didn't pass the `$test` function.
+///
+/// @example scss
+///   $foo: map-filter( ('foo': 10, 'bar': 5px, 'baz': 7, 'wiz' 3), 'unitless');
+///     // => ('foo': 10, 'baz': 7, 'wiz': 3)
+///   $bar: map-filter( ('foo': 10px, 'bar': 2%, 'baz': 4px, 'wiz': 8em), 'comparable', 1px);
+///     // => ('foo': 10px, 'baz': 4px)
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-filter( $map, $test, $args... )
+{
+  @if type-of($map) != 'map' {
+    @return throw-error('map-filter():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $val in $map {
+    @if call($test, $val, $args...) {
+      $res: map-set($res, $key, $val);
+    }
+  }
+
+  @return $res;
+}
+
+// =map-filter-keys( $map, $test, $args... )
+// -----------------------------------------------------------------------------
+/// Removes items in a map with a key that doesn't pass a given test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///
+/// @param {map} $map - The map with the item keys to test.
+/// @param {string} $test - The name of the test function to run on each item's key.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {map} - `$map` without the items that didn't pass the `$test` function.
+///
+/// @example scss
+///   $foo: map-filter( ('foo': 10, 'bar': 5px, 'baz': 7, 'wiz' 3), 'str-index', 'b');
+///     // => ('bar': 5px, 'baz': 7)
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-filter-keys( $map, $test, $args... )
+{
+  @if type-of($map) != 'map' {
+    @return throw-error('map-filter():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $val in $map {
+    @if call($test, $key, $args...) {
+      $res: map-set($res, $key, $val);
+    }
+  }
+
+  @return $res;
+}

@@ -28,8 +28,10 @@
 @import "aleksi/lists/next";
 @import "aleksi/lists/previous";
 @import "aleksi/lists/walk";
+@import "aleksi/lists/list-filter";
 
 // MAPS
 @import "aleksi/maps/map-walk";
+@import "aleksi/maps/map-filter";
 
 @include runner-end;

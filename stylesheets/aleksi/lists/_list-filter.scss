@@ -1,0 +1,47 @@
+// =============================================================================
+// =ALEKSI - FILTER
+// =============================================================================
+//// @group Lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/maps/map-filter";
+
+// =list-filter( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Removes items in a list that don't pass the given test function. The current
+/// list item will be passed as first argument to the test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///
+/// @param {list|map} $list - The list of items to test.
+/// @param {string} $test - The name of the test function to run on each item.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {list} - `$list` without the items that didn't pass the `$test` function.
+///
+/// @example scss
+///   $foo: list-filter( 10 5px 7 3, 'unitless');
+///     // => 10 7 3
+///   $bar: list-filter( 10px 2.5 4px 8em, 'comparable', 1px);
+///     // => 10px 2.5 4px
+///
+/// @access public
+/// @since 0.1.0
+
+@function list-filter( $list, $test, $args... )
+{
+  // delegate to 'map-filter' if filtering a map
+  @if type-of($list) == 'map' {
+    @return map-filter($list, $test, $args...);
+  }
+
+  $res: ();
+
+  @each $item in $list {
+    @if call($test, $item, $args...) {
+      $res: append($res, $item);
+    }
+  }
+
+  @return $res;
+}
