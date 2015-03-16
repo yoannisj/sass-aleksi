@@ -1,7 +1,7 @@
 # =================================================================================
 # QUIET-KID - CONFIGURATION
 # =================================================================================
-
+require 'compass/import-once/activate'
 # Require additional compass plugins here
 require 'SassyCast'
 require 'sassy-math'
