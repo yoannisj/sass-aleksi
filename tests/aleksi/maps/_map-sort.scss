@@ -1,0 +1,45 @@
+// =============================================================================
+// =ALESKI TESTS - MAP-SORT
+// =============================================================================
+
+@include describe('The map-sort-keys function')
+{
+  @include it('should sort the map keys on alphabetical order when no specific order is specified')
+  {
+    @include should(expect( map-keys(map-sort-keys($str-map)) ), to(be( 'en' 'es' 'fr' )));
+    @include should(expect( map-keys(map-sort-keys($str-map)) ), not-to(be( 'en' 'fr' 'es' )));
+    @include should(expect( map-keys(map-sort-keys($str-map)) ), not-to(be( 'es'  'en' 'fr' )));
+    @include should(expect( map-keys(map-sort-keys($num-map)) ), to(be( 'em' 'int' 'percentage' 'px' 'rem' )));
+  }
+
+  @include it('should sort the map keys based on the given, ordered list of keys')
+  {
+    @include should(expect( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')) ), to(be( 'fr' 'en' 'es' )));
+    @include should(expect( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')) ), not-to(be( 'en' 'fr' 'es' )));
+    @include should(expect( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')) ), not-to(be( 'en' 'es' 'fr' )));
+    @include should(expect( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')) ), to(be( 'px' 'percentage' 'rem' 'em' 'int' )));
+    @include should(expect( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')) ), not-to(be( 'em' 'percentage' 'px' 'rem' 'int' )));
+  }
+
+  @include it('should add keys not specified at the end of the map, and it same ordered as in original map')
+  {
+    @include should(expect( map-keys(map-sort-keys($str-map, 'fr' 'en')) ), to(be( 'fr' 'en' 'es' )));
+    @include should(expect( map-keys(map-sort-keys($str-map, 'es' 'en')) ), to(be( 'es' 'en' 'fr' )));
+    @include should(expect( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')) ), to(be( 'px' 'percentage' 'rem' 'int' 'em' )));
+    @include should(expect( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')) ), not-to(be( 'px' 'percentage' 'rem' 'em' 'int' )));
+    @include should(expect( map-keys(map-sort-keys($num-map, 'px' 'percentage')) ), to(be( 'px' 'percentage' 'int' 'em' 'rem' )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-sort-keys($str-map, false ) ), to(equal( null )));
+    @include should(expect( map-sort-keys($str-map, $str-map) ), to(equal( null )));
+    @include should(expect( map-sort-keys($str-list, 'fr' 'en') ), to(equal( null )));
+  }
+
+  @include it('should be aliased as map-sort')
+  {
+    @include should(expect( map-sort($num-map) ), to(be( map-sort-keys($num-map) )));
+    @include should(expect( map-sort($str-map, 'fr' 'en' 'es') ), not-to(be( map-sort-keys($str-map, 'fr' 'en' 'es') )));
+  }
+}

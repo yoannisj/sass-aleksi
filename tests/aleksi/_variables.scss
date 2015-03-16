@@ -78,15 +78,15 @@ $str-map-keys-inserted: (
 );
 
 $num-map: (
-  'unitless': 10,
-  'px': 30px,
-  'em': 1.5em,
-  'rem': 2rem,
-  'percentage': 50%
+  'int': $int,
+  'px': $px,
+  'em': $em,
+  'rem': $rem,
+  'percentage': $percentage
 );
 
 $num-map-units: (
-  'unitless': '',
+  'int': '',
   'px': 'px',
   'em': 'em',
   'rem': 'rem',
@@ -94,13 +94,13 @@ $num-map-units: (
 );
 
 $mix-map: (
-  'int'        : 10,
-  'false'      : false,
-  'word'       : 'foo',
-  'null'       : null,
-  'percentage' : 30%,
-  'unquoted'   : sans-serif,
-  'em'         : 4em
+  'int'        : $int,
+  'false'      : $false,
+  'word'       : $word,
+  'null'       : $null,
+  'percentage' : $percentage,
+  'unquoted'   : $unquoted,
+  'em'         : $em
 );
 
 $mix-map-types: (
@@ -114,4 +114,4 @@ $mix-map-types: (
 );
 
 $nested-map: map-set($str-map, 'nest', $str-map);
-$double-nested-map: map-set($str-map, 'nest', $nested-map);
+$double-nested-map: map-set($str-map, 'nest', map-set($str-map, 'sub-nest', $str-map));
