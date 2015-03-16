@@ -43,6 +43,9 @@ $str-list-sliced: 'fo' 'ba' 'ba';
 $mix-list: 10 false 'foo' null 30% sans-serif 4em;
 $mix-list-types: 'number' 'bool' 'string' 'null' 'number' 'string' 'number';
 
+$nested-list: append($num-list, $str-list);
+$double-nested-list: append( $num-list, $nested-list );
+
 // MAPS
 $str-map: (
   'en': 'hello',
@@ -109,3 +112,6 @@ $mix-map-types: (
   'unquoted'   : 'string',
   'em'         : 'number'
 );
+
+$nested-map: map-set($str-map, 'nest', $str-map);
+$double-nested-map: map-set($str-map, 'nest', $nested-map);

@@ -1,0 +1,45 @@
+// =============================================================================
+// =ALEKSI - DEPTH
+// =============================================================================
+//// @group Lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/maps/map-depth";
+
+// =depth( $list )
+// -----------------------------------------------------------------------------
+/// Returns the depth level of a list. If a single value is passed, it will
+/// return 1.
+/// **Note**: also accepts maps, which delegates to `map-depth()`.
+///
+/// @param {list|map} $list - The list to analyze.
+///
+/// @return {number} - The depth of `$list`.
+///
+/// @example scss
+///   $foo: depth(10 true 'foo' ('bar' 'baz') );
+///     // => 2
+///   $bar: depth(10 true 'foo');
+///     // => 1
+///   $baz: depth('foo');
+///     // => 1
+///
+/// @access public
+/// @since 0.1.0
+
+@function depth( $list )
+{
+  @if type-of($list) == 'map' {
+    @return map-depth($list);
+  }
+
+  $lvl: 1;
+
+  @each $item in $list {
+    @if type-of($item) == 'list' {
+      $lvl: max(depth($item) + 1, $lvl);
+    }
+  }
+
+  @return $lvl;
+}

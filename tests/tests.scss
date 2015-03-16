@@ -29,9 +29,11 @@
 @import "aleksi/lists/previous";
 @import "aleksi/lists/walk";
 @import "aleksi/lists/list-filter";
+@import "aleksi/lists/depth";
 
 // MAPS
 @import "aleksi/maps/map-walk";
 @import "aleksi/maps/map-filter";
+@import "aleksi/maps/map-depth";
 
 @include runner-end;

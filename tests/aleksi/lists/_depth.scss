@@ -1,0 +1,27 @@
+// =============================================================================
+// =ALEKSI TESTS - DEPTH
+// =============================================================================
+
+@include describe('The depth function')
+{
+  @include it('should return the depth level of a given map')
+  {
+    @include should(expect( depth($str-list) ), to(equal( 1 )));
+    @include should(expect( depth($mix-list) ), to(equal( 1 )));
+    @include should(expect( depth($nested-list) ), to(equal( 2 )));
+    @include should(expect( depth($double-nested-list) ), to(equal( 3 )));
+  }
+
+  @include xit('should also work with single values')
+  {
+    @include should(expect( depth($int) ), to(equal( 1 )));
+    @include should(expect( depth($true) ), to(equal( 1 )));
+    @include should(expect( depth($word) ), to(equal( 1 )));
+  }
+
+  @include it('should delegate maps to map-depth')
+  {
+    @include should(expect( depth($str-map) ), to(equal( map-depth($str-map) )));
+    @include should(expect( depth($mix-map) ), to(equal( map-depth($mix-map) )));
+  }
+}

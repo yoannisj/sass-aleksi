@@ -1,0 +1,42 @@
+// =============================================================================
+// =ALEKSI - MAP-DEPTH
+// =============================================================================
+//// @group Maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =map-depth( $map )
+// -----------------------------------------------------------------------------
+/// Returns the depth level of a given map.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {map} $map - The map to analyze.
+///
+/// @return {number} - The depth of `$map`.
+/// @throw Error if `$map` is not a map.
+///
+/// @example scss
+///   $foo: map-depth( ('a': 'foo', 'b': ( 'ba': 'bar', 'bb': 'baz' )));
+///     // => 2
+///   $bar: map-depht('a': 'foo', 'b': 'bar', 'c': 'baz');
+///     // => 1
+///
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-depth( $map )
+{
+  @if type-of($map) != 'map' {
+    @return throw-error('map-depth():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $lvl: 1;
+
+  @each $key, $val in $map {
+    @if type-of($val) == 'map' {
+      $lvl: max(map-depth($val) + 1, $lvl);
+    }
+  }
+
+  @return $lvl;
+}
