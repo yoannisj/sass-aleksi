@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI - DEBUG MAP
+// =============================================================================
+//// @group Aleksi
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =debug-map( $map )
+// -----------------------------------------------------------------------------
+/// Prints out the given map's contents and useful information for debugging
+/// purposes.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {map} $map - The map to print out.
+///
+/// @throw Error if `$map` is not a map.
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin debug-map( $map )
+{
+  @at-root {
+    @debug-map {
+      __toString__: inspect($map);
+      __length__: length($map);
+      __depth__: depth($map);
+      __keys__: map-keys($map);
+      __properties__ {
+        @each $key, $value in $map {
+          #{'(' + type-of($value) + ') ' + $key}: inspect($value);
+        }
+      }
+    }
+  }
+}
