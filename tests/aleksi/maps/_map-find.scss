@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALESKI TEST - MAP-FIND
+// =============================================================================
+
+@include describe('The map-find-key function')
+{
+  @include it('should return the key under which the given value is stored in a map')
+  {
+    @include should(expect( map-find-key($str-map, 'salut') ), to(equal( 'fr' )));
+    @include should(expect( map-find-key($str-map, 'hello') ), to(equal( 'en' )));
+  }
+
+  @include it('should return the first key found when the value is stored multiple times in the map')
+  {
+    @include should(expect( map-find-key($mix-map-types, 'number') ), to(equal( 'int' )));
+    @include should(expect( map-find-key($mix-map-types, 'number') ), not-to(equal( 'percentage' )));
+    @include should(expect( map-find-key($mix-map-types, 'number') ), not-to(equal( 'em' )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-find-keys($num-list, $int) ), to(equal( null )));
+  }
+
+    @include it('should be aliased as map-find')
+  {
+    @include should(expect( map-find($mix-map-types, 'number') ), to(be(  map-find-key($mix-map-types, 'number') )));
+  }
+}
+
+@include describe('The map-find-keys function')
+{
+  @include it('should return all keys under which the given value is stored in a map')
+  {
+    @include should(expect( map-find-keys($mix-map-types, 'number') ), to(be( 'int' 'percentage' 'em' )));
+    @include should(expect( map-find-keys($mix-map-types, 'number') ), not-to(be( 'int' )));
+  }
+
+  @include it('should always return found keys inside a list')
+  {
+    @include should(expect( map-find-keys($mix-map-types, 'null') ), to(have-type-of( 'list' )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-find-keys($str-list, 'fr' 'en') ), to(equal( null )));
+  }
+}
