@@ -17,11 +17,11 @@
 /// **Note**: When passed a simple value (not a list, arglist or map), it will
 /// apply the function to it and return the result inside a single item list.
 ///
-/// @param {list|arglist|map} $list [default] - The value to walk over
+/// @param {list|map} $list [default] - The value to walk over
 /// @param {string} $func - The name of the function to apply to each value.
 /// @param {arglist} $args... - Additional arguments passed to '$func`.
 ///
-/// @return {list|arglist|map} - The list, arglist or map with modified values.
+/// @return {list|map} - The list, arglist or map with modified values.
 /// @throw Warning when walking over a simple value.
 ///
 /// @example scss
