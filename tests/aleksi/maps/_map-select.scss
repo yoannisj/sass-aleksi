@@ -1,0 +1,23 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-SELECT
+// =============================================================================
+
+@include describe('The map-select-keys function')
+{
+  @include it('should remove items that are not in the list o given keys from a map')
+  {
+    @include should(expect( map-select-keys($str-map, 'en' 'es')), to(be( ('en': 'hello', 'es': 'ola') )));
+    @include should(expect( map-select-keys($str-map, 'en' 'es')), not-to(be( ('en': 'hello', 'fr': 'salut', 'es': 'ola') )));
+    @include should(expect( map-select-keys($mix-map, 'int' 'percentage' 'em')), to(be( ('int': $int, 'percentage': $percentage, 'em': $em) )));
+  }
+
+  @include it('should return an empty list if the map does not have any of the given keys')
+  {
+    @include should(expect( map-select-keys($mix-map, 'foo' 'bar' 'baz') ), to(equal( () )));
+  }
+
+  @include it('should be aliased as map-select')
+  {
+    @include should(expect( map-select($mix-map, 'int' 'foo' 'word' 'unquoted') ), to(be( map-select-keys($mix-map, 'int' 'foo' 'word' 'unquoted') )));
+  }
+}

@@ -1,0 +1,51 @@
+// =============================================================================
+// =ALEKSI - MAP-SELECT
+// =============================================================================
+//// @group Maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =map-select( $map, $keys )
+// -----------------------------------------------------------------------------
+/// Reduces a map's by selecting some of its keys only.
+///
+/// @param {map} $map - The map to reduce.
+/// @param {list} $keys - The keys to keep in the resulting map.
+///
+/// @return {map} - `$map` with only the keys present in `$keys`.
+/// @throw Error if `$map` is not a map.
+///
+/// @example scss
+///   $foo: map-select( ('a': 'foo', 'b': 'bar', 'c': 'baz'), 'a' 'c');
+///     // => ('a': 'foo', 'c': 'baz')
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-select-keys( $map, $keys )
+{
+  @if type-of($map) != 'map' {
+    @return throw-error('map-select():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $value in $map {
+    @if index($keys, $key) {
+      $res: map-set($res, $key, $value);
+    }
+  }
+
+  @return $res;
+}
+
+// =map-select( $map, $keys )
+// -----------------------------------------------------------------------------
+/// @alias map-select-keys
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-select( $map, $keys )
+{
+  @return map-select-keys( $map, $keys );
+}
