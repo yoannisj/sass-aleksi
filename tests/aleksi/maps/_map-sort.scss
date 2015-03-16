@@ -8,7 +8,7 @@
   {
     @include should(expect( map-keys(map-sort-keys($str-map)) ), to(be( 'en' 'es' 'fr' )));
     @include should(expect( map-keys(map-sort-keys($str-map)) ), not-to(be( 'en' 'fr' 'es' )));
-    @include should(expect( map-keys(map-sort-keys($str-map)) ), not-to(be( 'es'  'en' 'fr' )));
+    @include should(expect( map-keys(map-sort-keys($str-map)) ), not-to(be( 'es' 'en' 'fr' )));
     @include should(expect( map-keys(map-sort-keys($num-map)) ), to(be( 'em' 'int' 'percentage' 'px' 'rem' )));
   }
 
