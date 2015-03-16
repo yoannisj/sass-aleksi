@@ -1,0 +1,24 @@
+// =============================================================================
+// =ALESKI TESTS - MAP-ZIP
+// =============================================================================
+
+@include describe('The map-zip function')
+{
+  @include it('should build a map based on a list of keys and a list of values')
+  {
+    @include should(expect( map-zip($num-list-names, $num-list) ), to(be( $num-map )));
+    @include should(expect( map-zip('a' 'b' 'c', 'foo' 'bar' 'baz') ), to(be( ('a': 'foo', 'b': 'bar', 'c': 'baz') )));
+  }
+
+  @include it('when passed a different number of keys and values, the rest should be discarded')
+  {
+    @include should(expect( map-zip($str-list, $num-list) ), to(be( ('foo': 10, 'bar': 30px, 'baz': 1.5em) )));
+    @include should(expect( map-zip($str-list, $num-list) ), to(have-length-of( 3 )));
+    @include should(expect( map-zip('a' 'b', 'foo' 'bar' 'baz') ), to(be( ('a': 'foo', 'b': 'bar') )));
+  }
+
+  @include it('when passed a single key and a single map value, it should build a single-item nested map')
+  {
+    @include should(expect( map-zip('foo', $num-map) ), to(be( ('foo': $num-map) )));
+  }
+}

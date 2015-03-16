@@ -13,7 +13,7 @@ $false: false;
 // NUMBERS
 $int: 10;
 $float: 1.37;
-$px: 10px;
+$px: 30px;
 $em: 1.5em;
 $rem: 2rem;
 $percentage: 50%;
@@ -36,6 +36,7 @@ $sentence: 'look, the quick brown fox!';
 
 // LISTS
 $num-list: 10 30px 1.5em 2rem 50%;
+$num-list-names: 'int' 'px' 'em' 'rem' 'percentage';
 $num-list-units: '' 'px' 'em' 'rem' '%';
 $str-list: 'foo' 'bar' 'baz';
 $str-list-upper-case: 'FOO' 'BAR' 'BAZ';

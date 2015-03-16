@@ -1,0 +1,59 @@
+// =============================================================================
+// =ALEKSI - MAP_ZIP
+// =============================================================================
+
+@import "aleksi/lists/wrap-in-list";
+
+// =map-zip( $keys, $values)
+// -----------------------------------------------------------------------------
+/// Builds a map based on a list of keys, and a list of values. Equivalent of
+/// sass's native `zip` function but for maps.
+/// **Note**: in case `$keys` and `$values` are not the same length, additional
+/// values will be discarded and it will throw a warning.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {list} $keys - The keys for the built map.
+/// @param {list} $values - The values for the built map, in same order.
+///
+/// @return {map} - A new map pairing `$keys` with `$values`.
+///
+/// @example scss
+///   $foo: map-zip('a' 'b' 'c', 10 true 'foo');
+///     // => ('a': 10, 'b': true, 'c': 'foo')
+///   $bar: map-zip('a' 'b' 'c', 10 'foo');
+///     // => ('a': 10, 'b': 'foo')
+///   $baz: map-zip('a', 'b', 10 true 'foo');
+///     // => ('a': 10, 'b': true)
+///
+/// @see http://sass-lang.com/documentation/Sass/Script/Functions.html#zip-instance_method
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-zip($keys, $values)
+{
+  // allow creating a single-item map with a nested map
+  @if type-of($values) == 'map' and length($keys) == 1 {
+    $values: wrap-in-list($values);
+  }
+
+  $l-keys: length($keys);
+  $l-values: length($values);
+  $min: min($l-keys, $l-values);
+  $map: ();
+
+  @if $l-keys != $l-values {
+    $e: throw-warning('map-zip():: Received #{$l-keys} key(s) for #{$l-values} value(s). Resulting map will only have #{$min} pairs.');
+  }
+
+  // return empty map if one of the passed lists is empty
+  @if $min == 0 {
+    @return $map;
+  }
+
+  @for $i from 1 through $min {
+    $map: map-merge($map, (nth($keys, $i): nth($values, $i)));
+  }
+
+  @return $map;
+}

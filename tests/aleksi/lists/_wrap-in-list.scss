@@ -1,0 +1,45 @@
+// =============================================================================
+// =ALEKSI TESTS - WRAP-IN-LIST
+// =============================================================================
+
+@include describe('The wrap-in-list function')
+{
+  @include it('should wrap any value into a single item list')
+  {
+    @include should(expect( wrap-in-list($int) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($int) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($null) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($null) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($false) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($false) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($word) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($word) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($str-list) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($str-list) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($mix-list) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($mix-list) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($str-map) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($str-map) ), to(have-length-of( 1 )));
+
+    @include should(expect( wrap-in-list($mix-map) ), to(have-type-of( 'list' )));
+    @include should(expect( wrap-in-list($mix-map) ), to(have-length-of( 1 )));
+  }
+
+  @include it('should use the given separator, no matter what separator was used in the original value')
+  {
+    @include should(expect( list-separator(wrap-in-list($word)) ), to(equal( 'space' )));
+    @include should(expect( list-separator(wrap-in-list($word, 'comma')) ), to(equal( 'comma' )));
+
+    @include should(expect( list-separator(wrap-in-list($str-list)) ), to(equal( 'space' )));
+    @include should(expect( list-separator(wrap-in-list($str-list, 'comma')) ), to(equal( 'comma' )));
+
+    @include should(expect( list-separator(wrap-in-list($mix-map)) ), to(equal( 'space' )));
+    @include should(expect( list-separator(wrap-in-list($mix-map, 'comma')) ), to(equal( 'comma' )));
+  }
+}

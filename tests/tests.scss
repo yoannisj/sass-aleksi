@@ -23,13 +23,14 @@
 @import "aleksi/math/divide";
 
 // LISTS
-@import "aleksi/lists/separator";
+@import "aleksi/lists/set-list-separator";
 @import "aleksi/lists/prepend";
 @import "aleksi/lists/next";
 @import "aleksi/lists/previous";
 @import "aleksi/lists/walk";
 @import "aleksi/lists/list-filter";
 @import "aleksi/lists/depth";
+@import "aleksi/lists/wrap-in-list";
 
 // MAPS
 @import "aleksi/maps/map-find";
@@ -39,5 +40,6 @@
 @import "aleksi/maps/map-filter";
 @import "aleksi/maps/map-select";
 @import "aleksi/maps/map-sort";
+@import "aleksi/maps/map-zip";
 
 @include runner-end;
