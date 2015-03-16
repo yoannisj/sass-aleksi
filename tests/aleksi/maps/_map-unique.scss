@@ -1,0 +1,16 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-UNIQUE
+// =============================================================================
+
+@include describe('The map-unique function')
+{
+  @include it('should remove all duplicate values from a map')
+  {
+    @include should( expect( map-unique( ('a': 'foo', 'b': 'bar', 'c': 'foo', 'd': 'baz') ) ), to(be( ('a': 'foo', 'b': 'bar', 'd': 'baz') )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-unique($str-list) ), to(equal( null )));
+  }
+}
