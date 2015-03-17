@@ -27,7 +27,7 @@
 
 @function map-find-key( $map, $value )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-find-key():: $map must be a map, was #{inspect($map)}.');
   }
 
@@ -75,7 +75,7 @@
 
 @function map-find-keys( $map, $value )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-find-keys():: $map must be a map, was #{inspect($map)}.');
   }
 

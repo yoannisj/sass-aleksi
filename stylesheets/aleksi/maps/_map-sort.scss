@@ -24,7 +24,7 @@
 
 @function map-sort-values( $map, $order: null )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-sort-keys():: $map must be a map, was #{inspect($map)}.');
   }
 
@@ -68,7 +68,7 @@
 
 @function map-sort-keys( $map, $order: null )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-sort-keys():: $map must be a map, was #{inspect($map)}.');
   }
 

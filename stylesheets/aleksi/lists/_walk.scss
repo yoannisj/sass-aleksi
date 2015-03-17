@@ -41,7 +41,7 @@
     @return map-walk($list, $func, $args...);
   }
 
-  @else if is-of-type($list, 'list' 'arglist') {
+  @else if is-list($list) {
     @return sl-walk($list, $func, $args...);
   }
 

@@ -1,0 +1,22 @@
+// =============================================================================
+// =ALEKSI TESTS - IS-MAP
+// =============================================================================
+
+@include describe('The is-map function')
+{
+  @include it('should test whether a given value is a list')
+  {
+    @include should(expect( is-map($str-map) ), to(equal( true )));
+    @include should(expect( is-map($num-map) ), to(equal( true )));
+    @include should(expect( is-map($mix-map) ), to(equal( true )));
+    @include should(expect( is-map($int) ), to(equal( false )));
+    @include should(expect( is-map($null) ), to(equal( false )));
+    @include should(expect( is-map($false) ), to(equal( false )));
+    @include should(expect( is-map($mix-list) ), to(equal( false )));
+  }
+
+  @include it('should consider the empty map, or empty list, to be a map')
+  {
+    @include should(expect( is-map(()) ), to(equal( true )));
+  }
+}

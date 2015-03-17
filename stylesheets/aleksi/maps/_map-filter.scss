@@ -29,7 +29,7 @@
 
 @function map-filter( $map, $test, $args... )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-filter():: $map must be a map, was #{inspect($map)}.');
   }
 
@@ -65,7 +65,7 @@
 
 @function map-filter-keys( $map, $test, $args... )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-filter():: $map must be a map, was #{inspect($map)}.');
   }
 

@@ -5,11 +5,17 @@
 
 @import "SassyLists";
 @import "aleksi/general/throw";
+@import "aleksi/lists/is-list";
+@import "aleksi/maps/is-map";
 
 // =is-of-type( $value, $type )
 // -----------------------------------------------------------------------------
 /// Checks if a value is of the given type. Also accepts a list of types to
 /// allow multiple types.
+/// **Note**: delegates to `is-list()` so arglists are also considered to be of
+/// type `list`.
+/// **Note**: delegates to `is-map()` so the empty map `()` is also considered
+/// to be of type `map`.
 ///
 /// @param {any} $value - The value to analyze.
 /// @param {any} $type - The type(s) to check `$value` against.
@@ -21,8 +27,10 @@
 ///     // => true
 ///   $bar: is-of-type('hello', number string null);
 ///     // => true
-///   $bar: is-of-type(10, string bool null);
+///   $baz: is-of-type(10, string bool null);
 ///     // => false
+///   $wiz: is-of-type((), map);
+///     // => true
 ///
 /// @access public
 /// @since 0.1.0
@@ -50,5 +58,13 @@
     $e: throw-error('$type must be a string or a list of strings, was #{inspect($type)}.');
   }
 
-  @return if( type-of($value) == $type, true, false );
+  @else if $type == list {
+    @return is-list($value);
+  }
+
+  @else if $type == map {
+    @return is-map($value);
+  }
+
+  @return (type-of($value) == $type);
 }

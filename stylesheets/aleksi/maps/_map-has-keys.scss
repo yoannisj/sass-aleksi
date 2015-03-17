@@ -26,7 +26,7 @@
 
 @function map-has-keys($map, $keys)
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-has-keys():: $map must be a map, was #{inspect($map)}.');
   }
 
@@ -60,7 +60,7 @@
 
 @function map-has-deep-key($map, $keys...)
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-has-deep-key():: $map must be a map, was #{inspect($map)}.');
   }
 

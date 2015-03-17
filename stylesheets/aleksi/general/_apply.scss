@@ -33,7 +33,7 @@
 
 @function apply( $value, $func, $args... )
 {
-  @if is-of-type($value, 'list' 'arglist' 'map') {
+  @if is-of-type($value, 'list' 'map') {
     @return walk($value, $func, $args...);
   }
 

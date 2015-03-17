@@ -20,7 +20,7 @@
 
 @function map-unique( $map )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-unique():: $map must be a map, was #{inspect($map)}.');
   }
 

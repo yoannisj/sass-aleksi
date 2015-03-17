@@ -1,0 +1,28 @@
+// =============================================================================
+// =ALEKSI - IS-MAP
+// =============================================================================
+
+// =is-map( $value )
+// -----------------------------------------------------------------------------
+/// Verifies if the given value is a map. Also accepts `()`, contrary to testing
+/// manually `type-of(()) == map`.
+///
+/// @param {any} $value - The value to test.
+///
+/// @return {bool} - Whether `$value` is a map.
+///
+/// @example scss
+///   $foo: is-map(('a': 10, 'b': 'foo'));
+///     // => true
+///   $bar: is-map(());
+///     // => true
+///   $baz: is-map('a' 10 'b' 'foo');
+///     // => false
+///
+/// @access public
+/// @since 0.1.0
+
+@function is-map( $value )
+{
+  @return (type-of($value) == map or $value == ());
+}

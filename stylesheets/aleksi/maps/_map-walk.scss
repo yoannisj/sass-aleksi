@@ -6,6 +6,7 @@
 
 @import "sassy-maps/map-set";
 @import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
 
 // =map-walk( $map, $func[, $args... ])
 // -----------------------------------------------------------------------------
@@ -28,7 +29,7 @@
 
 @function map-walk( $map, $func, $args... )
 {
-  @if type-of($map) != map {
+  @if not is-map($map) {
     $e: throw-error('map-walk():: $map must be a map, was #{inspect($map)}.');
   }
 
@@ -62,7 +63,7 @@
 
 @function map-walk-keys( $map, $func, $args... )
 {
-  @if type-of($map) != map {
+  @if not is-map($map) {
     $e: throw-error('map-walk-keys():: $map must be a map, was #{inspect($map)}.');
   }
 

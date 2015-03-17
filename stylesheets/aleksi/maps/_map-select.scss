@@ -23,7 +23,7 @@
 
 @function map-select-keys( $map, $keys )
 {
-  @if type-of($map) != 'map' {
+  @if not is-map($map) {
     @return throw-error('map-select():: $map must be a map, was #{inspect($map)}.');
   }
 
