@@ -1,0 +1,39 @@
+// =============================================================================
+// =ALEKSI - MAP-CLEAN
+// =============================================================================
+
+// =map-clean( $map )
+// -----------------------------------------------------------------------------
+/// Removes all falsy values from a map.
+/// **Note**: if all item shave been removed, it will return `()` to act like
+/// all other map filtering functions (emptying a list with `map-remove()` would
+/// normally return a *real* empty map ``);
+///
+/// @param {map} $map - The map to clean.
+///
+/// @return {map} - A new map, without falsy values.
+/// @throw Error if `$map` is not a map.
+///
+/// @example scss
+///   $foo: map-clean( ('a': 10, 'b': false, 'c': 'foo', 'd': null) );
+///     // => ('a': 10, 'c': 'foo')
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-clean( $map )
+{
+  @if not is-map($map) {
+    @return throw-error('map-clean():: $map must be a map. Was #{inspect($map)}');
+  }
+
+  @each $key, $value in $map {
+    @if not $value {
+      $map: map-remove($map, $key);
+    }
+  }
+
+  // return the empty map `()` instead of `` if all map
+  // items have been remove.
+  @return if(length($map) == 0, (), $map);
+}
