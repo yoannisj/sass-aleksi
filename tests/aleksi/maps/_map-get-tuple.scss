@@ -1,0 +1,18 @@
+// =============================================================================
+// =ALEKSI TESTS - GET-TUPLE
+// =============================================================================
+
+@include describe('The get-tuple function')
+{
+  @include it('should return the key, value pair from a map based on the given key')
+  {
+    @include should(expect( map-get-tuple($str-map, 'en') ), to(be( ('en': 'hello') )));
+    @include should(expect( map-get-tuple($mix-map-types, 'unquoted') ), to(be( ('unquoted': 'string') )));
+    @include should(expect( map-get-tuple($num-map, 'percentage') ), to(be( ('percentage': 50%) )));
+  }
+
+  @include it('should return a tuple with null value if the map does not have the given key')
+  {
+    @include should(expect( map-get-tuple($str-map, 'ru') ), to(equal( ('ru': null) )));
+  }
+}

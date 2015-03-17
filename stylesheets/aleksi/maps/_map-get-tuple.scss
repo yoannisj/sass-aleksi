@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI - MAP-GET-TUPLE
+// =============================================================================
+
+// =map-get-tuple( $map, $key )
+// -----------------------------------------------------------------------------
+/// Retrieves a tuple (a key, value formatted as a map item) from a map. Returns
+/// `null` if `$key` was not found in `$map`.
+///
+/// @param {map} $map - The map in which to search for the tuple.
+/// @param {string} $key - The key of the tuple to retreive.
+///
+/// @return {map} - The `(key: value)` pair corresponding to `$key`.
+/// @throw Error if `$map`is not a map.
+///
+/// @example scss
+///   $foo: map-get-tuple('a': 'foo', 'b': 'bar', 'a');
+///     // => ('a': 'foo')
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-get-tuple( $map, $key )
+{
+  @if not is-map($map) {
+    @return throw-error('map-get-tuple():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  @return (#{$key}: map-get($map, $key));
+}
