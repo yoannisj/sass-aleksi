@@ -19,3 +19,7 @@ tmp
 # NODE MODULES
 # ------------
 node_modules
+
+# SASSDOC
+# -------
+sassdoc

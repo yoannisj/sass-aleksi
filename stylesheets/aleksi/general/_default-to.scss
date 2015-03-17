@@ -1,9 +1,8 @@
 // =============================================================================
 // =ALEKSI - DEFAULT-TO
 // =============================================================================
-//// Tools that help working with logical directives and operators.
 ////
-//// @group Aleksi.general
+//// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 // =default-to( $values... )
@@ -11,7 +10,7 @@
 /// Returns the first truethy value in the given argument's list. You'll usually
 /// want to provide a raw, truethy value as last argument to serve as default.
 ///
-/// @param $values... {argList} - The ordered list of values to
+/// @param {argList} $values... - The ordered list of values to
 /// @return {any} - The first truethy value in `$values` or `null` if none was found.
 ///
 /// @example scss

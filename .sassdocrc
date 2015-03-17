@@ -1,0 +1,9 @@
+dest: ./sassdoc
+package: ./package.json
+theme: default
+groups:
+  aleksi-settings: Settings
+  aleksi-general: General
+  aleksi-math: Math
+  aleksi-lists: Lists
+  aleksi-maps: Maps

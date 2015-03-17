@@ -1,6 +1,9 @@
 // =============================================================================
 // =ALEKSI - MAP-MERGE-DEEP
 // =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "sassy-maps";
 
@@ -15,12 +18,11 @@
 /// @throw Error if `$map-a` or `$map-b` is not a map
 ///
 /// @example scss
-///   Example Code
+///   $foo: map-merge-deep('a': 10, 'b': ('ba': false, 'bb': 'bar'), 'c': 'foo'), ('a': 20, 'b': ('bb': 'baz', 'bc': 'wiz')));
+///     // => ('a': 20, 'b': ('ba': false, 'bb': 'baz', 'bc': 'wiz'), 'c': 'foo')
 ///
 /// @access public
-/// @since version
-///
-/// @todo Description
+/// @since 0.1.0
 
 @function map-merge-deep( $map-a, $map-b )
 {

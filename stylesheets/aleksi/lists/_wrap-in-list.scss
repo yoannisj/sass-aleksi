@@ -1,6 +1,9 @@
 // =============================================================================
 // =ALEKSI - WRAP-IN-LIST
 // =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "aleksi/lists/set-list-separator";
 
@@ -14,7 +17,7 @@
 /// @param {string} $separator ['space'] - The separator type the list should use.
 ///
 /// @return {list} - A single item list with `$value` inside, and using `$separator`.
-
+///
 /// @example scss
 ///   $foo: wrap-in-list(10);
 ///     // => 10
