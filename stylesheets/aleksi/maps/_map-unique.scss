@@ -5,6 +5,11 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "SassyLists";
+@import "sassy-maps";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
 // =map-unique( $map )
 // -----------------------------------------------------------------------------
 /// removes all duplicate values inside a map.

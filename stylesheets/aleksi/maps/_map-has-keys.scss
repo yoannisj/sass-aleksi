@@ -5,6 +5,9 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
 // =map-has-keys( $map, $keys )
 // -----------------------------------------------------------------------------
 /// Tests if a map has all the given keys at first level.

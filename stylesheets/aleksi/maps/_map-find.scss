@@ -5,6 +5,9 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
 // =map-find-key( $map, $value )
 // -----------------------------------------------------------------------------
 /// Returns the key under which a given value is stored in a map. If the value

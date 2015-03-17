@@ -5,7 +5,9 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/general/throw";
 @import "aleksi/lists/wrap-in-list";
+@import "aleksi/maps/is-map";
 
 // =map-zip( $keys, $values)
 // -----------------------------------------------------------------------------
@@ -36,7 +38,7 @@
 @function map-zip($keys, $values)
 {
   // allow creating a single-item map with a nested map
-  @if type-of($values) == 'map' and length($keys) == 1 {
+  @if is-map($values) and length($keys) == 1 {
     $values: wrap-in-list($values);
   }
 

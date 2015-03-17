@@ -7,6 +7,9 @@
 
 @import "SassyLists";
 @import "sassy-maps";
+@import "aleksi/general/throw";
+@import "aleksi/general/default-to";
+@import "aleksi/maps/is-map";
 
 // =map-sort-values( $map[, $order ])
 // -----------------------------------------------------------------------------

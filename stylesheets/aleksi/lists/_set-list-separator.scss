@@ -7,6 +7,9 @@
 ////
 //// @todo Move 'shortcut' functions to separate files ?
 
+@import "aleksi/general/throw";
+@import "aleksi/lists/is-list";
+
 // =set-list-separator( $list, $separator )
 // -----------------------------------------------------------------------------
 /// Converts a list to the given lists separator.
@@ -36,7 +39,7 @@
 @function set-list-separator( $list, $separator )
 {
   // optimization: return list that are already comma-separated as is
-  @if type-of($list) == 'list' and list-separator($list) == $separator {
+  @if is-list($list) and list-separator($list) == $separator {
     @return $list;
   }
 

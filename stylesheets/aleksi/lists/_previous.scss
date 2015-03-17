@@ -5,6 +5,8 @@
 //// @group aleksi-lists
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/general/throw";
+
 // =previous( $list, $value )
 // -----------------------------------------------------------------------------
 /// Returns the item sitting previous to the given value in alist. If the value

@@ -5,6 +5,10 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "sassy-maps/map-set";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
 // =map-select( $map, $keys )
 // -----------------------------------------------------------------------------
 /// Reduces a map's by selecting some of its keys only.

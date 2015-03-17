@@ -5,7 +5,9 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "sassy-maps/map-set";
+@import "sassy-maps";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
 
 // =map-filter( $map, $test, $args... )
 // -----------------------------------------------------------------------------
