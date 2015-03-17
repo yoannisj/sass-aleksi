@@ -20,4 +20,9 @@
   {
     @include should(expect( map-select($mix-map, 'int' 'foo' 'word' 'unquoted') ), to(be( map-select-keys($mix-map, 'int' 'foo' 'word' 'unquoted') )));
   }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-select($str-list, 'en' 'es') ), to(equal( null )));
+  }
 }
