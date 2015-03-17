@@ -2,7 +2,7 @@
 
 Aleksi is a collection of useful Sass functions and mixins. It bundles other libraries and provides its own functions and mixins on top.
 
-The firstname *Aleksi* means 'helper of man' in russian.
+The russian firstname *Aleksi* means *'helper of man'*.
 
 ## Dependencies and Bundling
 
