@@ -116,3 +116,114 @@ $mix-map-types: (
 
 $nested-map: map-set($str-map, 'nest', $str-map);
 $double-nested-map: map-set($str-map, 'nest', map-set($str-map, 'sub-nest', $str-map));
+
+$map-a: (
+  'a': (
+    'aa':10,
+    'ab': true,
+  ),
+  'b': true,
+  'c': 'foo',
+);
+
+$map-b: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  )
+);
+
+$map-c: (
+  'a': (
+    'aa': 30,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-ab: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'foo',
+);
+
+$map-abc: (
+  'a': (
+    'aa': 30,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-ab-deep: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'foo',
+);
+
+$map-ac-deep: (
+  'a': (
+    'aa': 30,
+    'ab': true,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': true,
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-abc-deep: (
+  'a': (
+    'aa': 30,
+    'ab': false,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$args-list: null;
+
+@mixin args-mixin($args...)
+{
+  $args-list: $args !global;
+  @content;
+}

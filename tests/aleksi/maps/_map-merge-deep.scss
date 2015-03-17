@@ -1,0 +1,18 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-MERGE-DEEP
+// =============================================================================
+
+@include describe('The function map-merge-deep')
+{
+  @include it('should two maps together, and merge nested maps')
+  {
+    @include should(expect( map-sort(map-merge-deep($map-a, $map-b)) ), to(be( $map-ab-deep )));
+    @include should(expect( map-sort(map-merge-deep($map-a, $map-c)) ), to(be( $map-ac-deep )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-merge-deep($num-list, $map-b) ), to(equal( null )));
+    @include should(expect( map-merge-deep($map-a, $num-list) ), to(equal( null )));
+  }
+}

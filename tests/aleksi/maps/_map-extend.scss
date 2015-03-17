@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-EXTEND
+// =============================================================================
+
+@include describe('The function map-extend')
+{
+  @include it('should merge multiple maps together, and give priority to right most values')
+  {
+    @include should(expect( map-sort(map-extend($map-a, $map-b)) ), to(be( $map-ab )));
+    @include should(expect( map-sort(map-extend($map-a, $map-b, $map-c)) ), to(be( $map-abc )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-extend($num-list, $map-b) ), to(equal( null )));
+    @include should(expect( map-extend($map-a, $num-list, $map-c) ), to(equal( null )));
+  }
+}
+
+@include describe('The function map-extend-deep')
+{
+  @include it('should merge multiple maps together, and merge nested maps')
+  {
+    @include should(expect( map-sort(map-extend-deep($map-a, $map-b)) ), to(be( $map-ab-deep )));
+    @include should(expect( map-sort(map-extend-deep($map-a, $map-c)) ), to(be( $map-ac-deep )));
+    @include should(expect( map-sort(map-extend-deep($map-a, $map-b, $map-c)) ), to(be( $map-abc-deep )));
+  }
+
+  @include xit('should throw an error when passed wrong arguments')
+  {
+    @include should(expect( map-extend-deep($num-list, $map-b) ), to(equal( null )));
+    @include should(expect( map-extend-deep($map-a, $num-list, $map-c) ), to(equal( null )));
+  }
+}

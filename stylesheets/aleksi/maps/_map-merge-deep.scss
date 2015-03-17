@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALEKSI - MAP-MERGE-DEEP
+// =============================================================================
+
+@import "sassy-maps";
+
+// =map-merge-deep( $map-a, $map-b )
+// -----------------------------------------------------------------------------
+/// Deeply merges two maps together. Works with nested maps.
+///
+/// @param {map} $map-a - The first map to merge.
+/// @param {map} $map-b - The map to merge into `$map-a`.
+///
+/// @return {map} - A new map with nested maps merged
+/// @throw Error if `$map-a` or `$map-b` is not a map
+///
+/// @example scss
+///   Example Code
+///
+/// @access public
+/// @since version
+///
+/// @todo Description
+
+@function map-merge-deep( $map-a, $map-b )
+{
+  @if not is-map($map-a) {
+    @return throw-error('map-merge-deep():: `$map-a` must be a map. Was #{inspect($map-a)}.');
+  }
+
+  @if not is-map($map-b) {
+    @return throw-error('map-merge-deep():: `$map-b` must be a map. Was #{inspect($map-b)}.');
+  }
+
+  $res: $map-a;
+
+  @each $key, $value in $map-b {
+    // if we are merging a nested map
+    // ('map-get()' will return'null' if $res does not have $key so it
+    // is safe not to verify)
+    @if type-of($value) == 'map' and type-of(map-get($res, $key)) == 'map' {
+      // merge nested maps before setting the value
+      $value: map-merge-deep(map-get($res, $key), $value);
+    }
+
+    $res: map-set($res, $key, $value);
+  }
+
+  @return $res;
+}
