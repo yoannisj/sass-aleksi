@@ -1,0 +1,38 @@
+// =============================================================================
+// =ALEKSI - STRIP-UNIT
+// =============================================================================
+////
+//// @group aleksi-units
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =strip-unit( $number )
+// -----------------------------------------------------------------------------
+/// Removes the unit of a given number.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {number} $number - Number from which to strip the unit.
+///
+/// @return {number} - Unitless `$number`.
+/// @throw Error if `$number` is not a number.
+///
+/// @example scss
+///   $foo: strip-unit(10px);
+///     // => 10
+///   $bar: strip-unit(1.5em);
+///     // => 1.5
+///   $baz: strip-unit(50%);
+///     // => 50
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'strip-unit' function
+
+@function strip-unit($number)
+{
+  @if type-of($number) != number {
+    @return throw-error("strip-unit():: $number must be a number. Was #{inspect($number)}.");
+  }
+
+  @return $number / ($number * 0 + 1);
+}
