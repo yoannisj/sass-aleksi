@@ -1,0 +1,70 @@
+// =============================================================================
+// =ALEKSI - SIDE-PROPERTY
+// =============================================================================
+
+@import "aleksi/general/css-rule";
+@import "aleksi/sides/side-value";
+@import "aleksi/sides/reduce-sides";
+
+// =output-sides( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// Output a CSS property for a side-list value. The keyword 'offset' is
+/// accepted to output the 'top', 'right', 'bottom' and 'left'.
+///
+/// @param {property} $name - The CSS property name to output.
+/// @param {list} $values - The sides-list describing the property's values.
+/// @param {bool} $important [false] - Whether to add the '!imporant' flag.
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     position: absolute;
+///     @include output-sides('offset', 10px null null 10px);
+///     @include output-sides('margin', 10px null 1em);
+///     @include output-sides('padding', 0.5em 5%);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     top: 10px;
+///     left: 10px;
+///     margin-top: 10px;
+///     margin-bottom: 1em;
+///     padding: 0.5em 5%;
+///   }
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin output-sides( $property, $values, $important: false )
+{
+  // output separate property if setting offset or if one side
+  // should be omitted
+  @if $property == 'offset' or sl-contain($values, null) {
+    @each $side in const('CSS_SIDES') {
+      // append the side to the property name, or use the side only for offsets
+      $prop: if($property == 'offset', $side, '#{$property}-#{$side}');
+      // select the side's value from the list of values
+      $val: side-value($values, $side);
+
+      @include css-rule($prop, $val, $important);
+    }
+  }
+
+  // output shorthand otherwise
+  @else {
+    @include css-rule($property, reduce-sides($values), $important);
+  }
+}
+
+// =sides( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// @alias {mixin} output-sides
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin sides( $property, $values, $important: false )
+{
+  @include output-sides($property, $values, $important);
+}

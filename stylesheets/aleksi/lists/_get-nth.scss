@@ -1,0 +1,44 @@
+// =============================================================================
+// =ALEKSI - GET-NTH
+// =============================================================================
+
+// =get-nth( $list, $index )
+// -----------------------------------------------------------------------------
+/// Retreives the item at a given index in a list. Differs from Sass's native
+/// `nth` function by returning `null` if the index is out of scope instead of
+/// throwing an error. In this way it behaves more like `map-get()`.
+///
+/// @param {list} $list - The list from which to retreive an item.
+/// @param {number} $index - The index of the item to retreive
+///
+/// @return {any} - The item found at $index in $list, or `null` if none was found.
+///
+/// @example scss
+///   $foo: get-nth(10px 'foo' false, 2);
+///     // => 'foo'
+///   $bar: get-nth(10px 'foo' false, 4);
+///     // => null
+///
+/// @access public
+/// @since 01.0
+
+@function get-nth( $list, $index )
+{
+  @if $index <= length($list) {
+    @return nth($list, $index);
+  }
+
+  @return null;
+}
+
+// =list-get( $list, $index )
+// -----------------------------------------------------------------------------
+/// @alias {function} get-nth
+///
+/// @acces public
+/// @since 0.1.0
+
+@function list-get( $list, $index )
+{
+  @return get-nth($list, $index);
+}

@@ -1,0 +1,74 @@
+// =============================================================================
+// =ALEKSI - REDUCE-SIDES-LIST
+// =============================================================================
+
+@import "SassyLists";
+@import "aleksi/general/throw";
+@import "aleksi/lists/get-nth";
+
+// =reduce-sides-list( $list )
+// -----------------------------------------------------------------------------
+/// Reduces a sides-list to its most compact form.
+///
+/// @param {list} $list - The sides-list to reduce.
+///
+/// @return {list} - The reduced version of $list.
+/// @throw Error if $list has more then 4 items.
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'reduce-sides-list' function
+
+@function reduce-sides-list( $list )
+{
+  $l: length($list);
+
+  @if $l > 4 {
+    @return throw-error("reduce-sides-list():: $list #{inspect($list)} is not a valid sides-list. Sides-lists can only have 1 to 4 items.");
+  }
+
+  // OPTIMIZATION: single-items can't be reduces
+  @if $l == 1 {
+    @return $list;
+  }
+
+  // CAUTION: don't remove 3rd unless 4th can be removed as well,
+  // and don't remove 3rd unless 2nd can be removed as well otherwise
+  // values would be attributed to wrong sides.
+  $first: nth($list, 1);
+  $second: get-nth($list, 2);
+  $third: get-nth($list, 3);
+  $fourth: get-nth($list, 4);
+
+  @if $l == 4 {
+    @if $fourth == $second {
+      @return reduce-sides-list(sl-without($list, 4));
+    }
+  }
+
+  @else if $l == 3 {
+    @if $third == $first {
+      @return reduce-sides-list(sl-without($list, 3));
+    }
+  }
+
+  @else if $l == 2 {
+    @return if($second == $first, $first, $list);
+  }
+
+  // no items to remove
+  @return $list;
+}
+
+// =reduce-sides( $list )
+// -----------------------------------------------------------------------------
+/// @alias {function} reduce-sides-list
+///
+/// @access public
+/// @since 0.1.0
+
+@function reduce-sides( $list )
+{
+  @return reduce-sides-list( $list );
+}

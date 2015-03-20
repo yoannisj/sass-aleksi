@@ -1,0 +1,57 @@
+// =============================================================================
+// =ALEKSI - CSS-RULE
+// =============================================================================
+
+// =css-rule( $property, $value[, $important, $func, $args... ])
+// -----------------------------------------------------------------------------
+/// Outputs a css rule dynamically, optionally modifying the value with a
+/// function and/or appending the '!important' flag.
+///
+/// @param {string} $name - The property of the css rule to output
+/// @param {any} $value - The value of the css rule to output
+/// @param {bool} $important - Whether to append the '!important' flag
+/// @param {string} $func - The name of a function to run $value through
+/// @param {arglist} $args... - Additional arguments for $func
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     @include css-rule('color', aqua);
+///     @include css-rule(font-size, 2em, true);
+///     @include css-rule(content, 'hello world', false, 'to-upper-case');
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     color: aqua;
+///     font-size: 2em !important;
+///     content: 'HELLO WORLD';
+///   }
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Description
+
+@mixin css-rule( $property, $value, $important: false, $func: null, $args... )
+{
+  // optionally apply a given funtion to modify the value
+  $value: if($func, call($func, $value, $args...), $value);
+
+  // don't output `null` because appending !important will make SASS
+  // output it in the final CSS, when null alone will be left out.
+  @if $value != null {
+    #{$property}: if($important, $value !important, $value);
+  }
+}
+
+// =css( $property, $value[, $important, $func, $args... ])
+// -----------------------------------------------------------------------------
+/// @alias {mixin} css-rule
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin css( $property, $value, $important: false, $func: null, $args... )
+{
+  @include css-rule($property, $value, $important, $func, $args...);
+}
