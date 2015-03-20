@@ -1,0 +1,62 @@
+// =============================================================================
+// =ALEKSI - TO-SIDES-LIST
+// =============================================================================
+
+@import "SassyLists";
+@import "aleksi/config/constants";
+@import "aleksi/general/is-of-type";
+@import "aleksi/general/throw";
+@import "aleksi/lists/contained-in";
+@import "aleksi/sides/reduce-sides";
+
+// =sides-map-to-list( $map[, $reduce ])
+// -----------------------------------------------------------------------------
+/// Converts a map of side, value pairs into a sides-list, and optionally
+/// reduces the result.
+///
+/// @param {map} $map - The map to convert into a sides-list
+/// @param {bool} $reduce [false] - Whether to reduce the resulting sides-list
+///
+/// @return {list} - The sides-list with values found in $map, in correct order.
+/// @throw Error if $map is not a map.
+/// @throw Warning if $map does not define a key, value pair for every CSS side.
+///
+/// @example scss
+///   $bar: sides-map-to-list('left': 2em, 'right': 2em, 'top': 10px, 'bottom': 5%);
+///     // => 10px 2em 5% 2em
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'sides-map-to-list' function.
+
+@function sides-map-to-list( $map, $reduce: false )
+{
+  $list: ();
+
+  @if not is-of-type($map, 'map') {
+    @return throw-error('sides-map-to-sides-list():: $map must be a map. Was #{inspect($map)}.');
+  }
+
+  @if not sl-every(map-keys($map), 'contained-in', const('CSS_SIDES')) {
+    @return throw-warnig('sides-map-to-sides-list():: $map does not define a value for each CSS side.');
+  }
+
+  @each $side in const('CSS_SIDES') {
+    $list: append($list, map-get($map, $side));
+  }
+
+  @return if($reduce, reduce-sides-list($list), $list);
+}
+
+// =to-sides-list( $map )
+// -----------------------------------------------------------------------------
+/// @alias {function} sides-map-to-list
+///
+/// @access public
+/// @since 0.1.0
+
+@function to-sides-list( $map )
+{
+  @return sides-map-to-list($map);
+}

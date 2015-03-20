@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI - IS-CONTAINED
+// =============================================================================
+
+// =contained-in( $value, $list )
+// -----------------------------------------------------------------------------
+/// Checks if the given value is contained in a list. Behaves like `sl-contain`,
+/// but with the value as first argument. Useful to check for specific values
+/// when walking over a list or map.
+///
+/// @param {type|...} $name [default] - Description
+///
+/// @return {type|...} - Description
+/// @throw Description
+///
+/// @example scss
+///   $foo: contained-in(10px 'foo', 10px);
+///     // => true
+///   $bar: contained-in(10px 'foo', 'bar');
+///     // => false
+///   $baz: sl-every('a' 'b' 'c' 'd', 'contained-in', 'a' 'b' 'c');
+///     // => false
+///   $wiz: sl-every('a' 'b' 'c', 'contained-in', 'a' 'b' 'c');
+///     // => true
+///
+/// @access public
+/// @since version
+///
+/// @todo Test the 'contained-in' function
+
+@function contained-in( $value, $list )
+{
+  @return (index($list, $value) != null);
+}

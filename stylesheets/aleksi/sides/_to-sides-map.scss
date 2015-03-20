@@ -1,0 +1,56 @@
+// =============================================================================
+// =ALEKSI - TO-SIDES-MAP
+// =============================================================================
+
+@import "sassy-maps";
+@import "aleksi/config/constants";
+@import "aleksi/general/throw";
+
+// =sides-list-to-map( $list )
+// -----------------------------------------------------------------------------
+/// Converts a given side-list to a map pairing each side with its corresponding
+/// value. If the list has more then 4 items, it will ignore additional items.
+/// **Note**: sides-maps can not be reduced, otherwise a `null` value could
+/// falsely get attributed to a side by using `map-get()`.
+///
+/// @param {list} $name - The side-list to convert.
+///
+/// @return {map} - A map pairing each CSS side with the value found in $list.
+/// @throw Warning If $list has more then 4 items.
+///
+/// @example scss
+///   $foo: sides-list-to-map(10px 2em 5%);
+///     // => ('top': 10px, 'right': 2em, 'bottom': 5%, 'left': 2em)
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'sides-list-to-map' function.
+
+@function sides-list-to-map( $list )
+{
+  $l: length($list);
+  $map: ();
+
+  @if $l >= 4 {
+    $w: throw-warning('sides-list-to-map():: $list has more then 4 items. Items 5 and up are being ignored.');
+  }
+
+  @each $side in const('CSS_SIDES') {
+    $map: map-set($map, $side, side-value($list, $side));
+  }
+
+  @return $map;
+}
+
+// =to-sides-map( $list )
+// -----------------------------------------------------------------------------
+/// @alias {function} sides-list-to-map
+///
+/// @access public
+/// @since 0.1.0
+
+@function to-sides-map( $list )
+{
+  @return sides-list-to-map( $list );
+}
