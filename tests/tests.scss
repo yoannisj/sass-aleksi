@@ -50,3 +50,10 @@
 @import "aleksi/maps/map-extend";
 
 @include runner-end;
+
+.foo {
+  position: absolute;
+  @include output-sides('offset', 10px null null 10px);
+  @include output-sides('margin', 10px null 1em);
+  @include output-sides('padding', 0.5em 5%);
+}
