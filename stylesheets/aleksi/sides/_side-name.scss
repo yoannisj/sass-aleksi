@@ -1,0 +1,47 @@
+// =============================================================================
+// =ALEKSI - SIDE-NAME
+// =============================================================================
+
+@import "aleksi/general/throw";
+@import "aleksi/config/constants";
+
+// =side-name( $index )
+// -----------------------------------------------------------------------------
+/// Retreives the name of side corresponding to a given index in the ordered
+/// list of CSS sides.
+///
+/// @param {number} $index - The index of the side to retreive.
+///
+/// @return {string} - The name of the CSS side corresponding to $index.
+/// @throw Error if $index is not an integer
+/// @throw Error if $index is out of scope.
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'side-name' function
+
+@function side-name( $index )
+{
+  @if not is-int($index) {
+    @return throw-error('side-for-index():: $index must be an integer. Was #{inspect($index)}.');
+  }
+
+  @if $i > 4 {
+    @return throw-error('side-for-index():: $index #{inspect($index)} out of scope. Should be between 1 and 4.');
+  }
+
+  @return nth(const('CSS_SIDES'), $index);
+}
+
+// =nth-side( $index )
+// -----------------------------------------------------------------------------
+/// @alias {function} side-name
+///
+/// @access public
+/// @since 0.1.0
+
+@function nth-side( $index )
+{
+  @return side-name($index);
+}

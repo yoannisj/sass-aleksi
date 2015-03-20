@@ -1,0 +1,82 @@
+// =============================================================================
+// =ALEKSI - SIDES-LIST
+// =============================================================================
+
+@import "SassyLists";
+@import "aleksi/config/constants";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+// =get-side-value( $list, $side )
+// -----------------------------------------------------------------------------
+/// Retreives the value for the given side in a side-list.
+/// **Note**: Caution, if passed a map, it will be considered a single value
+/// inside a single item sides-list.
+///
+/// @param {list} $list - The side-list from which to fetch the value
+/// @param {string} $side - The name of the side to retreive in $list
+///
+/// @return {any} - The value corresponding to the asked in $list
+/// @throw Error if $side is not a valid side name.
+///
+/// @example scss
+///   $foo: get-side-value(10px 2em, 'left');
+///     // => 2em
+///   $bar: get-side-value(10px 2em, 'top');
+///     // => 10px
+///   $baz: get-side-value(10px 2em 20%, 'bottom');
+///     // => 20%
+///   $wiz: get-side-value(10px, 'right');
+///     // => 10px
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'get-side-value' function.
+
+@function get-side-value( $list, $side )
+{
+  @if type-of($side) != string or (not sl-contain(const('CSS_SIDES'), $side)) {
+    @return throw-error("side-list-value():: $side must be either 'top', 'right', 'bottom' or 'left'. Was #{inspect($side)}.");
+  }
+
+  // consider maps as single values inside a single item sides-list
+  @if is-map($list) {
+    @return $list;
+  }
+
+  $l: length($list);
+  $first: nth($list, 1);
+
+  @if $side == 'top' {
+    @return $first;
+  }
+
+  @else if $side == 'right' {
+    @return if($l >= 2, nth($list, 2), $first);
+  }
+
+  @else if $side == 'bottom' {
+    @return if($l >= 3, nth($list, 3), $first);
+  }
+
+  @else if $side == 'left' {
+    @return if($l >= 4, nth($list, 4), if($l >= 2, nth($list, 2), $first));
+  }
+
+  @else {
+    @return throw-error('side-list-value():: $side is must be either');
+  }
+}
+
+// =side-value( $list, $side )
+// -----------------------------------------------------------------------------
+/// @alias {function} get-side-value
+///
+/// @access public
+/// @since 0.1.0
+
+@function side-value( $list, $side )
+{
+  @return get-side-value($list, $side);
+}
