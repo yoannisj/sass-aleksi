@@ -1,0 +1,74 @@
+// =============================================================================
+// =ALEKSI - CONSTANTS
+// =============================================================================
+
+$CONSTANTS: (
+  'CSS_SIDES': 'top' 'right' 'bottom' 'left',
+  'CSS_POSITIONS': 'top' 'right' 'bottom' 'left' 'center',
+);
+
+// =const( $name )
+// -----------------------------------------------------------------------------
+/// Constant getter. Safely retrieves the value of a constant.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {string} $name - Name of the constant to retrieve.
+///
+/// @return {any} - The value of the constant.
+/// @throw Error if constant doesn't exist.
+///
+/// @example scss
+///   $foo: const('CSS_SIDES');
+///     // => 'top' 'right' 'bottom' 'left'
+///
+/// @access public
+/// @since 0.1.0
+
+@function const( $name )
+{
+  @if type-of($name) != string {
+    @return throw-error("const():: $name must be a string. Was #{inspect($name)}.");
+  }
+
+  @if not map-has-key($CONSTANTS, $name) {
+    @return throw-error("Unknown constant #{$name}");
+  }
+
+  @return map-get($CONSTANTS, $name);
+}
+
+// =const( $name, $value )
+// -----------------------------------------------------------------------------
+/// Constant setter. Stores the given value in a constant and prevents existing
+/// constants to be modified.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {string} $name - The name of the constant tp store.
+/// @param {any} $value - The stored constant's value.
+///
+/// @throw Error if $name is not a string.
+/// @throw Error if $name is not a full-caps name or contains hyphens.
+/// @throw Error if $name is already a defined constant.
+///
+/// @example scss
+///   @include const('HOURS_IN_DAY', 24);
+///
+/// @access public
+/// @since 0.1.0
+
+@mixin const( $name, $value )
+{
+  @if type-of($name) != string {
+    @include throw-error('const():: $name must be string. Was #{$name}.');
+  }
+
+  @else if to-upper-case($name) != $name or str-index($name, '-') {
+    @include throw-error('const():: Constant name #{$name} is not valid. Must be upper-case and without hyphens.');
+  }
+
+  @else if map-has-key($CONSTANT, $name) {
+    @include throw-error('Constant #{$name} already defined.');
+  }
+
+  $CONSTANTS: map-set($CONSTANTS, $name, $value) !global;
+}
