@@ -2,16 +2,56 @@
 // =ALEKSI - CSS-RULE
 // =============================================================================
 
+// =css-value( $value[, $important ])
+// -----------------------------------------------------------------------------
+/// Optionally appends the !important flag to a css-value. Can also run the
+/// value through a function before if needed.
+///
+/// @param {any} $value - The value of the css rule to modify
+/// @param {bool} $important - Whether to append the `!important` flag
+/// @param {string} $func - The name of a function to run $value through
+/// @param {arglist} $args... - Additional arguments for $func
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     color: css-value(aqua);
+///     font-size: css-value(2em, true);
+///     content: css-value('hello world', false, 'to-upper-case');
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     color: aqua;
+///     font-size: 2em !important;
+///     content: 'HELLO WORLD';
+///   }
+///
+/// @access public
+/// @since 0.1.0
+
+@function css-value( $value, $important: false, $func: null, $args...  )
+{
+  // optionally apply a given funtion to modify the value
+  $value: if($func, call($func, $value, $args...), $value);
+
+  // don't append the '!important' flag to `null` because that will make SASS
+  // output it in the final CSS, when `null` alone will be left out.
+  @return if( $important and ($value != null), $value !important, $value );
+}
+
 // =css-rule( $property, $value[, $important, $func, $args... ])
 // -----------------------------------------------------------------------------
-/// Outputs a css rule dynamically, optionally modifying the value with a
-/// function and/or appending the '!important' flag.
+/// Outputs a css rule dynamically. Optionally modifies the value with a
+/// function and/or appending the '!important' flag. Delegates to the
+/// 'css-value()' function.
 ///
 /// @param {string} $name - The property of the css rule to output
 /// @param {any} $value - The value of the css rule to output
-/// @param {bool} $important - Whether to append the '!important' flag
+/// @param {bool} $important - Whether to append the `!important` flag
 /// @param {string} $func - The name of a function to run $value through
 /// @param {arglist} $args... - Additional arguments for $func
+///
+/// @see {function} css-value
 ///
 /// @example scss - SCSS stylesheet
 ///   .foo {
@@ -29,24 +69,15 @@
 ///
 /// @access public
 /// @since 0.1.0
-///
-/// @todo Description
 
 @mixin css-rule( $property, $value, $important: false, $func: null, $args... )
 {
-  // optionally apply a given funtion to modify the value
-  $value: if($func, call($func, $value, $args...), $value);
-
-  // don't output `null` because appending !important will make SASS
-  // output it in the final CSS, when null alone will be left out.
-  @if $value != null {
-    #{$property}: if($important, $value !important, $value);
-  }
+  #{$property}: css-value( $value, $important, $func, $args... );
 }
 
 // =css( $property, $value[, $important, $func, $args... ])
 // -----------------------------------------------------------------------------
-/// @alias {mixin} css-rule
+/// @alias css-rule
 ///
 /// @access public
 /// @since 0.1.0
