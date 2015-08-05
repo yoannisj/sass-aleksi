@@ -2,9 +2,10 @@
 // =ALEKSI - SIDES
 // =============================================================================
 
+@import "sides/sides-shorthand";
 @import "sides/side-name";
-@import "sides/side-value";
 @import "sides/to-sides-map";
 @import "sides/to-sides-list";
 @import "sides/reduce-sides";
 @import "sides/output-sides";
+@import "sides/side-value";

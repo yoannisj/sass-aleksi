@@ -1,0 +1,64 @@
+// =============================================================================
+// =ALEKSI - SIDES-FOR-KEYWORD
+// =============================================================================
+
+// =sides-shorthand( $side, $value )
+// -----------------------------------------------------------------------------
+/// Converts a value into a shorthan sides-list based on a given keyword.
+/// Recognized keywords are 'all', 'ends', 'sides', 'top', 'right', 'bottom' and
+/// 'left'.
+///
+/// @param {string} $side - Keyword to use to create the shorthand sides-list
+/// @param {any} $value - The value to set in the resulting shortand sides-list
+///
+/// @return {list} - Shorthand sides-list containing $value.
+/// @throw Warning if $side is not a recognized sides-list keyword.
+///
+/// @example scss
+///   $foo: sides-for-keyword('left', 10px);
+///     // => null null null 10px
+///   $bar: sides-for-keyword('all', 10px);
+///     // => 10px
+///   $baz: sides-for-keyword('ends', 10px);
+///     // => 10px null
+///   $wiz: sides-for-keyword('sides', 10px);
+///     // => null 10px
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'sides-shorthand' function
+
+@function sides-shorthand( $side, $value )
+{
+  @if $side == 'all' {
+    @return $value;
+  }
+
+  @else if $side == 'ends' {
+    @return $value null;
+  }
+
+  @else if $side == 'sides' {
+    @return null $value;
+  }
+
+  @else if $side == 'top' {
+    @return $value null null;
+  }
+
+  @else if $side == 'right' {
+    @return null $value null null;
+  }
+
+  @else if $side == 'bottom' {
+    @return null null $value;
+  }
+
+  @else if $side == 'left' {
+    @return null null null $value;
+  }
+
+  @return throw-error("sides-for-keyword():: keyword #{inspect($side)} is"
+    + " not a recognized keyword for sides-lists. Returning `null`.");
+}

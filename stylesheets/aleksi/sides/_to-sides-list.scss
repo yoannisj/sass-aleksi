@@ -38,8 +38,8 @@
     @return throw-error('sides-map-to-sides-list():: $map must be a map. Was #{inspect($map)}.');
   }
 
-  @if not sl-every(map-keys($map), 'contained-in', const('CSS_SIDES')) {
-    @return throw-warnig('sides-map-to-sides-list():: $map does not define a value for each CSS side.');
+  @if not sl-some(map-keys($map), 'contained-in', const('CSS_SIDES')) {
+    @return throw-warnig('sides-map-to-sides-list():: $map does not contain any CSS side, value pair.');
   }
 
   @each $side in const('CSS_SIDES') {
@@ -51,7 +51,7 @@
 
 // =to-sides-list( $map )
 // -----------------------------------------------------------------------------
-/// @alias {function} sides-map-to-list
+/// @alias sides-map-to-list
 ///
 /// @access public
 /// @since 0.1.0
