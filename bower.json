@@ -20,5 +20,12 @@
     "tests",
     "tmp",
     "sassdoc"
-  ]
+  ],
+  "dependencies": {
+    "sassy-cast": "~1.1.1",
+    "sassy-math": "~1.5.1",
+    "sassy-strings": "~1.1.4",
+    "SassyLists": "~2.2.4",
+    "sassy-maps": "~0.4.0"
+  }
 }

@@ -16,9 +16,10 @@ tmp
 # ---------
 *.gem
 
-# NODE MODULES
+# DEPENDENCIES
 # ------------
 node_modules
+bower_components
 
 # SASSDOC
 # -------
