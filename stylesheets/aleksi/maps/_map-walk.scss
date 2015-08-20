@@ -37,7 +37,8 @@
   $res: ();
 
   @each $key, $val in $map {
-    $res: map-set($res, $key, call($func, $val, $args...));
+    $new: if( length($args) == 0, call($func, $val), call($func, $val, $args...) );
+    $res: map-set($res, $key, $new);
   }
 
   @return $res;

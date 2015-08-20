@@ -8,6 +8,7 @@
 @import "SassyLists";
 @import "aleksi/general/throw";
 @import "aleksi/maps/map-walk";
+@import "aleksi/lists/set-list-separator";
 
 // =walk( $list, $func[, $args... ])
 // -----------------------------------------------------------------------------
@@ -18,7 +19,7 @@
 /// **Note**: When passed a simple value (not a list, arglist or map), it will
 /// apply the function to it and return the result inside a single item list.
 ///
-/// @param {list|map} $list [default] - The value to walk over
+/// @param {list|map} $list [default] - The values to walk over.
 /// @param {string} $func - The name of the function to apply to each value.
 /// @param {arglist} $args... - Additional arguments passed to '$func`.
 ///
@@ -43,9 +44,53 @@
   }
 
   @else if is-list($list) {
-    @return sl-walk($list, $func, $args...);
+    @return list-walk($list, $func, $args...);
   }
 
   $e: throw-warning('Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.');
-  @return sl-walk($list, $func, $args...);
+  @return list-walk($list, $func, $args...);
+}
+
+// =list-walk( $list, $func[, $args... ])
+// -----------------------------------------------------------------------------
+/// Applies the given function to each value inside a list or arglist or a map.
+/// **Note**: SassyLists offers the similar `sl-walk()` function but it throws
+/// an wrong-type error in Libsass when passing a function that only accepts one
+/// argument and an empty arglist as third parameter.
+///
+/// @param {list} $list [default] - The list of values to walk over.
+/// @param {string} $func - The name of the function to apply to each value.
+/// @param {arglist} $args... - Additional arguments passed to '$func`.
+///
+/// @return {list|map} - The list, arglist or map with modified values.
+/// @throw Error if `$value` is not a list.
+/// @throw Warning when walking over a simple value.
+///
+/// @example scss
+///   $foo: map-walk(('foo': 'bar', 'bar': 'baz'), 'to-upper-case');
+///     // => ('foo': 'BAR', 'bar': 'BAZ')
+///   $bar: list-walk('foo' 'bar' 'baz', 'to-upper-case');
+///     // => 'FOO' 'BAR' 'BAZ'
+///   $baz: list-walk('foo', 'to-upper-case');
+///     // => 'FOO'
+///
+/// @access public
+/// @since 0.1.0
+
+@function list-walk( $list, $func, $args... )
+{
+  @if not is-list($list) {
+    $e: throw-error('map-walk():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $sep: list-separator($list);
+  $res: ();
+
+  @each $item in $list {
+    $new: if( length($args) == 0, call($func, $item), call($func, $item, $args...) );
+    $res: append($res, $new);
+  }
+
+  // keep original list separator
+  @return set-list-separator($res, $sep);
 }
