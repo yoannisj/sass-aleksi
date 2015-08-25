@@ -47,8 +47,8 @@
     @return list-walk($list, $func, $args...);
   }
 
-  $e: throw-warning('Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.');
-  @return list-walk($list, $func, $args...);
+  $w: throw-warning("Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.");
+  @return call($func, $list, $args...);
 }
 
 // =list-walk( $list, $func[, $args... ])
@@ -80,7 +80,7 @@
 @function list-walk( $list, $func, $args... )
 {
   @if not is-list($list) {
-    $e: throw-error('map-walk():: $map must be a map, was #{inspect($map)}.');
+    $e: throw-error("list-walk():: $list must be a list, was #{inspect($list)}.");
   }
 
   $sep: list-separator($list);
