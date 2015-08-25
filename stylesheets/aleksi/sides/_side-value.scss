@@ -3,10 +3,10 @@
 // =============================================================================
 
 @import "SassyLists";
+@import "aleksi/config";
 @import "aleksi/config/constants";
 @import "aleksi/general/throw";
 @import "aleksi/maps/is-map";
-@import "aleksi/sides/constants";
 
 // =get-side-value( $list, $side )
 // -----------------------------------------------------------------------------

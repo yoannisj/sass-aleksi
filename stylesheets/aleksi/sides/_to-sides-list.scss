@@ -3,11 +3,11 @@
 // =============================================================================
 
 @import "SassyLists";
+@import "aleksi/config";
 @import "aleksi/config/constants";
 @import "aleksi/general/is-of-type";
 @import "aleksi/general/throw";
 @import "aleksi/lists/contained-in";
-@import "aleksi/sides/constants";
 @import "aleksi/sides/reduce-sides";
 
 // =sides-map-to-list( $map[, $reduce ])

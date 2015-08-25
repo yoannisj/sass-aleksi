@@ -3,4 +3,9 @@
 // =============================================================================
 
 @import "aleksi/config/constants";
-@import "aleksi/config/settings";
+
+// =sass constants
+// =============================================================================
+
+@include const('CSS_SIDES', 'top' 'right' 'bottom' 'left');
+@include const('CSS_POSITIONS', 'top' 'right' 'bottom' 'left' 'center');

@@ -2,6 +2,8 @@
 // =ALEKSI - CONSTANTS
 // =============================================================================
 
+@import "sassy-maps";
+
 $CONSTANTS: () !default;
 
 // =const( $name )
@@ -56,15 +58,15 @@ $CONSTANTS: () !default;
 @mixin const( $name, $value )
 {
   @if type-of($name) != string {
-    @include throw-error('const():: $name must be string. Was #{$name}.');
+    @include throw-error('const():: $name must be string. Was #{inspect($name)}.');
   }
 
   @else if to-upper-case($name) != $name or str-index($name, '-') {
-    @include throw-error('const():: Constant name #{$name} is not valid. Must be upper-case and without hyphens.');
+    @include throw-error('const():: Constant name #{inspect($name)} is not valid. Must be upper-case and without hyphens.');
   }
 
-  @else if map-has-key($CONSTANT, $name) {
-    @include throw-error('Constant #{$name} already defined.');
+  @else if map-has-key($CONSTANTS, $name) {
+    @include throw-error('Constant #{inspect($name)} already defined.');
   }
 
   $CONSTANTS: map-set($CONSTANTS, $name, $value) !global;
