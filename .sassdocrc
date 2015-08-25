@@ -5,5 +5,6 @@ groups:
   aleksi-settings: Settings
   aleksi-general: General
   aleksi-math: Math
+  aleksi-lengths: Lengths
   aleksi-lists: Lists
   aleksi-maps: Maps

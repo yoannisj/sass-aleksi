@@ -1,10 +1,10 @@
 {
   "name": "sass-aleksi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Yoannis Jamar <yoannis.j@gmail.com>"
   ],
-  "description": "A collection of useful Sass functions and mixins.",
+  "description": "A collection of Sass helper functions and mixins.",
   "main": "stylesheets/_aleksi.scss",
   "keywords": [
     "sass",
@@ -12,6 +12,10 @@
     "utils"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoannisj/sass-aleksi.git"
+  },
   "ignore": [
     "**/.*",
     "node_modules",

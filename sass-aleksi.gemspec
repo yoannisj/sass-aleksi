@@ -1,21 +1,20 @@
 # Replace extension with the name of your extension's .rb file
-require './lib/aleksi.rb'
+require './lib/sass-aleksi.rb'
 
 Gem::Specification.new do |s|
   # Release Specific Information
   #  Replace Extension with the name you used in your extension.rb
   #   in the module with version and date.
-  s.version = Aleksi::VERSION
-  s.date = Aleksi::DATE
+  s.version = SassAleksi::VERSION
+  s.date = SassAleksi::DATE
 
   # Gem Details
   # Replace "extension" with the name of your extension
-  s.name = "aleksi"
-  s.rubyforge_project = "aleksi"
+  s.name = "sass-aleksi"
   # Description of your extension
-  s.description = %q{A collection of useful Sass functions and mixins.}
+  s.description = %q{A collection of Sass helper functions and mixins.}
   # A summary of your Compass extension. Should be different than Description
-  s.summary = %q{A collection of useful Sass functions and mixins. Bundles other libraries and provides its own functions and mixins on top.}
+  s.summary = %q{A collection of Sass helper functions and mixins. Bundles other libraries and provides its own functions and mixins on top.}
   # The names of the author(s) of the extension.
   # If more than one author, comma separate inside of the brackets
   s.authors = ["Yoannis Jamar"]
@@ -23,7 +22,7 @@ Gem::Specification.new do |s|
   # If more than one author, comma separate inside of the brackets
   s.email = ["yoannis.j@gmail.com"]
   # URL of the extension
-  s.homepage = "https://github.com/yoannisj/aleksi"
+  s.homepage = "https://github.com/yoannisj/sass-aleksi"
   # License Name
   s.licenses = ['MIT']
 
