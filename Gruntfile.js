@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             './stylesheets'
           ],
           require: [
+            'compass/import-once/activate',
             'SassyCast',
             'SassyStrings',
             'sassy-math',

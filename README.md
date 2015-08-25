@@ -1,8 +1,34 @@
 # Aleksi
 
-Aleksi is a collection of useful Sass functions and mixins. It bundles other libraries and provides its own functions and mixins on top.
+Aleksi is a collection of Sass helper functions and mixins. It bundles other libraries and provides its own functions and mixins on top.
 
-The russian firstname *Aleksi* means *'helper of man'*.
+The russian firstname *Aleksi* means *helper of man*.
+
+## Installation
+
+### RubyGem & Compass
+
+Open the Terminal and install the ruby gem:
+
+    gem install sass-aleksi
+
+Require gem in your compass project configuration file
+
+    require sass-aleksi;
+
+Import files in your project's stylesheets
+
+    @import "aleksi";
+
+### Bower
+
+Open the Terminal, `cd` to your project folder and enter the following command:
+
+    bower install sass-aleksi --save
+
+Import files in your project's stylesheets
+
+    @import "path/to/bower_components/sass-aleksi/aleksi";
 
 ## Dependencies and Bundling
 
