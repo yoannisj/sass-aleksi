@@ -2,10 +2,7 @@
 // =ALEKSI - CONSTANTS
 // =============================================================================
 
-$CONSTANTS: (
-  'CSS_SIDES': 'top' 'right' 'bottom' 'left',
-  'CSS_POSITIONS': 'top' 'right' 'bottom' 'left' 'center',
-);
+$CONSTANTS: () !default;
 
 // =const( $name )
 // -----------------------------------------------------------------------------
