@@ -61,7 +61,7 @@ $CONSTANTS: () !default;
     @include throw-error('const():: $name must be string. Was #{inspect($name)}.');
   }
 
-  @else if (unquote($name) != unquote(to-upper-case($name)) or str-index($name, '-') {
+  @else if (unquote($name) != unquote(to-upper-case($name))) or str-index($name, '-') {
     @include throw-error('const():: Constant name #{inspect($name)} is not valid. Must be upper-case and without hyphens.');
   }
 
