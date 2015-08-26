@@ -7,7 +7,7 @@
   @include it('should remove all falsy values from a map')
   {
     @include should(expect( map-clean($mix-map) ), to(be( ('int': $int, 'word': $word, 'percentage': $percentage, 'unquoted': $unquoted, 'em': $em) )));
-    @include should(expect(  map-clean(('a': false, 'b': null)) ), to(equal( () )));
-    @include should(expect(  map-clean(('a': false, 'b': 'foo', 'c': null, 'd': '')) ), to(be( ('b': 'foo', 'd': '') )));
+    @include should(expect( map-clean(('a': false, 'b': null)) ), to(equal( () )));
+    @include should(expect( map-clean(('a': false, 'b': 'foo', 'c': null, 'd': '')) ), to(be( ('b': 'foo', 'd': '') )));
   }
 }
