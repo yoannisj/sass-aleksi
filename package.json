@@ -1,7 +1,7 @@
 {
   "name": "sass-aleksi",
   "title": "Aleksi Sass",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A collection of Sass helper functions and mixins.",
   "homepage": "https://github.com/yoannisj/aleksi",
   "license": "MIT",
