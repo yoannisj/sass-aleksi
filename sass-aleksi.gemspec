@@ -62,7 +62,6 @@ Gem::Specification.new do |s|
   s.add_dependency("compass",   ["~> 1.0"])
   s.add_dependency("SassyCast",   ["~> 1.1"])
   s.add_dependency("sassy-math",   ["~> 1.5"])
-  s.add_dependency("SassyStrings",   ["~> 1.1"])
   s.add_dependency("SassyLists",   ["~> 2.2"])
   s.add_dependency("sassy-maps",   ["~> 0.4"])
 end
