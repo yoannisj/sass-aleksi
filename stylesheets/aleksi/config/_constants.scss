@@ -69,7 +69,7 @@ $CONSTANTS: () !default;
     @include throw-error('const():: Constant name #{inspect($name)} is not valid. Must be upper-case and without hyphens.');
   }
 
-  @else if map-has-key($CONSTANTS, $name) and map-get($CONSANTS, $name) != $value {
+  @else if map-has-key($CONSTANTS, $name) and map-get($CONSTANTS, $name) != $value {
     @include throw-error('Constant #{inspect($name)} can not be redefined.');
   }
 
