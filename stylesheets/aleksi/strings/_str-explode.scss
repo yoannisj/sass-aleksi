@@ -1,0 +1,58 @@
+// =============================================================================
+// =ALEKSI - STR-EXPLODE
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+// =str-explode( $str[, $delimiter ])
+// -----------------------------------------------------------------------------
+/// Splits a given string into several parts using `$delimiter`.
+///
+/// @param {string} $str - The string to split
+/// @param {string} $delimiter [''] - The string to use to as a delimiter to split `$str`
+///
+/// @return {list} - A list containing the separated parts of `$str`.
+///
+/// @access public
+/// @since 0.2.0
+
+@function str-explode($str, $delimiter: '') {
+  @if type-of($str) != "string" {
+    @return throw-error('str-explode():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($delimiter) != "string" {
+    @return throw-error('str-explode():: $delimiter must be a string, was #{inspect($delimiter)}.');
+  }
+
+  $result: ();
+  $length: str-length($str);
+
+  @if str-length($delimiter) == 0 {
+    @for $i from 1 through $length {
+      $result: append($result, str-slice($str, $i, $i));
+    }
+
+    @return $result;
+  }
+
+  $running: true;
+  $remaining: $str;
+
+  @while $running {
+    $index: str-index($remaining, $delimiter);
+
+    @if $index {
+      $slice: str-slice($remaining, 1, $index - 1);
+      $result: append($result, $slice);
+      $remaining: str-slice($remaining, $index + str-length($delimiter));
+    } @else {
+      $running: false;
+    }
+  }
+
+  @return append($result, $remaining);
+}

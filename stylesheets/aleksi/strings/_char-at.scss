@@ -1,0 +1,37 @@
+// =============================================================================
+// =ALEKSI - CHAR-AT
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+// =char-at( $str, $index )
+// -----------------------------------------------------------------------------
+/// Returns the character at a given index inside a string.
+///
+/// @param {string} $str - The string to search in
+/// @param {number} $index - The index of the character to return
+///
+/// @return {string} - The character at `$index` in `$str`
+/// @throw - Error if `$index` is out smaller then 0 or greater then`$str`'s length
+///
+/// @access public
+/// @since 0.2.0
+
+@function char-at($str, $index) {
+  @if type-of($str) != "string" {
+    @return throw-error('char-at():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($index) != "number" {
+    @return throw-error('char-at():: $index must be a number, was #{inspect($index)}.');
+  }
+
+  @if $index < 1 or $index > str-length($str) {
+    @return throw-error('char-at():: $index #{inspect($index)} is out of bounds for \'#{$str}\'');
+  }
+
+  @return str-slice($str, $index, $index);
+}

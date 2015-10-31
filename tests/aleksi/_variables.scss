@@ -227,3 +227,13 @@ $args-list: null;
   $args-list: $args !global;
   @content;
 }
+
+// LAZY => too obvious!
+// TODO: Write more tests for string functions
+$char-at-res: 'u'; //  char-at('fuz', 2)
+$str-replace-res: 'wuz'; // str-replace('wiz', 'i', 'u');
+$str-replace-res-mult: 'faa'; // str-replace('foo', 'o', 'a');
+$str-replace-none: 'foo'; // str-replace('foo', 'x', 'y');
+$str-remove-res: 'wz'; // str-remove('wiz', 'i');
+$str-remove-res-mult: 'f'; // str-remove('foo', 'o');
+$str-remove-none:  'foo'; // str-remove('foo', 'x');

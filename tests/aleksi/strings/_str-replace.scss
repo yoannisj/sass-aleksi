@@ -1,0 +1,21 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-REPLACE
+// =============================================================================
+
+@include describe('The str-replace function')
+{
+  @include it('should replace found occurences of search with replace')
+  {
+    @include should(expect( str-replace('wiz', 'i', 'u') ), to(equal( 'wuz' )));
+  }
+
+  @include it('should replace ALL occurences of search with replace')
+  {
+    @include should(expect( str-replace('foo', 'o', 'a') ), to(equal( 'faa' )));
+  }
+
+  @include xit('should leave str unchanged if search was not found')
+  {
+    @include should(expect( str-replace('foo', 'x', 'y') ), to(equal( 'foo' )));
+  }
+}
