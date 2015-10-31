@@ -49,6 +49,10 @@ $CONSTANTS: () !default;
 /// @throw Error if $name is not a full-caps name or contains hyphens.
 /// @throw Error if $name is already a defined constant.
 ///
+/// @note When redefining a constant with the same value, no error will be
+/// thrown. This is to deal with cases where the file defining the constant
+/// is imported multiple times by sass.
+///
 /// @example scss
 ///   @include const('HOURS_IN_DAY', 24);
 ///
@@ -65,8 +69,8 @@ $CONSTANTS: () !default;
     @include throw-error('const():: Constant name #{inspect($name)} is not valid. Must be upper-case and without hyphens.');
   }
 
-  @else if map-has-key($CONSTANTS, $name) {
-    @include throw-error('Constant #{inspect($name)} already defined.');
+  @else if map-has-key($CONSTANTS, $name) and map-get($CONSANTS, $name) != $value {
+    @include throw-error('Constant #{inspect($name)} can not be redefined.');
   }
 
   $CONSTANTS: map-set($CONSTANTS, $name, $value) !global;
