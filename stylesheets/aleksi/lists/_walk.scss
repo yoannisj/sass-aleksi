@@ -6,6 +6,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "SassyLists";
+@import "SassyCast";
 @import "aleksi/general/throw";
 @import "aleksi/maps/map-walk";
 @import "aleksi/lists/set-list-separator";
@@ -48,7 +49,8 @@
   }
 
   $w: throw-warning("Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.");
-  @return call($func, $list, $args...);
+  // @return call($func, $list, $args...);
+  @return list-walk(to-list($list), $func, $args...);
 }
 
 // =list-walk( $list, $func[, $args... ])
