@@ -2,7 +2,6 @@ require 'compass/import-once/activate'
 # Require additional compass plugins here
 require 'SassyCast'
 require 'sassy-math'
-require 'SassyStrings'
 require 'SassyLists'
 require 'sassy-maps'
 
