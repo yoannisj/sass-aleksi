@@ -1,0 +1,18 @@
+// =============================================================================
+// =ALEKSI TESTS - CHAR-AT
+// =============================================================================
+
+@import "aleksi/strings/char-at";
+
+@include test-module('The char-at function')
+{
+  @include test('should return the character at index inside str')
+  {
+    @include assert-equal( char-at('fuz', 2), 'u' );
+  }
+
+  // @include xtest'should throw an error if index is out of bounds')
+  // {
+  //   @include assert-equal( char-at('foo', 4), null );
+  // }
+}

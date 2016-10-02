@@ -1,0 +1,47 @@
+// =============================================================================
+// =ALEKSI TESTS - WRAP-IN-LIST
+// =============================================================================
+
+@import "aleksi/lists/wrap-in-list";
+
+@include test-module('The wrap-in-list function')
+{
+  @include test('should wrap any value into a single item list')
+  {
+    @include assert-equal( type-of(wrap-in-list($int)), 'list' );
+    @include assert-equal( length(wrap-in-list($int)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($null)), 'list' );
+    @include assert-equal( length(wrap-in-list($null)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($false)), 'list' );
+    @include assert-equal( length(wrap-in-list($false)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($word)), 'list' );
+    @include assert-equal( length(wrap-in-list($word)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($str-list)), 'list' );
+    @include assert-equal( length(wrap-in-list($str-list)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($mix-list)), 'list' );
+    @include assert-equal( length(wrap-in-list($mix-list)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($str-map)), 'list' );
+    @include assert-equal( length(wrap-in-list($str-map)), 1 );
+
+    @include assert-equal( type-of(wrap-in-list($mix-map)), 'list' );
+    @include assert-equal( length(wrap-in-list($mix-map)), 1 );
+  }
+
+  @include test('should use the given separator, no matter what separator was used in the original value')
+  {
+    @include assert-equal( list-separator(wrap-in-list($word)), 'space' );
+    @include assert-equal( list-separator(wrap-in-list($word, 'comma')), 'comma' );
+
+    @include assert-equal( list-separator(wrap-in-list($str-list)), 'space' );
+    @include assert-equal( list-separator(wrap-in-list($str-list, 'comma')), 'comma' );
+
+    @include assert-equal( list-separator(wrap-in-list($mix-map)), 'space' );
+    @include assert-equal( list-separator(wrap-in-list($mix-map, 'comma')), 'comma' );
+  }
+}

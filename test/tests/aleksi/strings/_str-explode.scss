@@ -1,0 +1,26 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-EXPLODE
+// =============================================================================
+
+@import "aleksi/strings/str-explode";
+
+@include test-module('The str-explode function')
+{
+  @include test('should split every character of str if no delimiter is provided')
+  {
+    @include assert-equal( str-explode('fuz'), 'f' 'u' 'z' );
+  }
+
+  @include test('should return a list of substrings if no delimiter or delimiter is found')
+  {
+    @include assert-equal( type-of(str-explode('ehauiiuzhbe')), 'list' );
+    @include assert-equal( type-of(str-explode('foobarbaz', 'b')), 'list' );
+  }
+
+  @include test('should separate parts based on delimiter')
+  {
+    @include assert-equal( type-of(str-explode('ehauiiuzhbe')), 'list' );
+    @include assert-equal( str-explode('a sentence with words', ' '), 'a' 'sentence' 'with' 'words' );
+    @include assert-equal( str-explode('slug-of-the-year', '-'), 'slug' 'of' 'the' 'year' );
+  }
+}

@@ -1,0 +1,29 @@
+// =============================================================================
+// =ALEKSI TESTS - DEPTH
+// =============================================================================
+
+@import "aleksi/lists/depth";
+
+@include test-module('The depth function')
+{
+  @include test('should return the depth level of a given map')
+  {
+    @include assert-equal( depth($str-list), 1 );
+    @include assert-equal( depth($mix-list), 1 );
+    @include assert-equal( depth($nested-list), 2 );
+    @include assert-equal( depth($double-nested-list), 3 );
+  }
+
+  // @include xtest('should also work with single values')
+  // {
+  //   @include assert-equal( depth($int), 1 );
+  //   @include assert-equal( depth($true), 1 );
+  //   @include assert-equal( depth($word), 1 );
+  // }
+
+  @include test('should delegate maps to map-depth')
+  {
+    @include assert-equal( depth($str-map), map-depth($str-map) );
+    @include assert-equal( depth($mix-map), map-depth($mix-map) );
+  }
+}

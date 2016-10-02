@@ -1,0 +1,24 @@
+// =============================================================================
+// =ALEKSI TESTS - IS-MAP
+// =============================================================================
+
+@import "aleksi/maps/is-map";
+
+@include test-module('The is-map function')
+{
+  @include test('should test whether a given value is a list')
+  {
+    @include assert-equal( is-map($str-map), true );
+    @include assert-equal( is-map($num-map), true );
+    @include assert-equal( is-map($mix-map), true );
+    @include assert-equal( is-map($int), false );
+    @include assert-equal( is-map($null), false );
+    @include assert-equal( is-map($false), false );
+    @include assert-equal( is-map($mix-list), false );
+  }
+
+  @include test('should consider the empty map, or empty list, to be a map')
+  {
+    @include assert-equal( is-map(()), true );
+  }
+}

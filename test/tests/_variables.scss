@@ -1,0 +1,241 @@
+// =============================================================================
+// =ALEKSI - TEST VARIABLES
+// =============================================================================
+// Global variables intended to be used accross unit tests.
+
+@import "sassy-maps";
+
+// NULL
+$null: null;
+
+// BOOLEAN
+$true: true;
+$false: false;
+
+// NUMBERS
+$int: 10;
+$float: 1.37;
+$px: 30px;
+$em: 1.5em;
+$rem: 2rem;
+$percentage: 50%;
+
+// COLORS
+$rgb: rgb(125, 125, 125);
+$rgba: rgba(125, 125, 125, 0.5);
+$rgba-darkened: rgba(100, 100, 100, 0.5);
+$hex: #ff7755;
+$short-hex: #c3d;
+$hsl: hsl(185deg, 20%, 60%);
+$hsla: hsla(185deg, 20%, 60%, 0.5);
+
+// STRINGS
+$unquoted: sans-serif;
+$word: 'foo';
+$word-upper-case: 'FOO';
+$word-sliced: 'fo';
+$sentence: 'look, the quick brown fox!';
+
+// LISTS    
+$num-list: 10 30px 1.5em 2rem 50%;
+$num-list-names: 'int' 'px' 'em' 'rem' 'percentage';
+$num-list-units: '' 'px' 'em' 'rem' '%';
+$str-list: 'foo' 'bar' 'baz';
+$str-list-upper-case: 'FOO' 'BAR' 'BAZ';
+$str-list-sliced: 'fo' 'ba' 'ba';
+$mix-list: 10 false 'foo' null 30% sans-serif 4em;
+$mix-list-types: 'number' 'bool' 'string' 'null' 'number' 'string' 'number';
+
+$nested-list: append($num-list, $str-list);
+$double-nested-list: append( $num-list, $nested-list );
+
+// MAPS
+$str-map: (
+  'en': 'hello',
+  'fr': 'salut',
+  'es': 'ola',
+);
+
+$str-map-upper-case: (
+  'en': 'HELLO',
+  'fr': 'SALUT',
+  'es': 'OLA'
+);
+
+$str-map-sliced: (
+  'en': 'he',
+  'fr': 'sa',
+  'es': 'ol'
+);
+
+$str-map-keys-upper-case: (
+  'EN': 'hello',
+  'FR': 'salut',
+  'ES': 'ola'
+);
+
+$str-map-keys-inserted: (
+  'lang-en': 'hello',
+  'lang-fr': 'salut',
+  'lang-es': 'ola'
+);
+
+$num-map: (
+  'int': $int,
+  'px': $px,
+  'em': $em,
+  'rem': $rem,
+  'percentage': $percentage
+);
+
+$num-map-units: (
+  'int': '',
+  'px': 'px',
+  'em': 'em',
+  'rem': 'rem',
+  'percentage': '%'
+);
+
+$mix-map: (
+  'int'        : $int,
+  'false'      : $false,
+  'word'       : $word,
+  'null'       : $null,
+  'percentage' : $percentage,
+  'unquoted'   : $unquoted,
+  'em'         : $em
+);
+
+$mix-map-types: (
+  'int'        : 'number',
+  'false'      : 'bool',
+  'word'       : 'string',
+  'null'       : 'null',
+  'percentage' : 'number',
+  'unquoted'   : 'string',
+  'em'         : 'number'
+);
+
+$nested-map: map-set($str-map, 'nest', $str-map);
+$double-nested-map: map-set($str-map, 'nest', map-set($str-map, 'sub-nest', $str-map));
+
+$map-a: (
+  'a': (
+    'aa':10,
+    'ab': true,
+  ),
+  'b': true,
+  'c': 'foo',
+);
+
+$map-b: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  )
+);
+
+$map-c: (
+  'a': (
+    'aa': 30,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-ab: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'foo',
+);
+
+$map-abc: (
+  'a': (
+    'aa': 30,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-ab-deep: (
+  'a': (
+    'aa': 20,
+    'ab': false,
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'foo',
+);
+
+$map-ac-deep: (
+  'a': (
+    'aa': 30,
+    'ab': true,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': true,
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$map-abc-deep: (
+  'a': (
+    'aa': 30,
+    'ab': false,
+    'ac': (
+      'aca': 'baz',
+      'acb': 'wiz',
+    ),
+  ),
+  'b': (
+    'ba': 'foo',
+    'bb': 2em,
+  ),
+  'c': 'bar',
+  'd': 'baz',
+);
+
+$args-list: null;
+
+@mixin args-mixin($args...)
+{
+  $args-list: $args !global;
+  @content;
+}
+
+// LAZY => too obvious!
+// TODO: Write more tests for string functions
+$char-at-res: 'u'; //  char-at('fuz', 2)
+$str-replace-res: 'wuz'; // str-replace('wiz', 'i', 'u');
+$str-replace-res-mult: 'faa'; // str-replace('foo', 'o', 'a');
+$str-replace-none: 'foo'; // str-replace('foo', 'x', 'y');
+$str-remove-res: 'wz'; // str-remove('wiz', 'i');
+$str-remove-res-mult: 'f'; // str-remove('foo', 'o');
+$str-remove-none:  'foo'; // str-remove('foo', 'x');

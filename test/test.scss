@@ -1,0 +1,31 @@
+// =============================================================================
+// =TEST SASS
+// =============================================================================
+
+// import true's testing utilities
+@import "true";
+
+// WRITING TESTS
+// -------------
+// @include test-module($module-desc) { /* assertion tests */ }
+// @include test($component-desc) { /* assertion tests */ }
+// ---
+// @include assert-true($assert, $behaviour-desc);
+// @include assert-false($assert, $behaviour-desc);
+// @include assert-equal($assert, $expected, $behaviour-desc);
+// @include assert-unequal($assert, $expected, $behaviour-desc);
+// ---
+// @include assert($behaviour-desc) {
+//    @include input { /* tested sass */ }
+//    @inlcude expect { /* expected output */ }
+// }
+
+// Import variables to use during tests
+@import "tests/variables";
+
+// Import Aleksi tests
+@import "tests/aleksi";
+
+// optionally report test's results in css and terminal
+// (not needed when using Mocha)
+// @include report;

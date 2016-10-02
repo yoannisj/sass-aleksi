@@ -1,0 +1,15 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-CLEAN
+// =============================================================================
+
+@import "aleksi/maps/map-clean";
+
+@include test-module('The map-clean function')
+{
+  @include test('should remove all falsy values from a map')
+  {
+    @include assert-equal( map-clean($mix-map), ('int': $int, 'word': $word, 'percentage': $percentage, 'unquoted': $unquoted, 'em': $em) );
+    @include assert-equal( map-clean(('a': false, 'b': null)), () );
+    @include assert-equal( map-clean(('a': false, 'b': 'foo', 'c': null, 'd': '')), ('b': 'foo', 'd': '') );
+  }
+}

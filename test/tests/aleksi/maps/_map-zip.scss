@@ -1,0 +1,26 @@
+// =============================================================================
+// =ALESKI TESTS - MAP-ZIP
+// =============================================================================
+
+@import "aleksi/maps/map-zip";
+
+@include test-module('The map-zip function')
+{
+  @include test('should build a map based on a list of keys and a list of values')
+  {
+    @include assert-equal( map-zip($num-list-names, $num-list), $num-map );
+    @include assert-equal( map-zip('a' 'b' 'c', 'foo' 'bar' 'baz'), ('a': 'foo', 'b': 'bar', 'c': 'baz') );
+  }
+
+  @include test('when passed a different number of keys and values, the rest should be discarded')
+  {
+    @include assert-equal( map-zip($str-list, $num-list), ('foo': 10, 'bar': 30px, 'baz': 1.5em) );
+    @include assert-equal( length(map-zip($str-list, $num-list)), 3 );
+    @include assert-equal( map-zip('a' 'b', 'foo' 'bar' 'baz'), ('a': 'foo', 'b': 'bar') );
+  }
+
+  @include test('when passed a single key and a single map value, it should build a single-item nested map')
+  {
+    @include assert-equal( map-zip('foo', $num-map), ('foo': $num-map) );
+  }
+}

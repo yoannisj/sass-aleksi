@@ -1,0 +1,27 @@
+// =============================================================================
+// =ALEKSI TESTS - DEFAULT-TO
+// =============================================================================
+
+@import "aleksi/general/default-to";
+
+@include test-module('The default-to function')
+{
+  @include test('should return the first truethy value from the passed arguments')
+  {
+    @include assert-equal( default-to($null, $false, $int, $word, $false, $rem), $int );
+    @include assert-equal( default-to($null, $false, $rem), $rem );
+    @include assert-unequal( default-to($null, $false, $int, $word, $false, $rem), $word );
+  }
+
+  @include test('should accept an empty string as a truethy value')
+  {
+    @include assert-equal( default-to($null, '', $int), '' );
+    @include assert-unequal( default-to($null, '', $int), $int );
+  }
+
+  @include test('should return null if no truethy value was passed')
+  {
+    @include assert-equal( default-to($null, $false), null );
+    @include assert-unequal( default-to($null, $false), $false );
+  }
+}

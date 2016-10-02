@@ -1,0 +1,45 @@
+// =============================================================================
+// =ALEKSI - MAP-WALK
+// =============================================================================
+
+@import "aleksi/maps/map-walk";
+
+@include test-module('The map-walk function')
+{
+  @include test('should call the given function on all values in a map')
+  {
+    @include assert-equal( map-walk($str-map, 'to-upper-case'), $str-map-upper-case );
+    @include assert-equal( map-walk($num-map, 'unit'), $num-map-units );
+    @include assert-equal( map-walk($mix-map, 'type-of'), $mix-map-types );
+  }
+
+  @include test('should accepts additional arguments and pass them over to the function')
+  {
+    @include assert-equal( map-walk($str-map, 'str-slice', 1, 2), $str-map-sliced );
+  }
+
+  // @include xit('should throw an error when passed something else than a map')
+  // {
+  //   @include assert-equal( map-walk($word, 'to-upper-case'), null );
+  //   @include assert-equal( map-walk($str-list, 'to-upper-case'), null );
+  // }
+}
+
+@include test-module('The map-walk-keys function')
+{
+  @include test('should call the given function on all keys in a map')
+  {
+    @include assert-equal( map-walk-keys($str-map, 'to-upper-case'), $str-map-keys-upper-case );
+  }
+
+  @include test('should accepts additional arguments and pass them over to the function')
+  {
+    @include assert-equal( map-walk-keys($str-map, 'str-insert', 'lang-', 1), $str-map-keys-inserted );
+  }
+
+  // @include xit('should throw an error when passed something else than a map')
+  // {
+  //   @include assert-equal( map-walk-keys($word, 'to-upper-case'), null );
+  //   @include assert-equal( map-walk-keys($str-list, 'to-upper-case'), null );
+  // }
+}

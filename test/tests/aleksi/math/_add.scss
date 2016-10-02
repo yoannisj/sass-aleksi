@@ -1,0 +1,36 @@
+// =============================================================================
+// =ALEKSI TESTS - ADD
+// =============================================================================
+
+@import "aleksi/math/add";
+
+@include test-module('The add function')
+{
+  @include test('should calculate the sum of two numbers')
+  {
+    @include assert-equal( add(10, 5), 15 );
+    @include assert-equal( add(10em, 5), 15em );
+  }
+
+  @include test('should calculate the sum of multiple numbers successively')
+  {
+    @include assert-equal( add(10, 5, 3), 18 );
+    @include assert-equal( add(10em, 5, 3em), 18em );
+    @include assert-equal( add(10, 5, 3, 2, 1), 21 );
+  }
+
+  @include test('should warn if one of the arguments is not a number, and return null')
+  {
+    @include assert-equal( add(10, 'hello'), null );
+    @include assert-equal( add(10, null), null );
+    @include assert-equal( add(10, false), null );
+    @include assert-equal( add(10 5, 3), null );
+  }
+
+  @include test('should be aliased as sum')
+  {
+    @include assert-equal( add(10, 5), sum(10, 5) );
+    @include assert-equal( add(10, 5, 3), sum(10, 5, 3) );
+    @include assert-equal( add(10, 'hello'), sum(10, 'hello') );
+  }
+}

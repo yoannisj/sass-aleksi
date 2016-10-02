@@ -1,0 +1,19 @@
+// =============================================================================
+// =ALEKSI TESTS - PREPEND
+// =============================================================================
+
+@import "aleksi/lists/prepend";
+
+@include test-module('The prepend function')
+{
+  @include test('should do the opposite of append')
+  {
+    @include assert-equal( prepend($str-list, 'wiz'), append('wiz', $str-list) );
+    @include assert-equal( prepend('wiz', $num-list), append($num-list, 'wiz') );
+    @include assert-equal( prepend($num-list, $str-list), append($str-list, $num-list) );
+    @include assert-equal( length(prepend($num-list, $str-list)), length(append($str-list, $num-list)) );
+
+    @include assert-equal( prepend($num-list, $str-map), append($str-map, $num-list) );
+    @include assert-equal( length(prepend($num-list, $str-map)), length(append($str-map, $num-list)) );
+  }
+}

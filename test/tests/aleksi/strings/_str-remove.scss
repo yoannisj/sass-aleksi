@@ -1,0 +1,23 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-REMOVE
+// =============================================================================
+
+@import "aleksi/strings/str-remove";
+
+@include test-module('The str-remove function')
+{
+  @include test('should remove found occurences of search')
+  {
+    @include assert-equal( str-remove('wiz', 'i'), 'wz' );
+  }
+
+  @include test('should remove ALL occurences of search')
+  {
+    @include assert-equal( str-remove('foo', 'o'), 'f' );
+  }
+
+  // @include xtest('should leave str unchanged if search was not found')
+  // {
+  //   @include assert-equal( str-remove('foo', 'x'), 'foo' );
+  // }
+}
