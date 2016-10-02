@@ -30,3 +30,11 @@ $constants: () !default;
   $constants: map-merge($constants, ($name: $value)) !global;
   @return $value;
 }
+
+// =define( $name, $value)
+// -----------------------------------------------------------------------------
+/// @alias {function} define
+
+@mixin define($name, $value) {
+  $c: define($name, value);
+}

@@ -2,4 +2,4 @@
 @import "aleksi/general/define";
 
 // list of sides used in CSS position properties
-define('CSS_POSITION_SIDES', ('top' 'right' 'bottom' 'left'));
+@include define('CSS_POSITION_SIDES', ('top' 'right' 'bottom' 'left'));
