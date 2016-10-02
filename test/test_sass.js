@@ -1,5 +1,6 @@
 var path = require('path');
 var sassTrue = require('sass-true');
+var importOnce = require('node-sass-import-once');
 
 // get path to test file
 var sassFile = path.join(__dirname, 'test.scss');
@@ -18,5 +19,6 @@ var sassIncludePaths = [
 // - use mocha's 'describe' and 'it' functions to run sass-true tests
 sassTrue.runSass({
   file: sassFile,
+  importer: importOnce,
   includePaths: sassIncludePaths,
 }, describe, it);
