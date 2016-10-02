@@ -6,6 +6,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "aleksi/maps/map-filter";
+@import "aleksi/lists/set-list-separator";
 
 // =list-filter( $list, $test[, $args... ])
 // -----------------------------------------------------------------------------
@@ -13,6 +14,8 @@
 /// list item will be passed as first argument to the test function.
 /// **Note**: to pass the test, the test function must return a truethy value —
 /// not per se the boolean `true`.
+///**Note**: the original list separator will be conserved. If a single value is
+/// passed, the result will be a comma-separated list.
 ///
 /// @param {list|map} $list - The list of items to test.
 /// @param {string} $test - The name of the test function to run on each item.
@@ -36,11 +39,20 @@
     @return map-filter($list, $test, $args...);
   }
 
+  // initialise empty list
   $res: ();
+  $separator: list-separator($list);
+
+  // default to comma list for single values
+  // - because other list manipulation functions return comma separated list
+  @if type-of($list) != 'list' {
+    $res: set-list-separator($res, 'comma');
+    $separator: 'comma';
+  }
 
   @each $item in $list {
     @if call($test, $item, $args...) {
-      $res: append($res, $item);
+      $res: append($res, $item, $separator);
     }
   }
 
