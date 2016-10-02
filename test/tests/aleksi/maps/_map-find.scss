@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALESKI TEST - MAP-FIND
+// =============================================================================
+
+@import "aleksi/maps/map-find";
+
+@include test-module('The map-find-key function')
+{
+  @include test('should return the key under which the given value is stored in a map')
+  {
+    @include assert-equal( map-find-key($str-map, 'salut'), 'fr' );
+    @include assert-equal( map-find-key($str-map, 'hello'), 'en' );
+  }
+
+  @include test('should return the first key found when the value is stored multiple times in the map')
+  {
+    @include assert-equal( map-find-key($mix-map-types, 'number'), 'int' );
+    @include assert-unequal( map-find-key($mix-map-types, 'number'), 'percentage' );
+    @include assert-unequal( map-find-key($mix-map-types, 'number'), 'em' );
+  }
+
+  // @include xtest('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-find-keys($num-list, $int), null );
+  // }
+
+    @include test('should be aliased as map-find')
+  {
+    @include assert-equal( map-find($mix-map-types, 'number'),  map-find-key($mix-map-types, 'number') );
+  }
+}
+
+@include test-module('The map-find-keys function')
+{
+  @include test('should return all keys under which the given value is stored in a map')
+  {
+    @include assert-equal( map-find-keys($mix-map-types, 'number'), 'int' 'percentage' 'em' );
+    @include assert-unequal( map-find-keys($mix-map-types, 'number'), 'int' );
+  }
+
+  @include test('should always return found keys inside a list')
+  {
+    @include assert-equal( type-of(map-find-keys($mix-map-types, 'null')), 'list' );
+  }
+
+  // @include xtest('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-find-keys($str-list, 'fr' 'en'), null );
+  // }
+}

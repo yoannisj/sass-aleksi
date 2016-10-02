@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI - POW
+// =============================================================================
+//// @group aleksi-math
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+// =pow( $x, $n )
+// -----------------------------------------------------------------------------
+/// Power function
+/// @access private
+///
+/// @param {Number} $x - number
+/// @param {Number} $n - power
+///
+/// @return {Number} $x ^ $n
+///
+/// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@function pow($x, $n)
+{
+  $ret: 1;
+
+  @if $n >= 0 {
+    @for $i from 1 through $n {
+      $ret: ($ret * $x);
+    }
+  } @else {
+    @for $i from $n to 0 {
+      $ret: ($ret / $x);
+    }
+  }
+
+  @return $ret;
+}

@@ -7,13 +7,13 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 // LIBRARIES/FRAMEWORKS
-@import "SassyCast";
 @import "SassyLists";
 @import "sassy-maps";
 
 // PARTIALS
-@import "aleksi/config";
+@import "aleksi/const";
 @import "aleksi/general";
+@import "aleksi/cast";
 @import "aleksi/math";
 @import "aleksi/lengths";
 @import "aleksi/strings";

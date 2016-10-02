@@ -1,0 +1,27 @@
+// =============================================================================
+// =ALEKSI TESTS - IS-LIST
+// =============================================================================
+
+@import "aleksi/lists/is-list";
+
+@include test-module('The is-map function')
+{
+  @include test('should test whether a given value is a list')
+  {
+    @include assert-equal( is-map($str-map), true );
+    @include assert-equal( is-map($num-map), true );
+    @include assert-equal( is-map($mix-map), true );
+    @include assert-equal( is-map($int), false );
+    @include assert-equal( is-map($null), false );
+    @include assert-equal( is-map($false), false );
+    @include assert-equal( is-map($mix-list), false );
+  }
+
+  @include test('should consider arglists to be lists')
+  {
+    @include args-mixin($int, $num-list, $false)
+    {
+      @include assert-equal( is-list($args-list), true );
+    }
+  }
+}

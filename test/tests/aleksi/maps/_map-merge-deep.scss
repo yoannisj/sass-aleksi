@@ -1,0 +1,20 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-MERGE-DEEP
+// =============================================================================
+
+@import "aleksi/maps/map-merge-deep";
+
+@include test-module('The function map-merge-deep')
+{
+  @include test('should two maps together, and merge nested maps')
+  {
+    @include assert-equal( map-sort(map-merge-deep($map-a, $map-b)), $map-ab-deep );
+    @include assert-equal( map-sort(map-merge-deep($map-a, $map-c)), $map-ac-deep );
+  }
+
+  // @include xtest('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-merge-deep($num-list, $map-b), null );
+  //   @include assert-equal( map-merge-deep($map-a, $num-list), null );
+  // }
+}

@@ -1,0 +1,26 @@
+// =============================================================================
+// =ALEKSI TESTS - PREVIOUS
+// =============================================================================
+
+@import "aleksi/lists/previous";
+
+@include test-module('The previous function')
+{
+  @include test('should return the item previous to a given value in a list')
+  {
+    @include assert-equal( previous($str-list, 'bar'), 'foo' );
+    @include assert-equal( previous($num-list, 30px), 10 );
+  }
+
+  @include test('should use the first value found if present multiple times in the list')
+  {
+    @include assert-equal( previous(10 5 7 5 3, 5), 10 );
+    @include assert-unequal( previous(10 5 7 5 3, 5), 7 );
+  }
+
+  @include test('should warn and return null if the given value can not be found, or is the last one in the list')
+  {
+    @include assert-equal( previous($str-list, 'foo'), null );
+    @include assert-equal( previous($str-list, 'wiz'), null );
+  }
+}

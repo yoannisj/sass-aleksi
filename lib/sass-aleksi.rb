@@ -1,9 +1,6 @@
-require 'compass/import-once/activate'
 # Require additional compass plugins here
-require 'SassyCast'
-require 'sassy-math'
-require 'SassyLists'
-require 'sassy-maps'
+require 'sass-aleski/version'
+require 'sass'
 
 # Extension Paths
 extension_path = File.expand_path(File.join(File.dirname(__FILE__), ".."))
@@ -22,9 +19,5 @@ else
     end
 end
 
-# Version is a number. If a version contains alphas, it will be created as a prerelease version
-# Date is in the form of YYYY-MM-DD
 module SassAleksi
-    VERSION = "0.2.3"
-    DATE = "2015-12-05"
 end

@@ -3,8 +3,8 @@
 // =============================================================================
 
 @import "sassy-maps";
-@import "aleksi/config";
-@import "aleksi/config/constants";
+@import "aleksi/general/const";
+@import "aleksi/const/css/layout-sides";
 @import "aleksi/general/throw";
 
 // =sides-list-to-map( $list )
@@ -37,7 +37,7 @@
     $w: throw-warning('sides-list-to-map():: $list has more then 4 items. Items 5 and up are being ignored.');
   }
 
-  @each $side in const('CSS_SIDES') {
+  @each $side in const('CSS_LAYOUT_SIDES') {
     $map: map-set($map, $side, side-value($list, $side));
   }
 

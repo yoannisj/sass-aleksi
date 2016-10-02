@@ -35,9 +35,6 @@ Import files in your project's stylesheets
 Aleski requires Compass and will import only the needed parts from compass. Additionally, it depends on the following Sass/Compass extensions:
 
 + [Sass (~> 3.3)](https://github.com/sass/sass)
-+ [SassyCast (~> 1.1.1)](https://github.com/HugoGiraudel/SassyCast)
-+ [SassyMath (~> 1.5)](https://github.com/at-import/sassy-math)
-+ [SassyStrings (~> 1.1.4)](https://github.com/at-import/Sassy-Strings)
 + [SassyLists (~> 2.2)](https://github.com/at-import/SassyLists)
 + [Sassy-Maps (0.4.0)](https://github.com/at-import/Sassy-Maps/)
 

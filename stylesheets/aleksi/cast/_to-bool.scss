@@ -1,0 +1,27 @@
+// =============================================================================
+// =ALEKSI - TO-BOOL
+// =============================================================================
+//// @group aleksi-cast
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/const";
+@import "aleksi/const/falsey-values";
+
+// =to-bool( $value )
+// -----------------------------------------------------------------------------
+/// Convert to bool
+///
+/// @param {*} $value - value to cast
+/// @return {Bool}
+///
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+
+@function to-bool($value)
+{
+  @if index(const('FALSEY_VALUES'), $value) {
+    @return false;
+  }
+
+  @return true;
+}

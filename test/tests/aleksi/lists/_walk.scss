@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI TESTS - WALK
+// =============================================================================
+
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/walk";
+
+@include test-module('The walk function')
+{
+  @include test('should call the given function on all values in a list')
+  {
+    @include assert-equal( walk($str-list, 'to-upper-case'), $str-list-upper-case );
+    @include assert-equal( walk($num-list, 'unit'), $num-list-units );
+    @include assert-equal( walk($mix-list, 'type-of'), $mix-list-types );
+  }
+
+  @include test('should call the given function on all values in a map')
+  {
+    @include assert-equal( walk($str-map, 'to-upper-case'), $str-map-upper-case );
+    @include assert-equal( walk($num-map, 'unit'), $num-map-units );
+    @include assert-equal( walk($mix-map, 'type-of'), $mix-map-types );
+  }
+
+  @include test('call the given function on a simple value and return it inside a list')
+  {
+    @include assert-equal( walk($word, 'to-upper-case'), to-list($word-upper-case) );
+    @include assert-equal( type-of(walk($word, 'to-upper-case')), 'list' );
+  }
+
+  @include test('should accepts additional arguments and pass them over to the function')
+  {
+    @include assert-equal( walk($str-list, 'str-slice', 1, 2), $str-list-sliced );
+    // @include assert-equal( walk($rgba, 'darken', 10%), to-list($rgba-darkened) ); // assert-equal is too strict ?
+  }
+}

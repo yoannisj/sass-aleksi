@@ -1,0 +1,74 @@
+// =============================================================================
+// =ALEKSI TESTS - SET-LIST-SEPARATOR
+// =============================================================================
+
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/set-list-separator";
+
+@include test-module('The set-list-separator function')
+{
+  $comma-str-list: 'foo', 'bar', 'baz';
+  $comma-num-list: 10, 30px, 1.5em, 2rem, 50%;
+  $comma-true: ($true,);
+  $comma-int: ($int,);
+  $comma-word: ($word,);
+
+  @include test('should translate a list to the given separator')
+  {
+    @include assert-equal( set-list-separator($str-list, 'comma'), $comma-str-list );
+    @include assert-equal( set-list-separator($num-list, 'comma'), $comma-num-list );
+
+    @include assert-equal( set-list-separator($comma-str-list, 'space'), $str-list );
+    @include assert-equal( set-list-separator($comma-num-list, 'space'), $num-list );
+  }
+
+  @include test('should not modify lists that already use the target separator')
+  {
+    @include assert-equal( set-list-separator($str-list, 'space'), $str-list );
+    @include assert-equal( set-list-separator($num-list, 'space'), $num-list );
+  }
+
+  @include test('should work on single values')
+  {
+    @include assert-equal( set-list-separator($true, 'comma'), $comma-true );
+    @include assert-equal( set-list-separator($int, 'comma'), $comma-int );
+    @include assert-equal( set-list-separator($word, 'comma'), $comma-word );
+
+    // @include assert-equal( set-list-separator($true, 'space'), to-list($true) ); // assert-equal too strict ?
+    // @include assert-equal( set-list-separator($int, 'space'),to-list($int) ); // assert-equal too strict ?
+    // @include assert-equal( set-list-separator($word, 'space'), to-list($word) ); // assert-equal too strict ?
+  }
+
+  @include test('should throw a warning when passing a map, and return the map as is')
+  {
+    @include assert-equal( set-list-separator($str-map, 'comma'), $str-map );
+    @include assert-equal( set-list-separator($str-map, 'space'), $str-map );
+  }
+
+  @include test('should be aliased as to-separator')
+  {
+    $to-comma-str-list: to-separator($str-list, 'comma');
+    @include assert-equal( set-list-separator($str-list, 'comma') , $to-comma-str-list );
+  }
+
+  @include test('should have the shortcuts to-comma-list, to-space-list, switch-list-separator, switch-separator')
+  {
+    $to-comma-str-list: to-comma-list($str-list);
+    $to-space-str-list: to-space-list($comma-str-list);
+
+    $switched-to-comma-str-list: switch-list-separator($str-list);
+    $switched-to-space-str-list: switch-list-separator($comma-str-list);
+
+    $switched-comma-str-list: switch-separator($str-list);
+    $switched-space-str-list: switch-separator($comma-str-list);
+
+    @include assert-equal( set-list-separator($str-list, 'comma'),  $to-comma-str-list );
+    @include assert-equal( set-list-separator($str-list, 'space'), $to-space-str-list );
+
+    @include assert-equal( set-list-separator($str-list, 'comma'), $switched-to-comma-str-list );
+    @include assert-equal( set-list-separator($str-list, 'space'), $switched-to-space-str-list );
+
+    @include assert-equal( set-list-separator($str-list, 'comma'), $switched-comma-str-list );
+    @include assert-equal( set-list-separator($str-list, 'space'), $switched-space-str-list );
+  }
+}

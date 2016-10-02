@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI - CONST
+// =============================================================================
+//// @group aleksi-general
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/throw";
+
+$constants: () !default;
+
+// =const( $name[, $value ])
+// -----------------------------------------------------------------------------
+/// Retrieves the value of a given constant
+///
+/// @param $name {string} - the name of the constant to retrieve
+///
+/// @return {any} - the constants value
+/// @throw {error} - if the constant is not defined
+
+@function const($name, $value: '__undefined__')
+{
+  // try to define constant when `$value` was passed
+  @if $value != '__undefined__' {
+    @return define($name, $value);
+  }
+
+  // throw error if trying to read a constant that wasn't defined
+  @if not map-has-key($constants, $name) {
+    $e: throw-error('get-const(): constant `#{$name}` is not defined');
+  }
+
+  @return map-get($name, $value);
+}

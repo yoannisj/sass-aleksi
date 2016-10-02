@@ -1,0 +1,41 @@
+// =============================================================================
+// =ALEKSI - TO-LIST
+// =============================================================================
+//// @group aleksi-cast
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/lists/set-list-separator";
+
+// =to-list( $value )
+// -----------------------------------------------------------------------------
+/// Convert to list
+///
+/// @param {*} $value - value to cast
+/// @param {string} $separator - the list separator to use
+/// @return {List}
+///
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+
+@function to-list($value, $separator: null)
+{
+  $type: type-of($value);
+  $res: ();
+  
+  // If the value is already a list, we can safely return it.
+  @if ($type == 'list') {
+    $res: $value;
+  }
+
+  // If the value is a map, we return a zip of keys and values (aka a list-map).
+  @else if ($type == 'map') {
+    $res: zip(map-keys($value), map-values($value));
+  }
+
+  // Else we wrap the item in a single-item list.
+  @else {
+    $res: ($value,);
+  }
+
+  @return if($separator, set-list-separator($res, $separator), $res);
+}
