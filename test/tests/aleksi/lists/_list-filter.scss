@@ -17,7 +17,7 @@
 
   @include test('should work on single values, and return a list')
   {
-    // @include assert-equal( list-filter($int, 'unitless'), to-list($int) ); // assert-equal too strict ?
+    @include assert-equal( list-filter($int, 'unitless'), to-list($int) );
     @include assert-equal( type-of(list-filter($int, 'unitless')), 'list' );
 
     @include assert-unequal( list-filter($px, 'unitless'), $px );

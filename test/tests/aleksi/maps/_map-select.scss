@@ -23,7 +23,7 @@
     @include assert-equal( map-select($mix-map, 'int' 'foo' 'word' 'unquoted'), map-select-keys($mix-map, 'int' 'foo' 'word' 'unquoted') );
   }
 
-  // @include xit('should throw an error when passed wrong arguments')
+  // @include xtest('should throw an error when passed wrong arguments')
   // {
   //   @include assert-equal( map-select($str-list, 'en' 'es'), null );
   // }

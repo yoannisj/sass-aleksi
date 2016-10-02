@@ -19,7 +19,7 @@
     @include assert-unequal( map-find-key($mix-map-types, 'number'), 'em' );
   }
 
-  // @include xit('should throw an error when passed wrong arguments')
+  // @include xtest('should throw an error when passed wrong arguments')
   // {
   //   @include assert-equal( map-find-keys($num-list, $int), null );
   // }
@@ -43,7 +43,7 @@
     @include assert-equal( type-of(map-find-keys($mix-map-types, 'null')), 'list' );
   }
 
-  // @include xit('should throw an error when passed wrong arguments')
+  // @include xtest('should throw an error when passed wrong arguments')
   // {
   //   @include assert-equal( map-find-keys($str-list, 'fr' 'en'), null );
   // }

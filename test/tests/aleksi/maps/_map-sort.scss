@@ -6,35 +6,33 @@
 
 @include test-module('The map-sort-keys function')
 {
-  // assert-equals is too strict... should use a 'assert-be' mixin instead
+  @include test('should sort the map keys on alphabetical order when no specific order is specified')
+  {
+    @include assert-equal( map-keys(map-sort-keys($str-map)), ('en', 'es', 'fr') );
+    @include assert-unequal( map-keys(map-sort-keys($str-map)),('en', 'fr', 'es') );
+    @include assert-unequal( map-keys(map-sort-keys($str-map)), ('es', 'en', 'fr') );
+    @include assert-equal( map-keys(map-sort-keys($num-map)), ('em', 'int', 'percentage', 'px', 'rem') );
+  }
 
-  // @include test('should sort the map keys on alphabetical order when no specific order is specified')
-  // {
-  //   @include assert-equal( map-keys(map-sort-keys($str-map)), 'en' 'es' 'fr' );
-  //   @include assert-unequal( map-keys(map-sort-keys($str-map)), 'en' 'fr' 'es' );
-  //   @include assert-unequal( map-keys(map-sort-keys($str-map)), 'es' 'en' 'fr' );
-  //   @include assert-equal( map-keys(map-sort-keys($num-map)), 'em' 'int' 'percentage' 'px' 'rem' );
-  // }
+  @include test('should sort the map keys based on the given, ordered list of keys')
+  {
+    @include assert-equal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), ('fr', 'en', 'es') );
+    @include assert-unequal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), ('en', 'fr', 'es') );
+    @include assert-unequal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), ('en', 'es', 'fr') );
+    @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')), ('px', 'percentage', 'rem', 'em', 'int') );
+    @include assert-unequal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')), ('em', 'percentage', 'px', 'rem', 'int') );
+  }
 
-  // @include test('should sort the map keys based on the given, ordered list of keys')
-  // {
-  //   @include assert-equal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), 'fr' 'en' 'es' );
-  //   @include assert-unequal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), 'en' 'fr' 'es' );
-  //   @include assert-unequal( map-keys(map-sort-keys($str-map, 'fr' 'en' 'es')), 'en' 'es' 'fr' );
-  //   @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')), 'px' 'percentage' 'rem' 'em' 'int' );
-  //   @include assert-unequal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem' 'em' 'int')), 'em' 'percentage' 'px' 'rem' 'int' );
-  // }
+  @include test('should add keys not specified at the end of the map, and in the same order as in original map')
+  {
+    @include assert-equal( map-keys(map-sort-keys($str-map, 'fr' 'en')), ('fr', 'en', 'es') );
+    @include assert-equal( map-keys(map-sort-keys($str-map, 'es' 'en')), ('es', 'en', 'fr') );
+    @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')), ('px', 'percentage', 'rem', 'int', 'em') );
+    @include assert-unequal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')), ('px', 'percentage', 'rem', 'em', 'int') );
+    @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage')), ('px', 'percentage', 'int', 'em', 'rem') );
+  }
 
-  // @include test('should add keys not specified at the end of the map, and it same ordered as in original map')
-  // {
-  //   @include assert-equal( map-keys(map-sort-keys($str-map, 'fr' 'en')), 'fr' 'en' 'es' );
-  //   @include assert-equal( map-keys(map-sort-keys($str-map, 'es' 'en')), 'es' 'en' 'fr' );
-  //   @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')), 'px' 'percentage' 'rem' 'int' 'em' );
-  //   @include assert-unequal( map-keys(map-sort-keys($num-map, 'px' 'percentage' 'rem')), 'px' 'percentage' 'rem' 'em' 'int' );
-  //   @include assert-equal( map-keys(map-sort-keys($num-map, 'px' 'percentage')), 'px' 'percentage' 'int' 'em' 'rem' );
-  // }
-
-  // @include xit('should throw an error when passed wrong arguments')
+  // @include xtest('should throw an error when passed wrong arguments')
   // {
   //   @include assert-equal( map-sort-keys($str-map, false ), null );
   //   @include assert-equal( map-sort-keys($str-map, $str-map), null );

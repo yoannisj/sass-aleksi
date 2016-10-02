@@ -14,7 +14,7 @@
     @include assert-equal( map-depth($double-nested-map), 3 );
   }
 
-  // @include xit('should throw an error if invalid arguments are passed')
+  // @include xtest('should throw an error if invalid arguments are passed')
   // {
   //   @include assert-equal( map-depth($str-list), null );
   //   @include assert-equal( map-depth($int), null );
