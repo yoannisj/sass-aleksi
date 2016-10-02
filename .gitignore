@@ -5,6 +5,7 @@
 # TEMPORARY FILES
 # ---------------
 tmp
+npm-debug.log
 
 # SASS/COMPASS
 # ------------

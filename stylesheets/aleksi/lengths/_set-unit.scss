@@ -1,0 +1,36 @@
+/// =============================================================================
+// =ALEKSI - SET-UNIT
+// =============================================================================
+//// @group aleksi-lengths
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/const";
+@import "aleksi/general/throw";
+@import "aleksi/const/css/units";
+@import "aleksi/const/css/values";
+
+// =set-unit( $number, $unit )
+// -----------------------------------------------------------------------------
+/// Tries to find a unit that would match a CSS length
+/// @access private
+///
+/// @param {Number} $number - number
+/// @param {String}   $unit - potential unit
+///
+/// @return {Number} length (0 if cast failed)
+/// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@function set-unit($number, $unit)
+{
+  // verify if unit is a valid CSS length unit
+  $index: index(const('CSS_UNITS'), $unit);
+
+  // throw a warning if invalid unit was passed
+  @if not $index {
+    @return throw-warning('set-unit(): #{inspect($unit)} is not a valid unit.');
+  }
+
+  $unit_vals: const('CSS_VALUES');
+  @return ($number * nth($unit_vals, $index));
+}
