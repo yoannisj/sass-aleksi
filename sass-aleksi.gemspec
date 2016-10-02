@@ -1,5 +1,6 @@
+$:.push File.expand_path('../lib', __FILE__)
 # Replace extension with the name of your extension's .rb file
-require './lib/sass-aleksi.rb'
+require 'sass-aleksi/version'
 
 Gem::Specification.new do |s|
   # Release Specific Information
@@ -62,4 +63,5 @@ Gem::Specification.new do |s|
   s.add_dependency("compass-import-once", ["~> 1.0.5"])
   s.add_dependency("SassyLists",          ["~> 2.2"])
   s.add_dependency("sassy-maps",          ["~> 0.4"])
+  s.add_development_dependency("true",    ["~> 2.1.3"])
 end
