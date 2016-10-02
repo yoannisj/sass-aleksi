@@ -3,8 +3,8 @@
 // =============================================================================
 
 @import "SassyLists";
-@import "aleksi/config";
-@import "aleksi/config/constants";
+@import "aleksi/general/const";
+@import "aleksi/const/css/layout-sides";
 @import "aleksi/general/throw";
 @import "aleksi/maps/is-map";
 
@@ -37,7 +37,7 @@
 
 @function get-side-value( $list, $side )
 {
-  @if type-of($side) != string or (not sl-contain(const('CSS_SIDES'), $side)) {
+  @if type-of($side) != string or (not sl-contain(const('CSS_LAYOUT_SIDES'), $side)) {
     @return throw-error("side-list-value():: $side must be either 'top', 'right', 'bottom' or 'left'. Was #{inspect($side)}.");
   }
 

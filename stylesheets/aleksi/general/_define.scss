@@ -1,0 +1,32 @@
+// =============================================================================
+// =ALEKSI - CONST
+// =============================================================================
+//// @group aleksi-general
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/throw";
+
+$constants: () !default;
+
+// =define( $name, $value)
+// -----------------------------------------------------------------------------
+/// Defines a constant
+///
+/// @param $name {string} - the name of the constant to define
+/// @param $value {any} - the value of the new constant
+///
+/// @return {any} - the constant's value
+/// @throw {warning} - if the constant is already defined
+
+@function define($name, $value)
+{
+  @if map-has-key($constants, $name) {
+    $w: throw-warning('define(): can not alter existing constant `#{$name}`. Returning constant\'s current value.');
+    @return map-get($constants, $name);
+  }
+
+  // add constant to constants table
+  $constants: map-merge($constants, ($name: $value)) !global;
+  @return $value;
+}
