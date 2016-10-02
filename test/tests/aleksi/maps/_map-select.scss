@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-SELECT
+// =============================================================================
+
+@import "aleksi/maps/map-select";
+
+@include test-module('The map-select-keys function')
+{
+  @include test('should remove items that are not in the list o given keys from a map')
+  {
+    @include assert-equal( map-select-keys($str-map, 'en' 'es'), ('en': 'hello', 'es': 'ola') );
+    @include assert-unequal( map-select-keys($str-map, 'en' 'es'), ('en': 'hello', 'fr': 'salut', 'es': 'ola') );
+    @include assert-equal( map-select-keys($mix-map, 'int' 'percentage' 'em'), ('int': $int, 'percentage': $percentage, 'em': $em) );
+  }
+
+  @include test('should return an empty list if the map does not have any of the given keys')
+  {
+    @include assert-equal( map-select-keys($mix-map, 'foo' 'bar' 'baz'), () );
+  }
+
+  @include test('should be aliased as map-select')
+  {
+    @include assert-equal( map-select($mix-map, 'int' 'foo' 'word' 'unquoted'), map-select-keys($mix-map, 'int' 'foo' 'word' 'unquoted') );
+  }
+
+  // @include xit('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-select($str-list, 'en' 'es'), null );
+  // }
+}

@@ -1,0 +1,24 @@
+// =============================================================================
+// =ALEKSI TESTS - THROW
+// =============================================================================
+
+@import "aleksi/general/throw";
+
+@include test-module('The _throw function')
+{
+  @include test('should throw a warning when passed the type warn, and return null')
+  {
+    @include assert-equal( _throw('warn', 'A test warning message') , null );
+  }
+
+  // @include test('should throw an error when passed the type error, and return null')
+  // {
+  //   @include assert-equal( _throw('error', 'A test error message'), null );
+  // }
+
+  // @include test('should throw an error when passed invalid arguments')
+  // {
+  //   @include assert-equal( _throw('foo', 'A test error message'), null );
+  //   @include assert-equal( _throw('warn', 10), null );
+  // }
+}

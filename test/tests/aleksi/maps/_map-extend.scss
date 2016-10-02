@@ -1,0 +1,36 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-EXTEND
+// =============================================================================
+
+@import "aleksi/maps/map-extend";
+
+@include test-module('The function map-extend')
+{
+  @include test('should merge multiple maps together, and give priority to right most values')
+  {
+    @include assert-equal( map-sort(map-extend($map-a, $map-b)), $map-ab );
+    @include assert-equal( map-sort(map-extend($map-a, $map-b, $map-c)), $map-abc );
+  }
+
+  // @include xit('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-extend($num-list, $map-b), null );
+  //   @include assert-equal( map-extend($map-a, $num-list, $map-c), null );
+  // }
+}
+
+@include test-module('The function map-extend-deep')
+{
+  @include test('should merge multiple maps together, and merge nested maps')
+  {
+    @include assert-equal( map-sort(map-extend-deep($map-a, $map-b)), $map-ab-deep );
+    @include assert-equal( map-sort(map-extend-deep($map-a, $map-c)), $map-ac-deep );
+    @include assert-equal( map-sort(map-extend-deep($map-a, $map-b, $map-c)), $map-abc-deep );
+  }
+
+  // @include xit('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-extend-deep($num-list, $map-b), null );
+  //   @include assert-equal( map-extend-deep($map-a, $num-list, $map-c), null );
+  // }
+}

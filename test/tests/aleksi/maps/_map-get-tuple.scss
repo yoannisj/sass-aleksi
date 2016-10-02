@@ -1,0 +1,20 @@
+// =============================================================================
+// =ALEKSI TESTS - GET-TUPLE
+// =============================================================================
+
+@import "aleksi/maps/map-get-tuple";
+
+@include test-module('The map-get-tuple function')
+{
+  @include test('should return the key, value pair from a map based on the given key')
+  {
+    @include assert-equal( map-get-tuple($str-map, 'en'), ('en': 'hello') );
+    @include assert-equal( map-get-tuple($mix-map-types, 'unquoted'), ('unquoted': 'string') );
+    @include assert-equal( map-get-tuple($num-map, 'percentage'), ('percentage': 50%) );
+  }
+
+  @include test('should return a tuple with null value if the map does not have the given key')
+  {
+    @include assert-equal( map-get-tuple($str-map, 'ru'), ('ru': null) );
+  }
+}

@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI TESTS - DIVIDE
+// =============================================================================
+
+@import "aleksi/math/divide";
+
+@include test-module('The divide function')
+{
+  @include test('should calculate the quotient of two numbers')
+  {
+    @include assert-equal( divide(10, 5), 2 );
+    @include assert-equal( divide(10em, 5), 2em );
+  }
+
+  @include test('should calculate the division of multiple numbers successively')
+  {
+    @include assert-equal( divide(20, 5, 2), 2 );
+    @include assert-equal( divide(500, 10, 5, 2, 1), 5 );
+  }
+
+  @include test('should warn if one of the arguments is not a number, and return null')
+  {
+    @include assert-equal( divide(10, 'hello'), null );
+    @include assert-equal( divide(10, null), null );
+    @include assert-equal( divide(10, false), null );
+    @include assert-equal( divide(10 5, 3), null );
+  }
+
+  @include test('should be aliased as div')
+  {
+    @include assert-equal( divide(10, 5), div(10, 5) );
+    @include assert-equal( divide(20, 5, 2), div(20, 5, 2) );
+    @include assert-equal( divide(10, 'hello'), div(10, 'hello') );
+  }
+}

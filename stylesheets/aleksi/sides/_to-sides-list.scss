@@ -3,10 +3,10 @@
 // =============================================================================
 
 @import "SassyLists";
-@import "aleksi/config";
-@import "aleksi/config/constants";
-@import "aleksi/general/is-of-type";
+@import "aleksi/general/const";
 @import "aleksi/general/throw";
+@import "aleksi/general/is-of-type";
+@import "aleksi/const/css/layout-sides";
 @import "aleksi/lists/contained-in";
 @import "aleksi/sides/reduce-sides";
 
@@ -39,11 +39,11 @@
     @return throw-error('sides-map-to-sides-list():: $map must be a map. Was #{inspect($map)}.');
   }
 
-  @if not sl-some(map-keys($map), 'contained-in', const('CSS_SIDES')) {
+  @if not sl-some(map-keys($map), 'contained-in', const('CSS_LAYOUT_SIDES')) {
     @return throw-warnig('sides-map-to-sides-list():: $map does not contain any CSS side, value pair.');
   }
 
-  @each $side in const('CSS_SIDES') {
+  @each $side in const('CSS_LAYOUT_SIDES') {
     $list: append($list, map-get($map, $side));
   }
 

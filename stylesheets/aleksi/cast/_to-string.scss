@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI - TO-STRING
+// =============================================================================
+//// @group aleksi-cast
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/throw";
+
+// =to-string( $value )
+// -----------------------------------------------------------------------------
+/// Convert value to a string
+///
+/// @param {*} $value - value to cast
+/// @return {string}
+///
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+
+@function to-string($value)
+{
+  $type: type-of($value);
+
+  // If the value is already a string, we can safely return it.
+  @if ($type == 'string') {
+    @return $value;
+  }
+
+  // warn about sass color conversion
+  @if type-of($value) == 'color' {
+    @include throw-warning('to-string(): beware! Sass does some color conversion. The resulting string may be different from the color input.');
+  }
+
+  @return inspect($value);
+}

@@ -1,0 +1,53 @@
+// =============================================================================
+// =ALEKSI TESTS - IS-OF-TYPE
+// =============================================================================
+
+@import "aleksi/general/is-of-type";
+
+@include test-module('The is-of-type function')
+{
+  @include test('should verify if a value is of the given type')
+  {
+    @include assert-equal( is-of-type($true, 'bool'), true );
+    @include assert-equal( is-of-type($false, 'null'), false );
+
+    @include assert-equal( is-of-type($rgb, 'color'), true );
+    @include assert-equal( is-of-type($hex, 'number'), false );
+
+    @include assert-equal( is-of-type($int, 'number'), true );
+    @include assert-equal( is-of-type($float, 'list'), false );
+
+    @include assert-equal( is-of-type($word, 'string'), true );
+    @include assert-equal( is-of-type($sentence, 'null'), false );
+
+    @include assert-equal( is-of-type($str-list, 'list'), true );
+    @include assert-equal( is-of-type($mix-list, 'number'), false );
+
+    @include assert-equal( is-of-type($str-map, 'map'), true );
+    @include assert-equal( is-of-type($str-map, 'list'), false );
+    @include assert-equal( is-of-type($mix-map, 'color'), false );
+  }
+
+  @include test('should test the value against a list of space separated types')
+  {
+    @include assert-equal( is-of-type($int, 'number' 'list' 'string'), true );
+    @include assert-equal( is-of-type($int, 'list' 'map' 'string'), false );
+  }
+
+  @include test('should accept strings or the unquoted null as types to test against')
+  {
+    @include assert-equal( is-of-type($null, 'null'), true );
+    @include assert-equal( is-of-type($null, null), true );
+    @include assert-equal( is-of-type($null, list null string), true );
+  }
+
+  @include test('should accept arbitrary types to stay future-proof')
+  {
+    @include assert-equal( is-of-type($rgba, foo), false );
+  }
+
+  // @include test('should throw an error when not testing against a type name or the unquoted null')
+  // {
+  //   @include assert-equal( is-of-type($str-map, false), to(be( false );
+  // }
+}

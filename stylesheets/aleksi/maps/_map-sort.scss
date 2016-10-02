@@ -110,16 +110,5 @@
 
 @function map-sort($map, $order: null)
 {
-  @if type-of($map) != 'map' {
-    @return throw-error('map-sort():: $map must be a map, was #{inspect($map)}.');
-  }
-
-  $keys: sl-sort(map-keys($map));
-  $res: ();
-
-  @each $key in $keys {
-    $res: map-set($res, $key, map-get($map, $key));
-  }
-
-  @return $res;
+  @return map-sort-keys($map, $order);
 }

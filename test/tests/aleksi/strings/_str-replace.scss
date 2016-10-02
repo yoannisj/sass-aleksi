@@ -1,0 +1,23 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-REPLACE
+// =============================================================================
+
+@import "aleksi/strings/str-replace";
+
+@include test-module('The str-replace function')
+{
+  @include test('should replace found occurences of search with replace')
+  {
+    @include assert-equal( str-replace('wiz', 'i', 'u'), 'wuz' );
+  }
+
+  @include test('should replace ALL occurences of search with replace')
+  {
+    @include assert-equal( str-replace('foo', 'o', 'a'), 'faa' );
+  }
+
+  // @include xtest('should leave str unchanged if search was not found')
+  // {
+  //   @include assert-equal( str-replace('foo', 'x', 'y'), 'foo' );
+  // }
+}

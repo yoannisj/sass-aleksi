@@ -1,0 +1,20 @@
+// =============================================================================
+// =ALEKSI - TO-NULL
+// =============================================================================
+//// @group aleksi-cast
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+// =to-null( $value )
+// -----------------------------------------------------------------------------
+/// Convert a value to null
+///
+/// @param {*} $value - value to cast
+/// @return {Null}
+///
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+
+@function to-null($value)
+{
+  @return null;
+}

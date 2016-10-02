@@ -1,0 +1,18 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-UNIQUE
+// =============================================================================
+
+@import "aleksi/maps/map-unique";
+
+@include test-module('The map-unique function')
+{
+  @include test('should remove all duplicate values from a map')
+  {
+    @include assert-equal( map-unique(('a': 'foo', 'b': 'bar', 'c': 'foo', 'd': 'baz')), ('a': 'foo', 'b': 'bar', 'd': 'baz') );
+  }
+
+  // @include xit('should throw an error when passed wrong arguments')
+  // {
+  //   @include assert-equal( map-unique($str-list), null );
+  // }
+}

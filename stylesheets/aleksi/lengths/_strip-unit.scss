@@ -3,6 +3,9 @@
 // =============================================================================
 //// @group aleksi-units
 //// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/general/throw";
 
 // =strip-unit( $number )
 // -----------------------------------------------------------------------------
@@ -24,6 +27,7 @@
 ///
 /// @access public
 /// @since 0.1.0
+/// @author [Hugo Giraudel]((http://hugogiraudel.com)
 ///
 /// @todo Unit test the 'strip-unit' function
 

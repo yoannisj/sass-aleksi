@@ -1,0 +1,26 @@
+// =============================================================================
+// =ALEKSI TESTS - NEXT
+// =============================================================================
+
+@import "aleksi/lists/next";
+
+@include test-module('The next function')
+{
+  @include test('should return the item next to a given value in a list')
+  {
+    @include assert-equal( next($str-list, 'bar'), 'baz' );
+    @include assert-equal( next($num-list, 30px), 1.5em );
+  }
+
+  @include test('should use the first value found if it is present multiple times in the list')
+  {
+    @include assert-equal( next(10 5 7 5 3, 5), 7 );
+    @include assert-unequal( next(10 5 7 5 3, 5), 3 );
+  }
+
+  @include test('should warn when the given value can not be found or is the last one in the list, and return null')
+  {
+    @include assert-equal( next($str-list, 'baz'), null );
+    @include assert-equal( next($str-list, 'wiz'), null );
+  }
+}

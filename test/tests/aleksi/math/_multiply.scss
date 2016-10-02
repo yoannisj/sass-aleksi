@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI TESTS - MULTIPLY
+// =============================================================================
+
+@import "aleksi/math/multiply";
+
+@include test-module('The multiply function')
+{
+  @include test('should calculate the product of two numbers')
+  {
+    @include assert-equal( multiply(10, 5), 50 );
+    @include assert-equal( multiply(10em, 5), 50em );
+  }
+
+  @include test('should calculate the product of multiple numbers successively')
+  {
+    @include assert-equal( multiply(10, 5, 3), 150 );
+    @include assert-equal( multiply(10, 5, 3, 2, 1), 300 );
+  }
+
+  @include test('should warn if one of the arguments is not a number, and return null')
+  {
+    @include assert-equal( multiply(10, 'hello'), null );
+    @include assert-equal( multiply(10, null), null );
+    @include assert-equal( multiply(10, false), null );
+    @include assert-equal( multiply(10 5, 3), null );
+  }
+
+  @include test('should be aliased as mult')
+  {
+    @include assert-equal( multiply(10, 5), mult(10, 5) );
+    @include assert-equal( multiply(10, 5, 3), mult(10, 5, 3) );
+    @include assert-equal( multiply(10, 'hello'), mult(10, 'hello') );
+  }
+}

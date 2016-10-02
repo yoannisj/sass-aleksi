@@ -2,9 +2,9 @@
 // =ALEKSI - SIDE-NAME
 // =============================================================================
 
-@import "aleksi/config";
-@import "aleksi/config/constants";
 @import "aleksi/general/throw";
+@import "aleksi/general/const";
+@import "aleksi/const/css/layout-sides";
 
 // =side-name( $index )
 // -----------------------------------------------------------------------------
@@ -32,7 +32,7 @@
     @return throw-error('side-for-index():: $index #{inspect($index)} out of scope. Should be between 1 and 4.');
   }
 
-  @return nth(const('CSS_SIDES'), $index);
+  @return nth(const('CSS_LAYOUT_SIDES'), $index);
 }
 
 // =nth-side( $index )
