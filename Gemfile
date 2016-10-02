@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'sass', '~>3.3'
+gem 'compass-import-once', '~>1.0.5'
+gem 'SassyLists', '~>2.2'
+gem 'sassy-maps', '~>0.4'
+gem 'true', '~>2.1.3'

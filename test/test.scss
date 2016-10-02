@@ -28,4 +28,4 @@
 
 // optionally report test's results in css and terminal
 // (not needed when using Mocha)
-// @include report;
+@include report(true);

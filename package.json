@@ -23,6 +23,7 @@
     "sass-true": "^2.1.3"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test-rubysass": "./node_modules/sass-true/bin/true-cli ./test/test.scss"
   }
 }

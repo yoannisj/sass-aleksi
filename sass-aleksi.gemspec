@@ -58,8 +58,8 @@ Gem::Specification.new do |s|
   # These are Gem dependencies, not Compass dependencies. Including gems
   #  here will make sure the relevant gem and version are installed on the
   #  user's system when installing your gem.
-  s.add_dependency("sass",      ["~> 3.3"])
-  s.add_dependency("compass",   ["~> 1.0"])
-  s.add_dependency("SassyLists",   ["~> 2.2"])
-  s.add_dependency("sassy-maps",   ["~> 0.4"])
+  s.add_dependency("sass",                ["~> 3.3"])
+  s.add_dependency("compass-import-once", ["~> 1.0.5"])
+  s.add_dependency("SassyLists",          ["~> 2.2"])
+  s.add_dependency("sassy-maps",          ["~> 0.4"])
 end
