@@ -1,11 +1,10 @@
 // =============================================================================
-// =ALEKSI - CONSTANTS
+// =ALEKSI - CONST
 // =============================================================================
-//// @group aleksi-const
+//// Imports all known constants.
 //// @author [Yoannis Jamar](http://yoannis.me)
-//// @author [Hugo Giraudel]((http://hugogiraudel.com)
 
+@import "aleksi/const/falsey-values";
 @import "aleksi/const/decimal-space";
 @import "aleksi/const/hexadecimal-space";
-@import "aleksi/const/falsey-values";
 @import "aleksi/const/css";

@@ -1,0 +1,47 @@
+// =============================================================================
+// =ALEKSI - WITHOUT
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @TODO: document and test these functions
+
+@import "aleksi/maps/without";
+
+// =without( $list, $func[, $args... ])
+// -----------------------------------------------------------------------------
+// Removes given value from a list or map. If a single value is passed, it will
+// return null if to same values where given.
+
+@function without($list, $value)
+{
+  @if type-of($list) == 'map' {
+    @return map-without-value($value);
+  }
+
+  @if type-of($list) == 'list' {
+    @return list-without-value($value);
+  }
+
+  @return if($list == $value, null, $list);
+}
+
+// =without( $list, $val)
+// -----------------------------------------------------------------------------
+/// Removes given value from a list.
+/// **Note** SasssyLists has a similar 'sl-without' method, but it replaces
+/// all occurences of `$val` with `null` while 'list-without' removes occurences 
+/// of the list and changes its length.
+
+@function list-without($list, $value)
+{
+  $res: ();
+  @each $item in $list
+  {
+    @if $item != $value {
+      $res: append($res, $item);
+    }
+  }
+
+  @return $res;
+}

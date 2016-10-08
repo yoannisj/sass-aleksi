@@ -43,13 +43,13 @@
 
   @if $l == 4 {
     @if $fourth == $second {
-      @return reduce-sides-list(sl-without($list, 4));
+      @return reduce-sides-list(sl-remove-nth($list, 4));
     }
   }
 
   @else if $l == 3 {
     @if $third == $first {
-      @return reduce-sides-list(sl-without($list, 3));
+      @return reduce-sides-list(sl-remove-nth($list, 3));
     }
   }
 

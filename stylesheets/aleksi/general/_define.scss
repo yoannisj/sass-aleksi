@@ -27,7 +27,7 @@ $constants: () !default;
   }
 
   // add constant to constants table
-  $constants: map-merge($constants, ($name: $value)) !global;
+  $constants: map-merge($constants, ('#{$name}': $value)) !global;
   @return $value;
 }
 
@@ -36,5 +36,5 @@ $constants: () !default;
 /// @alias {function} define
 
 @mixin define($name, $value) {
-  $c: define($name, value);
+  $c: define($name, $value);
 }
