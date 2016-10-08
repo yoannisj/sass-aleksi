@@ -2,4 +2,4 @@
 @import "aleksi/general/define";
 
 // list of sides used in CSS layout properties
-@include define('CSS_LAYOUT_SIDES', ('top' 'right' 'bottom' 'left'));
+@include define('CSS_LAYOUT_SIDES', 'top' 'right' 'bottom' 'left');
