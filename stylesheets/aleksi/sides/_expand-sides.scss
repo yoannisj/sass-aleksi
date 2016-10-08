@@ -1,0 +1,43 @@
+// =============================================================================
+// =ALEKSI - EXPAND-SIDES-LIST
+// =============================================================================
+
+@import "aleksi/sides/to-sides-list";
+@import "aleksi/sides/to-sides-map";
+
+// =expand-sides-list( $list )
+// -----------------------------------------------------------------------------
+/// Expands a sides-list to its most verbose and explicit form.
+///
+/// @param {list|map} $list - The sides-list to expand.
+///
+/// @return {list} - The expanded version of $list.
+/// @throw Error if $list has more then 4 items.
+///
+/// @access public
+/// @since 0.1.0
+///
+/// @todo Unit test the 'expand-sides-list' function
+
+@function expand-sides-list($list)
+{
+  // convert sides maps into an expanded sides list
+  @if is-of-type($list, 'map') {
+    @return to-sides-list($list);
+  }
+
+  // expand reduced sides lists
+  @return to-sides-list(to-sides-map($list));
+}
+
+// =expand-sides( $list )
+// -----------------------------------------------------------------------------
+/// @alias expand-sides-list
+///
+/// @access public
+/// @since 0.1.0
+
+@function expand-sides( $list )
+{
+  @return expand-sides-list( $list );
+}

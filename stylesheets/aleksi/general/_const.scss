@@ -27,8 +27,8 @@ $constants: () !default;
 
   // throw error if trying to read a constant that wasn't defined
   @if not map-has-key($constants, $name) {
-    $e: throw-error('get-const(): constant `#{$name}` is not defined');
+    $e: throw-error('const(): constant `#{$name}` is not defined');
   }
 
-  @return map-get($name, $value);
+  @return map-get($constants, $name);
 }

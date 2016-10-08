@@ -37,8 +37,8 @@
 
 @function get-side-value( $list, $side )
 {
-  @if type-of($side) != string or (not sl-contain(const('CSS_LAYOUT_SIDES'), $side)) {
-    @return throw-error("side-list-value():: $side must be either 'top', 'right', 'bottom' or 'left'. Was #{inspect($side)}.");
+  @if type-of($side) != string or not sl-contain(const('CSS_LAYOUT_SIDES'), $side) {
+    @return throw-error("get-side-value():: $side must be either 'top', 'right', 'bottom' or 'left'. Was #{inspect($side)}.");
   }
 
   // consider maps as single values inside a single item sides-list
