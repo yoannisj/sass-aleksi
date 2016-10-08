@@ -1,0 +1,9 @@
+{
+  "name": "sass-aleksi",
+  "description": "A collection of Sass helper functions and mixins.",
+  "tags": [
+    "sass",
+    "helpers",
+    "utils"
+  ]
+}
