@@ -1,0 +1,60 @@
+// =============================================================================
+// =ALEKSI - IMPLODE
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/cast/to-string";
+@import "aleksi/maps/is-map";
+
+// =implode( $list[, $glue ])
+// -----------------------------------------------------------------------------
+/// Transforms the list into a string by joining all items in the list,
+/// separated with given glue (equivalent tho 'String.join()' in Javascript).
+/// Items are transformed into substrings using the 'to-string' function.
+/// The `$glue` parameter default to ' ' for space-separated lists, and ', ' for
+/// comma-separated lists.
+///
+/// @param {list} $list - The list to transform.
+/// @param {list} $glue [' '|', '] - The substring separating each item.
+///
+/// @return {string} - The resulting string
+///
+/// @example scss
+///   $foo: implode( 'foo' 'bar' 'baz');
+///     // => 'foo, bar, baz'
+///   $bar: next( 'foo' 'bar' 'baz', ' ');
+///     // => 'foo bar baz'
+///   $baz: next( 'foo' 'bar' 'baz', 'wiz');
+///     // => null
+///
+/// @access public
+/// @since 0.3.2
+
+@function implode( $list, $glue: null )
+{
+  // simply cast none-lists
+  @if not type-of($list) == 'list' or is-map($list) {
+    @return to-string($list);
+  }
+
+  // get default $glue
+  @if type-of($glue) == 'null' {
+    $glue: if(list-separator($list) == 'space', ' ', ', ');
+  }
+
+  $str: '';
+  $offset: -1 * (str-length($glue) + 1);
+
+  @warn "GLUE:: #{inspect($glue)} // OFFSET:: #{inspect($offset)}";
+
+  // glue list items together in a string
+  @each $item in $list {
+    $str: '#{$str}#{to-string($item)}#{$glue}';
+  }
+
+  // return resulting string, without the extra glue at the end
+  @return str-slice($str, 1, $offset);
+}

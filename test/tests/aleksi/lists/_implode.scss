@@ -1,0 +1,56 @@
+// =============================================================================
+// =ALEKSI TESTS - IMPLODE
+// =============================================================================
+
+@import "aleksi/lists/implode";
+@import "aleksi/cast/to-string";
+
+@include test-module('The implode function')
+{
+  // @include test('should transform a list into a string')
+  // {
+  //   $res: implode('foo' 'bar' 'baz');
+
+  //   @include assert-equal(type-of($res), 'string');
+  // }
+
+  @include test('should use the list separator as default glue')
+  {
+    $comma: 'foo', 'bar', 'baz';
+    $space: 'foo' 'bar' 'baz';
+
+    $res-comma: implode($comma);
+    $res-space: implode($space);
+
+    @include assert-equal($res-comma, 'foo, bar, baz');
+    @include assert-equal($res-space, 'foo bar baz');
+  }
+
+  @include test('should not add the $glue at the ends of the resulting string')
+  {
+    $list: 'foo' 'bar' 'baz';
+    $glue: '|';
+    $res: implode('foo' 'bar' 'baz', '|');
+
+    $first: nth($list, 1);
+    $last: nth($list, length($list));
+
+    $begin: str-slice($res, 0, str-length($first));
+    $end: str-slice($res, -1 * str-length($last));
+
+    @include assert-equal($begin, $first);
+    @include assert-equal($end, $last);
+    @include assert-equal($res, 'foo|bar|baz');
+  }
+
+  @include test('should cast none-lists to strings like to-string()')
+  {
+    $map: ('foo': 'hello', 'bar': true, 'baz': 10);
+
+    @include assert-equal(implode(true), to-string(true));
+    @include assert-equal(implode(10), to-string(10));
+    @include assert-equal(implode('hello'), to-string('hello'));
+    @include assert-equal(implode(null), to-string(null));
+    @include assert-equal(implode($map, '|'), to-string($map));
+  }
+}
