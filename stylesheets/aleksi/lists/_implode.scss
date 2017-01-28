@@ -48,8 +48,6 @@
   $str: '';
   $offset: -1 * (str-length($glue) + 1);
 
-  @warn "GLUE:: #{inspect($glue)} // OFFSET:: #{inspect($offset)}";
-
   // glue list items together in a string
   @each $item in $list {
     $str: '#{$str}#{to-string($item)}#{$glue}';
