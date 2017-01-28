@@ -77,6 +77,20 @@ $root-font-size: $base-font-size !default;
   // 0 is always 0
   @if (strip-unit($length) == 0) { @return 0; }
 
+  // if converting to unitless
+  @if $to-unit == '' {
+    // convert length into context unit in order to..
+    $length: convert-length($length, 'px', $from-context, $to-context);
+    // calculate and return mutliplying factor between length and context
+    @return $length / $to-context;
+  }
+
+  // if converting from unitless
+  @if $from-unit == '' {
+    // consider length as a factor for context unit
+    @return convert-length($length * $from-context, $to-unit, $from-context, $to-context);
+  }
+
   // Context values must be in px so we can determine a conversion ratio for
   // relative units.
   @if unit($from-context) != 'px' { @warn "Paremeter $from-context must resolve to a value in pixel units."; }
