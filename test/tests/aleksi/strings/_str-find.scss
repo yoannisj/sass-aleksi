@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-FIND
+// =============================================================================
+
+@import "aleksi/strings/str-find";
+
+@include test-module('The str-find function')
+{
+  @include test('should find the first occurence of given substring')
+  {
+    @include assert-equal( str-find('abcd', 'b'), 2 );
+    @include assert-equal( str-find('abcd', 'a'), 1 );
+  }
+
+  @include test('should return null if no occurence was found')
+  {
+    @include assert-equal( str-find('abcd', 'x'), null);
+  }
+
+  @include test('should start searching only at given index')
+  {
+    @include assert-equal( str-find('abcd', 'a', 2), null);
+    @include assert-unequal( str-find('foo bar foo', 'foo', 2), 1);
+    @include assert-equal( str-find('foo bar foo', 'foo', 2), 9);
+  }
+}
+
+@include test-module('The str-find-all function')
+{
+  @include test('should find all occurences of a given substring')
+  {
+    @include assert-equal( length(str-find-all('foo bar foo', 'foo')), 2);
+    @include assert-equal( length(str-find-all('foo bar foo foo baz foo', 'foo')), 4);
+
+    @include assert-equal( str-find-all('foo bar foo', 'foo'), (1 9));
+    @include assert-equal( str-find-all('foo bar foo foo baz foo', 'foo'), (1 9 13 21));
+  }
+
+  @include test('should find all occurences of a given substring after given offset index')
+  {
+    @include assert-equal( str-find('abcd', 'a', 2), null);
+    @include assert-equal( str-find-all('foo bar foo', 'foo', 2), append((), 9));
+    @include assert-equal( str-find-all('foo bar foo foo baz foo', 'foo', 10), (13 21));
+  }
+
+  @include test('should return null if no substring was found')
+  {
+    @include assert-equal( str-find-all('foo bar foo', 'baz'), null);
+  }
+}

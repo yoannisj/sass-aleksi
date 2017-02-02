@@ -7,20 +7,25 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
 
-// =str-replace( $str, $search, $replace )
+@import "aleksi/strings/str-find";
+
+// =str-replace( $str, $search[, $replace $offset ])
 // -----------------------------------------------------------------------------
-/// Replaces all occurences of a substring inside a given string.
+/// Replaces the first occurence of a substring inside a given string,
+/// optionally searching after the given offset index.
 ///
 /// @param {string} $str - The string to search in
 /// @param {string} $search - The substring to search for
-/// @param {string} $replace - The substring to replace `$search` with
+/// @param {string} $replace [''] - The substring to replace `$search` with
+/// @param {number} $offset [1] - The offset index at which to starts searching
 ///
-/// @return {string} - `$str` with `$search` replaced by `$replace`
+/// @return {string} - `$str` with first occurence of `$search` replaced by `$replace`
 ///
 /// @access public
 /// @since 0.2.0
 
-@function str-replace($str, $search, $replace: '') {
+@function str-replace($str, $search, $replace: '', $offset: 1)
+{
   @if type-of($str) != "string" {
     @return throw-error('str-replace():: $str must be a string, was #{inspect($str)}.');
   }
@@ -33,11 +38,61 @@
     @return throw-error('str-replace():: $replace must be a string, was #{inspect($replace)}.');
   }
 
-  $index: str-index($str, $search);
+  $index: str-find($str, $search, $offset);
 
-  @if $index {
-    @return str-slice($str, 1, $index - 1) + $replace + str-replace(str-slice($str, $index + str-length($search)), $search, $replace);
+  @if $index == null {
+    @return $str;
   }
 
-  @return $str;
+  @return str-slice($str, 1, $index - 1) + $replace + str-slice($str, $index + length($search));
+}
+
+// =str-replace-all( $str, $search[, $replace $offset ])
+// -----------------------------------------------------------------------------
+/// Replaces all occurences of a substring inside a given string, optionally
+/// only the occurences found after the given offset index.
+/// 
+/// @param {string} $str - The string to search in
+/// @param {string} $search - The substring to search for
+/// @param {string} $replace [''] - The substring to replace `$search` with
+/// @param {number} $offset [1] - The offset index at which to starts searching
+///
+/// @return {string} - `$str` with all occurences of `$search` replaced by `$replace`
+///
+/// @access public
+/// @since 0.2.0
+
+@function str-replace-all($str, $search, $replace: '', $offset: 1)
+{
+  @if type-of($str) != "string" {
+    @return throw-error('str-replace():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($search) != "string" {
+    @return throw-error('str-replace():: $search must be a string, was #{inspect($search)}.');
+  }
+
+  @if type-of($replace) != "string" {
+    @return throw-error('str-replace():: $replace must be a string, was #{inspect($replace)}.');
+  }
+
+  $index: str-find($str, $search, $offset);
+
+  @if $index == null {
+    @return $str;
+  }
+
+  $before: '';
+  $res: $str;
+
+  @if $offset > 1 {
+    $before: str-slice($str, 1, $offset);
+    $res: str-slice($str, $offset);
+  }
+
+  @while str-index($res, $search) != null {
+    $res: str-replace($res, $search, $replace);
+  }
+
+  @return $before + $res;
 }

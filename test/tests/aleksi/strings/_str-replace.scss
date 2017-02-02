@@ -6,18 +6,35 @@
 
 @include test-module('The str-replace function')
 {
-  @include test('should replace found occurences of search with replace')
+  @include test('should replace first occurence of search with replace')
   {
     @include assert-equal( str-replace('wiz', 'i', 'u'), 'wuz' );
+    @include assert-equal( str-replace('wizi', 'i', 'u'), 'wuzi' );
   }
 
-  @include test('should replace ALL occurences of search with replace')
+  @include test('should replace first occurence after given offset index')
   {
-    @include assert-equal( str-replace('foo', 'o', 'a'), 'faa' );
+    @include assert-equal( str-replace('foo', 'o', 'a', 3), 'foa' );
+    @include assert-equal( str-replace('foofoo', 'o', 'a', 3), 'foafoo' );
   }
 
-  // @include xtest('should leave str unchanged if search was not found')
-  // {
-  //   @include assert-equal( str-replace('foo', 'x', 'y'), 'foo' );
-  // }
+  @include test('should leave str unchanged if search was not found')
+  {
+    @include assert-equal( str-replace('foo', 'x', 'a'), 'foo' );
+  }
+}
+
+@include test-module('The str-replace-all function')
+{
+  @include test('should replace ALL occurences of search')
+  {
+    @include assert-equal( str-replace-all('wiz', 'i', 'u'), 'wuz' );
+    @include assert-equal( str-replace-all('foo', 'o', 'a'), 'faa' );
+    @include assert-equal( str-replace-all('foofoofoo', 'o', 'a'), 'faafaafaa' );
+  }
+
+  @include test('should leave str unchanged if search was not found')
+  {
+    @include assert-equal( str-replace-all('foo', 'x', 'a'), 'foo' );
+  }
 }

@@ -15,19 +15,20 @@
 @import "tests/aleksi/general/default-to";
 @import "tests/aleksi/general/apply";
 
-// // MATH
+// MATH
 @import "tests/aleksi/math/add";
 @import "tests/aleksi/math/subtract";
 @import "tests/aleksi/math/multiply";
 @import "tests/aleksi/math/divide";
 
-// // STRINGS
+// STRINGS
 @import "tests/aleksi/strings/char-at";
+@import "tests/aleksi/strings/str-find";
 @import "tests/aleksi/strings/str-replace";
 @import "tests/aleksi/strings/str-remove";
 @import "tests/aleksi/strings/str-explode";
 
-// // LISTS
+// LISTS
 @import "tests/aleksi/lists/is-list";
 @import "tests/aleksi/lists/set-list-separator";
 @import "tests/aleksi/lists/prepend";
@@ -39,7 +40,7 @@
 @import "tests/aleksi/lists/depth";
 @import "tests/aleksi/lists/wrap-in-list";
 
-// // MAPS
+// MAPS
 @import "tests/aleksi/maps/is-map";
 @import "tests/aleksi/maps/map-find";
 @import "tests/aleksi/maps/map-get-tuple";

@@ -1,0 +1,78 @@
+// =============================================================================
+// =ALEKSI - STR-FIND
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =str-find( $str, $substr[, $offset ])
+// -----------------------------------------------------------------------------
+/// Searches for the first occurence of a substring in given string, optionally
+/// after the given offset index. Returns the first occurence's index.
+///
+/// @param {string} $str - The string to search in
+/// @param {string} $substr - The substring to search for
+/// @param {number} $offset [1] - The offset index at which to starts searching
+///
+/// @return {number} - The index of the substring's first occurence
+///
+/// @access public
+/// @since 0.3.5
+
+@function str-find($str, $substr, $offset: 1)
+{
+  @if type-of($str) != "string" {
+    @return throw-error('str-find():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($substr) != "string" {
+    @return throw-error('str-find():: $substr must be a string, was #{inspect($substr)}.');
+  }
+
+  @if type-of($offset) != "number" {
+    @return throw-error('str-find():: $offset must be a number, was #{inspect($offset)}.');
+  }
+
+  $ln: str-length($str);
+
+  @if $offset < 1 or $offset > $ln {
+    @return throw-warning('str-find():: $offset #{$offset} is out of boundaries – has to be between 1 and the given string\'s length #{$ln}.');
+  }
+
+  $seg: str-slice($str, $offset);
+  $index: str-index($seg, $substr);
+
+  @return if($index != null, $offset + $index - 1, null);
+}
+
+// =str-find-all( $str, $substr[, $offset ])
+// -----------------------------------------------------------------------------
+/// Searches for all occurences of a substring in given string, optionally after
+/// the given offset index. Returns a list of indexes.
+///
+/// @param {string} $str - The string to search in
+/// @param {string} $substr - The substring to search for
+/// @param {number} $offset [1] - The offset index at which to starts searching
+///
+/// @return {number} - The index of `$substr`
+///
+/// @access public
+/// @since 0.3.5
+
+@function str-find-all($str, $substr, $offset: 1)
+{
+  $res: ();
+
+  // keep searching until no occurence is found
+  $index: str-find($str, $substr, $offset);
+
+  @while $index != null {
+    // add index of occurence to the list of results
+    $res: append($res, $index);
+    // search for next occurence
+    $offset: $index + 1;
+    $index: str-find($str, $substr, $offset);
+  }
+
+  @return if(length($res) > 0, $res, null);
+}

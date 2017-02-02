@@ -11,7 +11,8 @@
 
 // =str-remove( $str, $search )
 // -----------------------------------------------------------------------------
-/// Removes all occurences of a substring inside a given string.
+/// Removes the first occurence of a substring inside a given string, optionally
+/// after the given offset index.
 /// Delegates to `str-replace`
 ///
 /// @param {string} $str - The string to search in
@@ -19,12 +20,13 @@
 ///
 /// @see {function} str-replace
 ///
-/// @return {string} - `$str` without any occurence of `$search`
+/// @return {string} - `$str` without first occurence of `$search`
 ///
 /// @access public
 /// @since 0.2.0
 
-@function str-remove($str, $search) {
+@function str-remove($str, $search)
+{
   @if type-of($str) != "string" {
     @return throw-error('str-remove():: $str must be a string, was #{inspect($str)}.');
   }
@@ -34,4 +36,33 @@
   }
 
   @return str-replace($str, $search, '');
+}
+
+// =str-remove-all( $str, $search )
+// -----------------------------------------------------------------------------
+/// Removes all occurences of a substring inside a given string, optionally only
+/// the occurences found after the given offset index.
+/// Delegates to `str-replace-all`
+///
+/// @param {string} $str - The string to search in
+/// @param {string} $search - The substring to search for
+///
+/// @see {function} str-replace-all
+///
+/// @return {string} - `$str` without any occurence of `$search`
+///
+/// @access public
+/// @since 0.2.0
+
+@function str-remove-all($str, $search)
+{
+  @if type-of($str) != "string" {
+    @return throw-error('str-remove():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($search) != "string" {
+    @return throw-error('str-remove():: $search must be a string, was #{inspect($search)}.');
+  }
+
+  @return str-replace-all($str, $search, '');
 }

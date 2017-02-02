@@ -11,13 +11,23 @@
     @include assert-equal( str-remove('wiz', 'i'), 'wz' );
   }
 
+  @include test('should leave str unchanged if search was not found')
+  {
+    @include assert-equal( str-remove('foo', 'x'), 'foo' );
+  }
+}
+
+@include test-module('The str-remove-all function')
+{
   @include test('should remove ALL occurences of search')
   {
-    @include assert-equal( str-remove('foo', 'o'), 'f' );
+    @include assert-equal( str-remove-all('wiz', 'i'), 'wz' );
+    @include assert-equal( str-remove-all('foo', 'o'), 'f' );
+    @include assert-equal( str-remove-all('foofoofoo', 'o'), 'fff' );
   }
 
-  // @include xtest('should leave str unchanged if search was not found')
-  // {
-  //   @include assert-equal( str-remove('foo', 'x'), 'foo' );
-  // }
+  @include test('should leave str unchanged if search was not found')
+  {
+    @include assert-equal( str-remove-all('foo', 'x'), 'foo' );
+  }
 }
