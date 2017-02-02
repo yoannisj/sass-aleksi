@@ -44,7 +44,7 @@
     @return $str;
   }
 
-  @return str-slice($str, 1, $index - 1) + $replace + str-slice($str, $index + length($search));
+  @return str-slice($str, 1, $index - 1) + $replace + str-slice($str, $index + str-length($search));
 }
 
 // =str-replace-all( $str, $search[, $replace $offset ])

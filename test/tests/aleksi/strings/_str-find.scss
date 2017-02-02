@@ -8,6 +8,7 @@
 {
   @include test('should find the first occurence of given substring')
   {
+    @include assert-equal( str-find('abcd', 'a'), 1 );
     @include assert-equal( str-find('abcd', 'b'), 2 );
     @include assert-equal( str-find('abcd', 'a'), 1 );
   }

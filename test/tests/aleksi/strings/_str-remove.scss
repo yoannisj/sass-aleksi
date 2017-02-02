@@ -8,6 +8,10 @@
 {
   @include test('should remove found occurences of search')
   {
+    @include assert-equal( str-replace('min-width', 'min-'), 'width' );
+    @include assert-equal( str-replace('max-width', 'max-'), 'width' );
+
+    @include assert-equal( str-remove('wiz', 'w'), 'iz' );
     @include assert-equal( str-remove('wiz', 'i'), 'wz' );
   }
 

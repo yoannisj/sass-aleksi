@@ -8,6 +8,10 @@
 {
   @include test('should replace first occurence of search with replace')
   {
+    @include assert-equal( str-replace('min-width', 'min-', 'max-'), 'max-width' );
+    @include assert-equal( str-replace('max-width', 'max-', 'min-'), 'min-width' );
+
+    @include assert-equal( str-replace('wiz', 'w', 'v'), 'viz' );
     @include assert-equal( str-replace('wiz', 'i', 'u'), 'wuz' );
     @include assert-equal( str-replace('wizi', 'i', 'u'), 'wuzi' );
   }
