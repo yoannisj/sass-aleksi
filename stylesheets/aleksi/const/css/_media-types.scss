@@ -1,0 +1,5 @@
+//// @group aleksi-const
+@import "aleksi/general/define";
+
+// complete list of existing CSS media types
+@include define('CSS_MEDIA_TYPES', 'all' 'aural' 'braille' 'handheld' 'print' 'projection' 'screen' 'print' 'handheld' 'tty' 'tv' 'embossed');
