@@ -1,0 +1,91 @@
+// =============================================================================
+// =ALEKSI - STR-TRIM
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+// =str-ltrim( $str[, $chars ])
+// -----------------------------------------------------------------------------
+/// Removes all occurences of given character from the beginning of a string.
+/// If a list of characters is passed as second argument, all of those
+/// characters will be removed.
+///
+/// @param {string} $str - The string to transform
+/// @param {string|list} $chars [' '] - The characters to remove
+///
+/// @return {list} - Transformed string
+///
+/// @access public
+/// @since 0.3.7
+
+@function str-ltrim( $str, $chars: ' ')
+{
+  // transform single character into a list
+  @if type-of($chars) == 'string' {
+    $chars: append((), $chars);
+  }
+
+  // remove leading chars
+  @while index($chars, str-slice($str, 1, 1)) {
+    $str: str-slice($str, 2);
+  }
+
+  @return $str;
+}
+
+// =str-rtrim( $str[, $chars ])
+// -----------------------------------------------------------------------------
+/// Removes all occurences of given character from the ending of a string. If a
+/// list of characters is passed as second argument, all of those characters
+/// will be removed.
+///
+/// @param {string} $str - The string to transform
+/// @param {string|list} $chars [' '] - The characters to remove
+///
+/// @return {list} - Transformed string
+///
+/// @access public
+/// @since 0.3.7
+
+@function str-rtrim( $str, $chars: ' ')
+{
+  // transform single character into a list
+  @if type-of($chars) == 'string' {
+    $chars: append((), $chars);
+  }
+
+  // remove trailing chars
+  @while index($chars, str-slice($str, -1)) {
+    $str: str-slice($str, 1, -2);
+  }
+
+  @return $str;
+}
+
+// =str-trim( $str[, $chars ])
+// -----------------------------------------------------------------------------
+/// Removes all occurences of given character from both ends of a string. If a
+/// list of characters is passed as second argument, all of those characters
+/// will be removed.
+///
+/// @param {string} $str - The string to transform
+/// @param {string|list} $chars [' '] - The characters to remove
+///
+/// @return {list} - A list containing the separated parts of `$str`.
+///
+/// @access public
+/// @since 0.3.7
+
+@function str-trim( $str, $chars: ' ')
+{
+  // transform single character into a list
+  @if type-of($chars) == 'string' {
+    $chars: append((), $chars);
+  }
+
+  // remove leading and trailing occurences of chars and return result
+  @return str-rtrim(str-ltrim($str, $chars), $chars);
+}

@@ -19,7 +19,8 @@
 /// @access public
 /// @since 0.2.0
 
-@function str-explode($str, $delimiter: '') {
+@function str-explode($str, $delimiter: '')
+{
   @if type-of($str) != "string" {
     @return throw-error('str-explode():: $str must be a string, was #{inspect($str)}.');
   }

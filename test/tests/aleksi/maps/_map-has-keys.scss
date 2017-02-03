@@ -27,9 +27,6 @@
 {
   @include test('should check if the given key nesting path corresponds to a maps structure')
   {
-    @debug 'nested-map :: #{inspect($nested-map)}';
-    @debug 'double-nested-map :: #{inspect($double-nested-map)}';
-
     @include assert-equal( map-has-deep-key($nested-map, 'nest', 'en'), true );
     @include assert-equal( map-has-deep-key($nested-map, 'nest', 'foo'), false );
     @include assert-equal( map-has-deep-key($double-nested-map, 'nest', 'sub-nest'), true );

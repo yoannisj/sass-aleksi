@@ -1,0 +1,65 @@
+// =============================================================================
+// =ALEKSI TESTS - STR-TRIM
+// =============================================================================
+
+@import "aleksi/strings/str-trim";
+
+@include test-module('The str-ltrim function')
+{
+  @include test('should remove all occurences of given chars from the beginning of a string')
+  {
+    @include assert-equal( str-ltrim('  hello  ', ' '), 'hello  ' );
+    @include assert-equal( str-ltrim('xxxabcx', 'x'), 'abcx');
+  }
+
+  @include test('should default to removing the space character')
+  {
+    @include assert-equal( str-ltrim('  hello  '), 'hello  ' );
+  }
+
+  @include test('should accept a list of characters to remove')
+  {
+    @include assert-equal( str-ltrim('xxxabcx', 'x' 'a'), 'bcx');
+    @include assert-equal( str-ltrim('zz zz zzabc', 'z' ' '), 'abc');
+  }
+}
+
+@include test-module('The str-rtrim function')
+{
+  @include test('should remove all occurences of given chars from the ending of a string')
+  {
+    @include assert-equal( str-rtrim('  hello  ', ' '), '  hello' );
+    @include assert-equal( str-rtrim('xabcxxx', 'x'), 'xabc');
+  }
+
+  @include test('should default to removing the space character')
+  {
+    @include assert-equal( str-rtrim('  hello  '), '  hello' );
+  }
+
+  @include test('should accept a list of characters to remove')
+  {
+    @include assert-equal( str-rtrim('xabcxxx', 'x' 'c'), 'xab');
+    @include assert-equal( str-rtrim('abczz zz zz', 'z' ' '), 'abc');
+  }
+}
+
+@include test-module('The str-trim function')
+{
+  @include test('should remove all occurences of given chars from both ends of a string')
+  {
+    @include assert-equal( str-trim('  hello  ', ' '), 'hello' );
+    @include assert-equal( str-trim('xxxabcx', 'x'), 'abc');
+  }
+
+  @include test('should default to removing the space character')
+  {
+    @include assert-equal( str-trim('  hello  '), 'hello' );
+  }
+
+  @include test('should accept a list of characters to remove')
+  {
+    @include assert-equal( str-trim('xabcxxx', 'x' 'c'), 'ab');
+    @include assert-equal( str-trim('  zabczz zz zz', 'z' ' '), 'abc');
+  }
+}

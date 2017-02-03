@@ -1,6 +1,6 @@
 # Version is a number. If a version contains alphas, it will be created as a prerelease version
 # Date is in the form of YYYY-MM-DD
 module SassAleksi
-    VERSION = "0.3.6"
-    DATE = "2017-01-28"
+    VERSION = "0.3.7"
+    DATE = "2017-02-03"
 end
