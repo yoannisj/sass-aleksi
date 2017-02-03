@@ -1,0 +1,37 @@
+//// @group aleksi-const
+@import "aleksi/general/define";
+
+// list of characters that are not allowed in CSS classnames (values)
+@include define('CSS_FORBIDDEN_CLASSNAME_CHARACTERS', (
+  ' ',
+  '~',
+  '!',
+  '@',
+  '$',
+  '%',
+  '^',
+  '&',
+  '*',
+  '(',
+  ')',
+  '+',
+  '=',
+  ',',
+  '.',
+  '/',
+  '\'',
+  ';',
+  ':',
+  '"',
+  '?',
+  '>',
+  '<',
+  '[',
+  ']',
+  '\\',
+  '{',
+  '}',
+  '|',
+  '`',
+  '#'
+));
