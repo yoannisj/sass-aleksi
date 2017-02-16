@@ -23,6 +23,11 @@
 
 @function str-ltrim( $str, $chars: ' ')
 {
+  // allow empty string
+  @if $str == '' {
+    @return $str;
+  }
+
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
@@ -52,6 +57,11 @@
 
 @function str-rtrim( $str, $chars: ' ')
 {
+  // allow empty string
+  @if $str == '' {
+    @return $str;
+  }
+
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
@@ -81,6 +91,11 @@
 
 @function str-trim( $str, $chars: ' ')
 {
+  // allow empty string
+  @if $str == '' {
+    @return $str;
+  }
+
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
