@@ -43,13 +43,13 @@
     $key: nth($keys, $i);
     $value: map-get($map, $key);
 
-    // add original value back to resulting map
-    $res: map-set($res, $key, $value);
-
     // at $values if we are currently at insert position
     @if $key == $position or $i == $position {
       $res: map-merge($res, $values);
     }
+
+    // add original value back to resulting map
+    $res: map-set($res, $key, $value);
   }
 
   @return $res;
