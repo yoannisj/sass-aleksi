@@ -18,6 +18,36 @@
 /// @throw Error if `$map` is not a map.
 ///
 /// @access public
+/// @since 0.3.9
+
+@function debug-map($map, $prefix: '')
+{
+  @each $key, $val in $map
+  {
+    @if type-of($val) == 'map' {
+      @debug "#{$prefix}#{$key}::";
+      $val: print-map($val, '#{$prefix}  ');
+    }
+
+    @else {
+      @debug '#{$prefix}#{$key}:: #{inspect($val)}';
+    }
+  }
+
+  @return $map;
+}
+
+// =debug-map( $map )
+// -----------------------------------------------------------------------------
+/// Prints out the given map's contents and useful information for debugging
+/// purposes.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {map} $map - The map to print out.
+///
+/// @throw Error if `$map` is not a map.
+///
+/// @access public
 /// @since 0.1.0
 
 @mixin debug-map( $map )

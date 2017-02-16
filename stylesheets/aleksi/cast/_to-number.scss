@@ -44,7 +44,8 @@
   // If the type is not a string, there is no way we can convert it to a number,
   // so we warn and return the default number value (or throw in strict mode).
   @if ($type != 'string') {
-    @return throw-warning('to-number(): can not cast `#{inspect($value)}`');
+    // @return throw-warning('to-number(): can not cast `#{inspect($value)}`');
+    @return null;
   }
 
   // At this point we have discarded all the edge cases so we can start trying
@@ -58,7 +59,8 @@
   // nor a minus sign, it cannot be casted to a number. Therefore we warn and
   // return the default number value (or throw in strict mode).
   @if not index($allowed-first-character, $first-character) {
-    @return throw-warning('to-number(): can  not cast `#{inspect($value)}`');
+    // @return throw-warning('to-number(): can  not cast `#{inspect($value)}`');
+    @return null;
   }
 
   // In case the value starts with a dot, we assume it is a float and pad it

@@ -37,18 +37,22 @@
   $keys: map-keys($map);
   $values: map-values($map);
   $order: default-to($order, sl-sort($values));
+  $leftover: $keys;
+  $res: ();
 
-  @each $val in $order {
+  @each $val in $order
+  {
     $i: index($values, $val);
-
-    @if index($values, $val) {
-      $res: map-set( $res, nth($keys, $i), $val);
-      $keys: sl-remove-nth($keys, $i);
+    @if $i
+    {
+      $key: nth($keys, $i);
+      $res: map-set( $res, $key, $val);
+      $leftover: sl-remove($leftover, $key);
     }
   }
 
   // include leftovers at the end
-  @each $key in $keys {
+  @each $key in $leftover {
     $res: map-set($res, $key, map-get($map, $key));
   }
 
