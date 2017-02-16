@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALEKSI TESTS - REMOVE-NTH
+// =============================================================================
+
+@import "aleksi/lists/remove-nth";
+@import "aleksi/maps/map-remove-nth";
+
+@include test-module('The remove-nth function')
+{
+  $list: 10px 'foo' false;
+  $item-2: 'foo';
+  $list-withtout-2nd: 10px false;
+
+  $map: (
+    'key-a': 10px,
+    'key-b': 'foo',
+    'key-c': false
+  );
+
+  @include test('should remove the item at given index from a list')
+  {
+    $removed: remove-nth($list, 2);
+    @include assert-equal( remove-nth($list, 2), $list-withtout-2nd );
+    @include assert-equal( index($removed, $item-2), null );
+  }
+
+  @include test('should reduce the length of the list by 1')
+  {
+    $removed: remove-nth($list, 2);
+    @include assert-equal( length($removed), length($list) - 1 );
+  }
+
+  @include test('should delegate to map-remove-nth if a map was given')
+  {
+    $removed: remove-nth($map, 2);
+    @include assert-equal( $removed, map-remove-nth($map, 2) );
+  }
+
+  // @include xtest('should throw an error if $index is not a number')
+  // {
+  //   @include assert-equal( remove-nth($list, 'foo'), null );
+  // }
+
+  // @include xtest('should throw an error if $index is out of bounds for $list')
+  // {
+  //   @include assert-equal( remove-nth($list, 10), null );
+  // }
+}

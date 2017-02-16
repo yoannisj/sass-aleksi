@@ -1,0 +1,51 @@
+// =============================================================================
+// =ALEKSI - REMOVE-NTH
+// =============================================================================
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/map-remove-nth";
+
+// =remove-nth( $list, $index )
+// -----------------------------------------------------------------------------
+/// Removes the item at given index from a list.
+///
+/// @param {list} $list - The list from which to remove an item.
+/// @param {number} $index - The index of the item to remove
+///
+/// @return {any} - The list without the item that was at $index
+///
+/// @throw {error} - If $index is not a number
+///
+/// @example scss
+///   $foo: remove-nth(10px 'foo' false, 2);
+///     // => 10px false
+///   $bar: remove-nth(10px 'foo' false, 4);
+///     // => 10px 'foo' false
+///
+/// @access public
+/// @since 0.4.0
+
+@function remove-nth($list, $index)
+{
+  @if type-of($list) == 'map' {
+    @return map-remove-nth($list, $index);
+  }
+
+  @if type-of($index) != number {
+    @return throw-error('remove-nth(): $index must be a number – was #{inspect($index)}');
+  }
+
+  $res: ();
+  $i: 0;
+
+  @each $item in $list
+  {
+    $i: $i + 1;
+
+    @if $i != $index {
+      $res: append($res, $item);
+    }
+  }
+
+  @return $res;
+}

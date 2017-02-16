@@ -1,0 +1,56 @@
+// =============================================================================
+// =ALEKSI - MAP-CLEAN
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+// =map-insert( $map, $position, $values )
+// -----------------------------------------------------------------------------
+/// Inserts key, value pair(s) at the given key/index in a map.
+///
+/// @param {map} $map - The map in which to insert the value
+/// @param {number|string} $position - The index/key at which to insert the value
+/// @param {map} $values - The key, value pair(s) to insert
+///
+/// @return {map} - A new map, with $values inserted at $position
+/// @throw Error if `$map` is not a map.
+/// @throw Error if `$values` is not a map.
+///
+/// @access public
+/// @since 0.3.0
+
+@function map-insert( $map, $position, $values )
+{
+  @if not is-map($map) {
+    @return throw-error('map-insert(): $map must be a map – was #{inspect($map)}.');
+  }
+
+  @if not is-map($values) {
+    @return throw-error('map-insert(): $values must be a map – was #{inspect($values)}.');
+  }
+
+  $res: ();
+  $keys: map-keys($map);
+  $ln: length($map);
+
+  @for $i from 1 through $ln
+  {
+    // get original key and value for current index
+    $key: nth($keys, $i);
+    $value: map-get($map, $key);
+
+    // add original value back to resulting map
+    $res: map-set($res, $key, $value);
+
+    // at $values if we are currently at insert position
+    @if $key == $position or $i == $position {
+      $res: map-merge($res, $values);
+    }
+  }
+
+  @return $res;
+}

@@ -1,0 +1,59 @@
+// =============================================================================
+// =ALEKSI - REPLACE-NTH
+// =============================================================================
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/map-replace-nth";
+
+// =replace-nth( $list, $index, $val )
+// -----------------------------------------------------------------------------
+/// Replaces the nth item from a list with given value.
+///
+/// @param {list} $list - The list from which to replace an item
+/// @param {number} $index - The index of the item to replace
+/// @param {any} $val - The value to replace the item with
+///
+/// @return {any} - The list with $val instead of the item that was at $index
+///
+/// @throw {error} - If $index is not a number
+/// @throw {error} - If $index is out of bounds for $list
+///
+/// @example scss
+///   $foo: replace-nth(10px 'foo' false, 2, 'bar');
+///     // => 10px 'bar' false
+///   $bar: replace-nth(10px 'foo' false, 4, 'bar');
+///     // => null (Error)
+///
+/// @access public
+/// @since 0.4.0
+
+@function replace-nth($list, $index, $val)
+{
+  @if type-of($list) == 'map' {
+    @return map-replace-nth($list, $index, $val);
+  }
+
+  @if type-of($index) != number {
+    @return throw-error('replace-nth(): $index must be a number – was #{inspect($index)}');
+  }
+
+  @if $index > length($list) {
+    @return throw-error('replace-nth(): index #{$index} is out of bounds for #{inspect($list)}.');
+  }
+
+  $res: ();
+  $i: 0;
+
+  @each $item in $list
+  {
+    $i: $i + 1;
+
+    @if $i == $index {
+      $res: append($res, $val);
+    } @else {
+      $res: append($res, $item);
+    }
+  }
+
+  @return $res;
+}

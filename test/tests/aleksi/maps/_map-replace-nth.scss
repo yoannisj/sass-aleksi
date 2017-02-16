@@ -1,0 +1,58 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-REPLACE-NTH
+// =============================================================================
+
+@import "aleksi/maps/map-replace-nth";
+
+@include test-module('The map-replace-nth function')
+{
+  $map: (
+    'key-a': 10px,
+    'key-b': 'foo',
+    'key-c': false
+  );
+
+  $tuple-2: ('key-b': 'foo');
+  $tuple-2-key: 'key-b';
+  $tuple-2-val: 'foo';
+
+  $tuple: ('new-key': 'bar');
+  $tuple-key: 'new-key';
+  $tuple-val: 'bar';
+
+  $map-replaced-2nd: (
+    'key-a': 10px,
+    'new-key': 'bar',
+    'key-c': false
+  );
+
+  @include test('should replace the nth entry from a map with given tuple')
+  {
+    $replaced: map-replace-nth($map, 2, $tuple);
+
+    @include assert-equal( $replaced, $map-replaced-2nd );
+    @include assert-equal( nth($replaced, 2), 'new-key' 'bar' );
+    @include assert-equal( map-has-key($replaced, $tuple-2-key), false );
+  }
+
+  @include test('should not modify the length of the map')
+  {
+    $replaced: map-replace-nth($map, 2, $tuple);
+    @include assert-equal( length($replaced), length($map) );
+  }
+
+  // @include xtest('should throw an error if $index is not a number')
+  // {
+  //   @include assert-equal( map-replace-nth($map, 'foo'), null );
+  // }
+
+  // @include xtest('should throw an error if $index is out of bounds for $map')
+  // {
+  //   @include assert-equal( map-replace-nth($map, 10), null );
+  // }
+
+  // @include xtest('should throw an error if $tuple is not a single-itemed map')
+  // {
+  //   @include assert-equal( map-replace-nth($map, 2, 'bar'), null );
+  // }
+}

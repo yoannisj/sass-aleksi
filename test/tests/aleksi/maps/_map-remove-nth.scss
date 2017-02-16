@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-REMOVE-NTH
+// =============================================================================
+
+@import "aleksi/maps/map-remove-nth";
+
+@include test-module('The map-remove-nth function')
+{
+  $map: (
+    'key-a': 10px,
+    'key-b': 'foo',
+    'key-c': false
+  );
+
+  $tuple-2: ('key-b': 'foo');
+  $tuple-2-key: 'key-b';
+
+  $map-without-2nd: (
+    'key-a': 10px,
+    'key-c': false
+  );
+
+  @include test('should remove the item at given index from a list')
+  {
+    $removed: map-remove-nth($map, 2);
+    @include assert-equal( $removed, $map-without-2nd );
+    @include assert-equal( map-has-key($removed, $tuple-2-key), false );
+  }
+
+  @include test('should reduce the length of the map by 1')
+  {
+    $removed: map-remove-nth($map, 2);
+    @include assert-equal( length($removed), length($map) - 1 );
+  }
+
+  // @include xtest('should throw an error if $map is not a map')
+  // {
+  //   @include assert-equal( map-remove-nth(10px 'foo' true, 2), null );
+  // }
+
+  // @include xtest('should throw an error if $index is not a number')
+  // {
+  //   @include assert-equal( map-remove-nth($list, 'foo'), null );
+  // }
+
+  // @include xtest('should throw an error if $index is out of bounds for list')
+  // {
+  //   @include assert-equal( map-remove-nth($list, 10), null );
+  // }
+}

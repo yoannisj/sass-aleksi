@@ -40,6 +40,8 @@
 @import "tests/aleksi/lists/list-filter";
 @import "tests/aleksi/lists/depth";
 @import "tests/aleksi/lists/wrap-in-list";
+@import "tests/aleksi/lists/remove-nth";
+@import "tests/aleksi/lists/replace-nth";
 
 // MAPS
 @import "tests/aleksi/maps/is-map";
@@ -56,3 +58,5 @@
 @import "tests/aleksi/maps/map-zip";
 @import "tests/aleksi/maps/map-merge-deep";
 @import "tests/aleksi/maps/map-extend";
+@import "tests/aleksi/maps/map-remove-nth";
+@import "tests/aleksi/maps/map-replace-nth";

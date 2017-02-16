@@ -1,0 +1,52 @@
+// =============================================================================
+// =ALEKSI TESTS - REPLACE-NTH
+// =============================================================================
+
+@import "aleksi/lists/replace-nth";
+@import "aleksi/maps/map-replace-nth";
+
+@include test-module('The replace-nth function')
+{
+  $list: 10px 'foo' false;
+  $item-2: 'foo';
+  $val: 'bar';
+  $list-replaced-2nd: 10px 'bar' false;
+
+  $map: (
+    'key-a': 10px,
+    'key-b': 'foo',
+    'key-c': false
+  );
+
+  $tuple: ('new-key': $val);
+
+  @include test('should replace the nth item from a list with given value')
+  {
+    $replaced: replace-nth($list, 2, $val);
+    @include assert-equal( $replaced, $list-replaced-2nd );
+    @include assert-equal( nth($replaced, 2), $val );
+    @include assert-equal( index($replaced, $item-2), null );
+  }
+
+  @include test('should not modify the length of the list')
+  {
+    $replaced: replace-nth($list, 2, $val);
+    @include assert-equal( length($replaced), length($list) );
+  }
+
+  @include test('should delegate to map-replace-nth if a map was given')
+  {
+    $replaced: replace-nth($map, 2, $tuple);
+    @include assert-equal( $replaced, map-replace-nth($map, 2, $tuple) );
+  }
+
+  // @include xtest('should throw an error if $index is not a number')
+  // {
+  //   @include assert-equal( replace-nth($list, 'foo'), null );
+  // }
+
+  // @include xtest('should throw an error if $index is out of bounds for $list')
+  // {
+  //   @include assert-equal( replace-nth($list, 10), null );
+  // }
+}
