@@ -22,7 +22,7 @@ $constants: () !default;
 @function define($name, $value)
 {
   @if map-has-key($constants, $name) {
-    $w: throw-warning('define(): can not alter existing constant `#{$name}`. Returning constant\'s current value.');
+    $w: throw-warning('define(): can not alter existing constant `#{$name}`. Returning constant\'s current value.');    
     @return map-get($constants, $name);
   }
 

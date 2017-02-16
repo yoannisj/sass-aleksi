@@ -33,3 +33,11 @@ $constants: () !default;
 
   @return map-get($constants, $name);
 }
+
+// =const( $name, $value )
+// -----------------------------------------------------------------------------
+/// @alias {function} const
+
+@mixin const($name, $value) {
+  $c: const($name, $value);
+}

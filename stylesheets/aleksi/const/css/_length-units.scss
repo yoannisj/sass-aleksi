@@ -1,0 +1,5 @@
+//// @group aleksi-const
+@import "aleksi/general/define";
+
+// list of all units available in CSS
+@include define('CSS_LENGTH_UNITS', ('px', 'em', 'rem', '%', 'ex', 'in', 'mm', 'cm', 'pt', 'pc', 'ch', 'vw', 'vh', 'vmin', 'vmax'));
