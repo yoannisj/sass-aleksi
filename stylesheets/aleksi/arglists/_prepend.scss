@@ -1,0 +1,23 @@
+// =============================================================================
+// =ALEKSI - ARGLIST-APPEND
+// =============================================================================
+////
+////
+//// @group aleksi-arglists
+//// @author [Yoannis Jamar](http://yoannis.com)
+
+// =arglist-prepend( $arglist, $value[, $separator ])
+// -----------------------------------------------------------------------------
+
+@function arglist-prepend($arglist, $value, $separator: list-separator($arglist))
+{
+  // add value at the beginning
+  $args: append((), $value, $separator);
+    
+  // build a list manually
+  @each $arg in $list {
+    $args: append($args, $arg, $separator);
+  }
+
+  @return $args;
+}
