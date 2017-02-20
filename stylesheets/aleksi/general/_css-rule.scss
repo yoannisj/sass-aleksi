@@ -2,7 +2,7 @@
 // =ALEKSI - CSS-RULE
 // =============================================================================
 
-// =css-value( $value[, $important ])
+// =css-value( $value[, $important, $func, $args... ])
 // -----------------------------------------------------------------------------
 /// Optionally appends the !important flag to a css-value. Can also run the
 /// value through a function before if needed.
