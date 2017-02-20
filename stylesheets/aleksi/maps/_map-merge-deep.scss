@@ -5,7 +5,6 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "sassy-maps";
 @import "aleksi/general/throw";
 @import "aleksi/maps/is-map";
 
@@ -47,7 +46,7 @@
       $value: map-merge-deep(map-get($res, $key), $value);
     }
 
-    $res: map-set($res, $key, $value);
+    $res: map-merge($res, ($key: $value));
   }
 
   @return $res;

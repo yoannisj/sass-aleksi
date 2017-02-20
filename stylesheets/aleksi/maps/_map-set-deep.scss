@@ -1,0 +1,106 @@
+// =============================================================================
+// =ALEKSI - MAP-SET-DEEP
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-get-deep";
+
+// =map-set-deep( $map, $keys..., $value )
+// -----------------------------------------------------------------------------
+/// Sets a value in nested maps.
+///
+/// @param {map} $map - The nested-map in which to set the value
+/// @param {string} $keys... - The keys path for which to set the value
+/// @param {any} $value - The value to set
+///
+/// @return {map} - $map, with $value set for $keys path
+///
+/// @throw {error} $map is not a map
+/// @throw {error} one of $keys is not a string
+///
+/// @api public
+/// @since 0.4.0
+///
+/// @author [at-import](https://github.com/at-import/)
+/// @author [Yoannis Jamar](http://yoannis.com)
+
+@function map-set-deep($map, $keys... )
+{
+  @if not is-map($map) {
+    @return throw-error('map-set-deep(): $map must be a map – was #{inspect($map)}');
+  }
+
+  $value: null;
+  $length: length($keys);
+
+  // missing argument $value
+  @if $length == 1 {
+    @return throw-error('map-set-deep(): missing argument $value – minimum 3 arguments required, the last one being $value');
+  }
+
+  // allow passing a list of keys as second argument
+  @else if $length == 2 {
+    $value: nth($keys, 2);
+    $keys: nth($keys, 1);
+  }
+
+  @else {
+    // last argument is $value
+    $value: nth($keys, -1);
+    $keys: sl-slice($keys, 1, $length - 1);
+  }
+
+  // do not log warnings when iterating
+  $__aleksi-suppress-deep-map-warnings__: true !global;
+
+  $length: length($keys);
+  $get-keys: ();
+  $map-level: ();
+
+  @if $length > 1 {
+    $get-keys: sl-slice($keys, $length);
+    $map-level: map-get-deep($map, $get-keys);
+  }
+
+  $merge: (nth($keys, $length): $value);
+
+  @if $map-level {
+    $merge: map-merge($map-level, $merge);
+  }
+
+  @for $i from (-1 * $length + 1) through -1
+  {
+    $j: abs($i);
+    $key: nth($keys, $j);
+
+    @if $j > 1
+    {
+      $get-keys: sl-slice($keys, 1, $j);
+      $map-level: map-get-deep($map, $get-keys);
+      
+      @if $map-level {
+        $merge: map-merge($map-level, ($key: $merge));
+      }
+
+      @else {
+        $merge: ($key: $merge);
+      }
+    }
+
+    @else {
+      $merge: ($key: $merge);
+    }
+  }
+
+  $map: map-merge($map, $merge);
+
+  // restore logging of warnings when iterating
+  $__aleksi-suppress-deep-map-warnings__: false !global;
+
+  @return $map;
+}

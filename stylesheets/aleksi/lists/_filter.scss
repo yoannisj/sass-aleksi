@@ -1,0 +1,107 @@
+// =============================================================================
+// =ALEKSI - FILTER
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/is-list";
+@import "aleksi/lists/set-list-separator";
+@import "aleksi/maps/map-filter-values";
+
+// =filter( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Removes items in a list that don't pass the given test function. The current
+/// list item will be passed as first argument to the test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///**Note**: the original list separator will be conserved. If a single value is
+/// passed, the result will be a comma-separated list.
+/// **Note**: if a map is passed, the map's entries will be filtered by passing
+/// each entry's value to $func.
+///
+/// @param {list|map} $list - The list of items to test.
+/// @param {string} $test - The name of the test function to run on each item.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {list} - `$list` without the items that didn't pass the `$test` function.
+///
+/// @throw Warning when walking over a simple value.
+///
+/// @example scss
+///   $foo: list-filter( 10 5px 7 3, 'unitless');
+///     // => 10 7 3
+///   $bar: list-filter( 10px 2.5 4px 8em, 'comparable', 1px);
+///     // => 10px 2.5 4px
+///
+/// @access public
+/// @since 0.4.0
+
+@function filter( $list, $test, $args... )
+{
+// delegate to 'map-filter' if filtering a map
+  @if type-of($list) == 'map' {
+    @return map-filter-values($list, $test, $args...);
+  }
+
+  @else if is-list($list) {
+    @return list-filter($list, $test, $args...);
+  }
+
+  $w: throw-warning('list-filter(): filtering a single value #{inspect($list)} – result will be returned inside a list.');
+  @return list-filter(to-list($list), $test, $args...);
+}
+
+// =list-filter( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Removes items in a list that don't pass the given test function. The current
+/// list item will be passed as first argument to the test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///**Note**: the original list separator will be conserved. If a single value is
+/// passed, the result will be a comma-separated list.
+///
+/// @param {list} $list - The list of items to test.
+/// @param {string} $test - The name of the test function to run on each item.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {list} - `$list` without the items that didn't pass the `$test` function.
+///
+/// @throw Error if `$value` is not a list.
+///
+/// @example scss
+///   $foo: list-filter( 10 5px 7 3, 'unitless');
+///     // => 10 7 3
+///   $bar: list-filter( 10px 2.5 4px 8em, 'comparable', 1px);
+///     // => 10px 2.5 4px
+///
+/// @access public
+/// @since 0.1.0
+
+@function list-filter( $list, $test, $args... )
+{
+  @if not is-list($list) {
+    $e: throw-error("list-filter():: $list must be a list, was #{inspect($list)}.");
+  }
+
+  // initialise empty list
+  $res: ();
+  $separator: list-separator($list);
+
+  // default to comma list for single values
+  // - because other list manipulation functions return comma separated list
+  @if type-of($list) != 'list' {
+    $res: set-list-separator($res, 'comma');
+    $separator: 'comma';
+  }
+
+  @each $item in $list {
+    @if call($test, $item, $args...) {
+      $res: append($res, $item, $separator);
+    }
+  }
+
+  @return $res;
+}

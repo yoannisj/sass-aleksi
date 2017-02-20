@@ -4,20 +4,36 @@
 //// Tools to work with maps.
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+// validating/debugging maps
 @import "aleksi/maps/is-map";
 @import "aleksi/maps/debug-map";
-@import "aleksi/maps/map-get-tuple";
-@import "aleksi/maps/map-find";
+
+// creating maps
+@import "aleksi/maps/map-merge-deep";
+@import "aleksi/maps/map-set";
+@import "aleksi/maps/map-set-deep";
+@import "aleksi/maps/map-zip";
+@import "aleksi/maps/map-extend";
+@import "aleksi/maps/map-extend-deep";
+
+// inspecting maps
 @import "aleksi/maps/map-depth";
+@import "aleksi/maps/map-get-deep";
+@import "aleksi/maps/map-get-tuple";
+@import "aleksi/maps/map-find-key";
+@import "aleksi/maps/map-find-keys";
 @import "aleksi/maps/map-has-keys";
-@import "aleksi/maps/map-walk";
+@import "aleksi/maps/map-has-deep-key";
+
+// transforming maps
+@import "aleksi/maps/map-walk-values";
+@import "aleksi/maps/map-walk-keys";
+@import "aleksi/maps/map-sort-values";
+@import "aleksi/maps/map-sort-keys";
 @import "aleksi/maps/map-unique";
 @import "aleksi/maps/map-clean";
-@import "aleksi/maps/map-filter";
-@import "aleksi/maps/map-select";
-@import "aleksi/maps/map-sort";
-@import "aleksi/maps/map-zip";
-@import "aleksi/maps/map-merge-deep";
-@import "aleksi/maps/map-extend";
+@import "aleksi/maps/map-filter-values";
+@import "aleksi/maps/map-filter-keys";
+@import "aleksi/maps/map-select-keys";
 @import "aleksi/lists/map-remove-nth";
 @import "aleksi/lists/map-replace-nth";

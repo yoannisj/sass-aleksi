@@ -3,6 +3,7 @@
 // =============================================================================
 
 @import "aleksi/maps/map-merge-deep";
+@import "aleksi/maps/map-sort-keys";
 
 @include test-module('The function map-merge-deep')
 {

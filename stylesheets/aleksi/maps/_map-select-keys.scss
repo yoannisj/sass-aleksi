@@ -5,11 +5,10 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "sassy-maps/map-set";
 @import "aleksi/general/throw";
 @import "aleksi/maps/is-map";
 
-// =map-select( $map, $keys )
+// =map-select-keys( $map, $keys )
 // -----------------------------------------------------------------------------
 /// Reduces a map's by selecting some of its keys only.
 ///
@@ -36,7 +35,7 @@
 
   @each $key, $value in $map {
     @if index($keys, $key) {
-      $res: map-set($res, $key, $value);
+      $res: map-merge($res, ($key: $value));
     }
   }
 

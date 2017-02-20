@@ -1,0 +1,53 @@
+// =============================================================================
+// =ALEKSI - MAP-WALK
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+// =map-walk-values( $map, $func[, $args... ])
+// -----------------------------------------------------------------------------
+/// Applies the given function to all values inside a map. The map's current
+/// value is passed as first argument to the function.
+///
+/// @param {map} $map - The map to walk over.
+/// @param {string} $func - The name of the function to apply to each value.
+/// @param {arglist} $args... - Additional arguments passed to '$func`.
+///
+/// @return {map} - The map with modified values.
+/// @throw Error `$map` must be a map.
+///
+/// @example scss
+///   $foo: map-walk(('foo': 'bar', 'bar': 'baz'), 'to-upper-case');
+///     // => ('foo': 'BAR', 'bar': 'BAZ')
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-walk-values( $map, $func, $args... )
+{
+  @if not is-map($map) {
+    $e: throw-error('map-walk():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $val in $map {
+    $val: call($func, $val, $args...);
+    $res: map-merge($res, ($key: $val));
+  }
+
+  @return $res;
+}
+
+// =map-walk( $map, $func[, $args... ])
+// -----------------------------------------------------------------------------
+/// @alias map-walk-values
+
+@function map-walk( $map, $func, $args... )
+{
+  @return map-walk-values( $map, $func, $args... );
+}

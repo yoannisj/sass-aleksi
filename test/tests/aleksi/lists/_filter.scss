@@ -1,0 +1,31 @@
+// =============================================================================
+// =ALEKSI TESTS - LIST-FILTER
+// =============================================================================
+
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/filter";
+
+@include test-module('The filter function')
+{
+  @include test('should remove list items that do not pass a test function')
+  {
+    @include assert-equal( filter(10 5px 1.4 3em 25, 'unitless'), 10 1.4 25 );
+    @include assert-equal( filter(1em 5px 1.4 3em 2.5em, 'comparable', 1em), 1em 1.4 3em 2.5em );
+    @include assert-equal( filter('foo' 'bar' 'baz', 'str-index', 'a'), 'bar' 'baz' );
+    @include assert-equal( filter('hello' 'salut' 'ola', 'str-index', 'l'), 'hello' 'salut' 'ola' );
+  }
+
+  @include test('should work on single values, and return a list')
+  {
+    @include assert-equal( filter($int, 'unitless'), to-list($int) );
+    @include assert-equal( type-of(filter($int, 'unitless')), 'list' );
+
+    @include assert-unequal( filter($px, 'unitless'), $px );
+    @include assert-equal( type-of(filter($px, 'unitless')), 'list' );
+  }
+
+  @include test('when passed a map, it should delegate to map-filter the test on the map values')
+  {
+    @include assert-equal( filter($str-map, 'str-index', 'a'), map-filter($str-map, 'str-index', 'a') );
+  }
+}

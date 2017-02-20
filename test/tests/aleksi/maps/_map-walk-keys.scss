@@ -1,29 +1,8 @@
 // =============================================================================
-// =ALEKSI - MAP-WALK
+// =ALEKSI - MAP-WALK-KEYS
 // =============================================================================
 
-@import "aleksi/maps/map-walk";
-
-@include test-module('The map-walk function')
-{
-  @include test('should call the given function on all values in a map')
-  {
-    @include assert-equal( map-walk($str-map, 'to-upper-case'), $str-map-upper-case );
-    @include assert-equal( map-walk($num-map, 'unit'), $num-map-units );
-    @include assert-equal( map-walk($mix-map, 'type-of'), $mix-map-types );
-  }
-
-  @include test('should accepts additional arguments and pass them over to the function')
-  {
-    @include assert-equal( map-walk($str-map, 'str-slice', 1, 2), $str-map-sliced );
-  }
-
-  // @include xtest('should throw an error when passed something else than a map')
-  // {
-  //   @include assert-equal( map-walk($word, 'to-upper-case'), null );
-  //   @include assert-equal( map-walk($str-list, 'to-upper-case'), null );
-  // }
-}
+@import "aleksi/maps/map-walk-keys";
 
 @include test-module('The map-walk-keys function')
 {

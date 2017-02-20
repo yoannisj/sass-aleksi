@@ -1,0 +1,60 @@
+// =============================================================================
+// =ALEKSI - MAP-FILTER-VALUES
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+// =map-filter-values( $map, $test, $args... )
+// -----------------------------------------------------------------------------
+/// Removes items in a map with a value that doesn't pass a given test function.
+/// **Note**: to pass the test, the test function must return a truethy value —
+/// not per se the boolean `true`.
+///
+/// @param {map} $map - The map with the item values to test.
+/// @param {string} $test - The name of the test function to run on each item's value.
+/// @param {arglist} $args... - Additional arguments for `$test`.
+///
+/// @return {map} - `$map` without the items that didn't pass the `$test` function.
+///
+/// @example scss
+///   $foo: map-filter( ('foo': 10, 'bar': 5px, 'baz': 7, 'wiz' 3), 'unitless');
+///     // => ('foo': 10, 'baz': 7, 'wiz': 3)
+///   $bar: map-filter( ('foo': 10px, 'bar': 2%, 'baz': 4px, 'wiz': 8em), 'comparable', 1px);
+///     // => ('foo': 10px, 'baz': 4px)
+///
+/// @access public
+/// @since 0.4.0
+
+@function map-filter-values( $map, $test, $args... )
+{
+  @if not is-map($map) {
+    @return throw-error('map-filter():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $val in $map {
+    @if call($test, $val, $args...) {
+      $res: map-merge($res, ($key: $val));
+    }
+  }
+
+  @return $res;
+}
+
+
+// =map-filter( $map, $test, $args... )
+// -----------------------------------------------------------------------------
+/// @alias map-filter-values
+///
+/// @access public
+/// @since 0.1.0
+
+@function map-filter( $map, $test, $args... )
+{
+  @return map-filter-values($map, $test, $args...);
+}

@@ -1,8 +1,8 @@
 // =============================================================================
-// =ALESKI TEST - MAP-FIND
+// =ALESKI TEST - MAP-FIND-KEY
 // =============================================================================
 
-@import "aleksi/maps/map-find";
+@import "aleksi/maps/map-find-key";
 
 @include test-module('The map-find-key function')
 {
@@ -28,23 +28,4 @@
   {
     @include assert-equal( map-find($mix-map-types, 'number'),  map-find-key($mix-map-types, 'number') );
   }
-}
-
-@include test-module('The map-find-keys function')
-{
-  @include test('should return all keys under which the given value is stored in a map')
-  {
-    @include assert-equal( map-find-keys($mix-map-types, 'number'), 'int' 'percentage' 'em' );
-    @include assert-unequal( map-find-keys($mix-map-types, 'number'), 'int' );
-  }
-
-  @include test('should always return found keys inside a list')
-  {
-    @include assert-equal( type-of(map-find-keys($mix-map-types, 'null')), 'list' );
-  }
-
-  // @include xtest('should throw an error when passed wrong arguments')
-  // {
-  //   @include assert-equal( map-find-keys($str-list, 'fr' 'en'), null );
-  // }
 }

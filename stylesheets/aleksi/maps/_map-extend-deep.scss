@@ -1,5 +1,5 @@
 // =============================================================================
-// =ALEKSI - MAP-EXTEND
+// =ALEKSI - MAP-EXTEND-DEEP
 // =============================================================================
 ////
 //// @group aleksi-maps
@@ -7,22 +7,22 @@
 
 @import "SassyLists";
 @import "aleksi/general/throw";
+@import "aleksi/maps/map-merge-deep";
 
-// =map-extend( $maps... )
+// =map-extend-deep( $maps... )
 // -----------------------------------------------------------------------------
-/// Merges the given maps successively. Allows to merge more then two maps
-/// together.
 
-@function map-extend( $maps... )
+@function map-extend-deep( $maps... )
 {
   @if length($maps) < 2 {
-    $e: throw-warning('map-extend():: trying to extend one map only. Returning the map as is.');
+    $e: throw-warning('map-extend-deep():: trying to extend one map only. Returning the map as is.');
     @return $nth($maps, 1);
   }
 
   $res: nth($maps, 1);
+
   @each $map in sl-slice($maps, 2) {
-    $res: map-merge($res, $map);
+    $res: map-merge-deep($res, $map);
   }
 
   @return $res;

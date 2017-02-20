@@ -1,0 +1,112 @@
+// =============================================================================
+// =ALEKSI - MAP-SET-DEEP
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "SassyLists";
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+$__aleksi-suppress-deep-map-warnings__: false;
+
+// =map-get-deep( $map, $keys..., $value )
+// -----------------------------------------------------------------------------
+/// Gets a value from deep inside a nested map.
+///
+/// @param {map} $map - The nested-map from which to get the value
+/// @param {string} $keys... - The keys path for which to get the value
+///
+/// @return {map} - $value found at nested $keys path in $map
+///
+/// @throw {error} $map is not a map
+/// @throw {error} one of $keys is not a string
+///
+/// @api public
+/// @since 0.4.0
+///
+/// @author [at-import](https://github.com/at-import/)
+/// @author [Yoannis Jamar](http://yoannis.com)
+
+@function map-get-deep($map, $keys...)
+{
+  @if not is-map($map) {
+    @return throw-error('map-get-deep(): $map must be a map – was #{inspect($map)}');
+  }
+
+  // allow passing a list of keys as second argument
+  @if length($keys) == 1 {
+    $keys: nth($keys, 1);
+  }
+
+  $length: length($keys);
+  $key: nth($keys, 1);
+  $val: map-get($map, $key);
+  $path: '#{$key}';
+
+  @if type-of($key) != 'string' {
+    @return throw-error('map-get-deep(): all keys must be strings – key 1 was #{inspect($key)}');
+  }
+
+  @if $length > 1
+  {
+    @for $i from 2 through $length
+    {
+      $key: nth($keys, $i);
+
+      @if type-of($key) != 'string' {
+        @return throw-error('map-get-deep(): all keys must be strings – key #{$i} was #{inspect($key)}');
+      }
+
+      @if $val != null and type-of($val) == 'map'
+      {
+        $val: map-get($val, $key);
+        $path: $path + '->#{$key}';
+
+        @if $val == null {
+          @return _map-get-deep-warning($path, $val, $key);
+        }
+      }
+
+      @else {
+        @return _map-get-deep-warning($path, $val, $key);
+      }
+    }
+  }
+
+  @return $val;
+}
+
+// =_map-get-deep-warning( $path, $val, $key )
+// -----------------------------------------------------------------------------
+/// Logs a warning message if given $key can not be found when iterating over
+/// a nested map.
+///
+/// @param {map} $path - The nested keys path that is being iterated
+/// @param {map} $val - The last value found in the path
+/// @param {string} $key - The next key to iterate over
+///
+/// @return {null}
+///
+/// @api private
+/// @since 0.4.0
+///
+/// @author [at-import](https://github.com/at-import/)
+/// @author [Yoannis Jamar](http://yoannis.com)
+
+@function _map-get-deep-warning($path, $val, $key)
+{
+  @if not $__aleksi-suppress-deep-map-warnings__
+  {
+    @if $val == null {
+      @return throw-warning('map-get-deep(): $map has no value for key search `#{$path}`');
+    }
+
+    @if not is-map($val) {
+      @return throw-warning('map-get-deep(): non-map value found in $map for key search `#{$path}`, cannot search for key #{$key}`');
+    }
+  }
+
+  @return null;
+}

@@ -1,0 +1,78 @@
+// =============================================================================
+// =ALEKSI - MEMO
+// =============================================================================
+//// @group aleksi-general
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/maps/map-has-deep-key";
+
+$__memo-table__: () !default;
+
+// =memo-set( $ns, $key, $value)
+// -----------------------------------------------------------------------------
+/// Stores a value in the memoization table, under the given key.
+///
+/// @param {string} $ns - the namespace of the module storing the memo value
+/// @param {string} $key - the key under which to store the memo value
+/// @param {any} $value - the value to set in the memoization table
+///
+/// @return {bool} - true
+///
+/// @api public
+/// @since 0.4.0
+
+@function memo-set( $ns, $key, $value )
+{
+  // use interpolation to make sure $key is a string
+  $table: map-set-deep($__memo-table__, $ns, '#{$key}', $value) !global;
+  @return true;
+}
+
+// =memo-has( $ns, $key)
+// -----------------------------------------------------------------------------
+/// Checks whether a value is stored in the memoization table.
+///
+/// @param {string} $ns - the namespace of the module storing the memo value
+/// @param {string} $key - the key under which the memo value should be stored
+///
+/// @return {bool} - whether a value was stored already or not
+///
+/// @api public
+/// @since 0.4.0
+
+@function memo-has( $ns, $key )
+{
+  // use interpolation to make sure $key is a string
+  @return map-has-deep-key($__memo-table__, $ns, '#{$key}');
+}
+
+// =memo-get( $ns, $key, $value)
+// -----------------------------------------------------------------------------
+/// Retrieves a value previously stored in the memoization table using
+/// 'memo-set'.
+/// **Note**: 'memo-get()' will throw an error if no value was found, so make
+/// sure you always test if a value has been stored before using 'memo-has'.
+///
+/// @param {string} $ns - the namespace of the module storing the memo value
+/// @param {string} $key - the key under which the memo value should be stored
+///
+/// @return {any} - the value that was stored under the given $ns and $key
+///
+/// @throw {error} - if no value was found
+///
+/// @api public
+/// @since 0.4.0
+
+@function memo-get( $ns, $key )
+{
+  // use interpolation to make sure $key is a string
+  $key: '#{$key}';
+
+  // return value that was stored using 'memo-set'
+  @if memo-has($ns, $key) {
+    @return map-get-deep($__memo-table__, $ns, $key);
+  }
+
+  $e: throw-error('memo-get(): no value was found for #{inspect($ns)} -> #{inspect($key)} – always test with `memo-has()` before calling `memo-get()`');
+  @return '__none__';
+}

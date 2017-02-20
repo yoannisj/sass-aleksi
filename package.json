@@ -22,5 +22,6 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
     "test-rubysass": "./node_modules/sass-true/bin/true-cli ./test/test.scss"
-  }
+  },
+  "dependencies": {}
 }

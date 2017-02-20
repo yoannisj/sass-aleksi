@@ -1,63 +1,14 @@
 // =============================================================================
-// =ALEKSI - MAP-SORT
+// =ALEKSI - MAP-SORT-KEYS
 // =============================================================================
 ////
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "SassyLists";
-@import "sassy-maps";
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
 @import "aleksi/maps/is-map";
-
-// =map-sort-values( $map[, $order ])
-// -----------------------------------------------------------------------------
-/// Orders a map's keys according to a given, ordered list of values. If no
-/// order is specified, the alphabetic order of the map's values will be used.
-/// **Note**: items with a value that is not in the ordered list will be added
-/// at the end of the resulting map, in the same order as in the original map.
-///
-/// @param {type|...} $name [default] - Description
-///
-/// @return {type|...} - Description
-/// @throw Error if `$map` is not a map
-///
-/// @access public
-/// @since 0.1.0
-///
-/// @todo Manage duplicated values.
-
-@function map-sort-values( $map, $order: null )
-{
-  @if not is-map($map) {
-    @return throw-error('map-sort-keys():: $map must be a map, was #{inspect($map)}.');
-  }
-
-  $keys: map-keys($map);
-  $values: map-values($map);
-  $order: default-to($order, sl-sort($values));
-  $leftover: $keys;
-  $res: ();
-
-  @each $val in $order
-  {
-    $i: index($values, $val);
-    @if $i
-    {
-      $key: nth($keys, $i);
-      $res: map-set( $res, $key, $val);
-      $leftover: sl-remove($leftover, $key);
-    }
-  }
-
-  // include leftovers at the end
-  @each $key in $leftover {
-    $res: map-set($res, $key, map-get($map, $key));
-  }
-
-  @return $res;
-}
 
 // =map-sort-keys( $map[, $order ])
 // -----------------------------------------------------------------------------
@@ -93,7 +44,8 @@
 
   @each $key in $order {
     @if index($keys, $key) {
-      $res: map-set($res, $key, map-get($map, $key));
+      $val: map-get($map, $key);
+      $res: map-merge($res, ($key: $val));
     }
   }
 

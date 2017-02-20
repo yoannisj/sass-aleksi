@@ -1,0 +1,68 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-SET-DEEP
+// =============================================================================
+
+@import "aleksi/maps/map-set-deep";
+
+@include test-module('The map-set-deep function')
+{
+  $map: (
+    'foo': 'hello',
+    'bar': (
+      'wiz': 10,
+      'tak': false
+    ),
+    'baz': true
+  );
+
+  $empty: ();
+
+  @include test('should replace values for existing nested keys')
+  {
+    $res: map-set-deep($map, 'bar', 'wiz', 20);
+    @include assert-equal(map-get(map-get($res, 'bar'), 'wiz'), 20);
+  }
+
+  @include test('should replace non-map values with nested map values')
+  {
+    $res: map-set-deep($map, 'foo', 'tok', true);
+    @include assert-equal(map-get(map-get($res, 'foo'), 'tok'), true);
+  }
+
+  @include test('should add new nested keys to maps')
+  {
+    $res: map-set-deep($map, 'wiz', 'wat', 'world');
+
+    @include assert-equal(length($res), length($map) + 1);
+    @include assert-equal(map-has-key($res, 'wiz'), true);
+    @include assert-equal(map-has-key(map-get($res, 'wiz'), 'wat'), true);
+    @include assert-equal(map-get(map-get($res, 'wiz'), 'wat'), 'world');
+  }
+
+  @include test('should work on empty maps')
+  {
+    $res: map-set-deep($empty, 'bar', 'baz', false);
+
+    @include assert-equal(map-has-key($res, 'bar'), true);
+    @include assert-equal(map-has-key(map-get($res, 'bar'), 'baz'), true);
+    @include assert-equal(map-get(map-get($res, 'bar'), 'baz'), false);
+  }
+
+  @include test('should accept a list of nested keys as second argument')
+  {
+    $res: map-set-deep($map, 'foo' 'tok', true);
+    @include assert-equal(map-get(map-get($res, 'foo'), 'tok'), true);
+  }
+
+  // @include xtest('should throw an error if the $value argument is omitted')
+  // {
+  //   $res: map-set-deep($map, 'foo' 'tok');
+  //   @include assert-equal($res, null);
+  // }
+
+  // @include xtest('should throw an error if one of the given keys is not a string')
+  // {
+  //   $res: map-set-deep($map, 'foo' 10, true);
+  //   @include assert-equal($res, null);
+  // }
+}

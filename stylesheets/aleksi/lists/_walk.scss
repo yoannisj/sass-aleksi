@@ -7,8 +7,10 @@
 
 @import "SassyLists";
 @import "aleksi/general/throw";
-@import "aleksi/maps/map-walk";
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/is-list";
 @import "aleksi/lists/set-list-separator";
+@import "aleksi/maps/map-walk-values";
 
 // =walk( $list, $func[, $args... ])
 // -----------------------------------------------------------------------------
@@ -40,7 +42,7 @@
 @function walk( $list, $func, $args... )
 {
   @if type-of($list) == 'map' {
-    @return map-walk($list, $func, $args...);
+    @return map-walk-values($list, $func, $args...);
   }
 
   @else if is-list($list) {
@@ -48,7 +50,6 @@
   }
 
   $w: throw-warning("Walking over a simple value #{inspect($list)} — resulting value will be returned inside a list.");
-  // @return call($func, $list, $args...);
   @return list-walk(to-list($list), $func, $args...);
 }
 
@@ -65,7 +66,6 @@
 ///
 /// @return {list|map} - The list, arglist or map with modified values.
 /// @throw Error if `$value` is not a list.
-/// @throw Warning when walking over a simple value.
 ///
 /// @example scss
 ///   $foo: map-walk(('foo': 'bar', 'bar': 'baz'), 'to-upper-case');
@@ -88,7 +88,7 @@
   $res: ();
 
   @each $item in $list {
-    $new: if( length($args) == 0, call($func, $item), call($func, $item, $args...) );
+    $new: call($func, $item, $args...);
     $res: append($res, $new);
   }
 

@@ -1,0 +1,40 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-SET
+// =============================================================================
+
+@import "aleksi/maps/map-set";
+
+@include test-module('The map-set function')
+{
+  $map: (
+    'foo': 'hello',
+    'bar': 10,
+    'baz': true
+  );
+
+  $empty: ();
+
+  @include test('should replace values for existing keys')
+  {
+    $res: map-set($map, 'foo', 'world');
+
+    @include assert-equal(map-get($res, 'foo'), 'world');
+  }
+
+  @include test('should add new keys to maps')
+  {
+    $res: map-set($map, 'wiz', false);
+
+    @include assert-equal(length($res), length($map) + 1);
+    @include assert-equal(map-has-key($res, 'wiz'), true);
+    @include assert-equal(map-get($res, 'wiz'), false);
+  }
+
+  @include test('should work on empty maps')
+  {
+    $res: map-set($empty, 'bar', 10);
+
+    @include assert-equal(map-has-key($res, 'bar'), true);
+    @include assert-equal(map-get($res, 'bar'), 10);
+  }
+}

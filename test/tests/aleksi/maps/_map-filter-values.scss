@@ -1,0 +1,21 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-FILTER-VALUES
+// =============================================================================
+
+@import "aleksi/maps/map-filter-values";
+
+@include test-module('The map-filter-values function')
+{
+  @include test('should remove the map items where the value does not pass a given test function')
+  {
+    @include assert-equal( map-filter-values($str-map, 'str-index', 'o'), ('en': 'hello', 'es': 'ola') );
+    @include assert-equal( map-filter-values($str-map, 'str-index', 'a'), ('fr': 'salut', 'es': 'ola') );
+    @include assert-unequal( map-filter-values($str-map, 'str-index', 'a'), $str-map );
+    @include assert-equal( map-filter-values($str-map, 'str-index', 'l'), $str-map );
+  }
+
+  // @include xtest('should throw an error when passed invalid arguments')
+  // {
+  //   @include assert-equal( map-filter($str-list, 'str-index', 'a'), null );
+  // }
+}

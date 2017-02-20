@@ -37,7 +37,7 @@
 @import "tests/aleksi/lists/next";
 @import "tests/aleksi/lists/previous";
 @import "tests/aleksi/lists/walk";
-@import "tests/aleksi/lists/list-filter";
+@import "tests/aleksi/lists/filter";
 @import "tests/aleksi/lists/depth";
 @import "tests/aleksi/lists/wrap-in-list";
 @import "tests/aleksi/lists/remove-nth";
@@ -45,18 +45,29 @@
 
 // MAPS
 @import "tests/aleksi/maps/is-map";
-@import "tests/aleksi/maps/map-find";
-@import "tests/aleksi/maps/map-get-tuple";
+
+@import "tests/aleksi/maps/map-merge-deep";
+@import "tests/aleksi/maps/map-set";
+@import "tests/aleksi/maps/map-set-deep";
+@import "tests/aleksi/maps/map-zip";
+@import "tests/aleksi/maps/map-extend";
+@import "tests/aleksi/maps/map-extend-deep";
+
 @import "tests/aleksi/maps/map-depth";
+@import "tests/aleksi/maps/map-get-deep";
+@import "tests/aleksi/maps/map-get-tuple";
+@import "tests/aleksi/maps/map-find-key";
+@import "tests/aleksi/maps/map-find-keys";
 @import "tests/aleksi/maps/map-has-keys";
-@import "tests/aleksi/maps/map-walk";
+@import "tests/aleksi/maps/map-has-deep-key";
+
+@import "tests/aleksi/maps/map-walk-values";
+@import "tests/aleksi/maps/map-walk-keys";
+@import "tests/aleksi/maps/map-sort-keys";
 @import "tests/aleksi/maps/map-unique";
 @import "tests/aleksi/maps/map-clean";
-@import "tests/aleksi/maps/map-filter";
-@import "tests/aleksi/maps/map-select";
-@import "tests/aleksi/maps/map-sort";
-@import "tests/aleksi/maps/map-zip";
-@import "tests/aleksi/maps/map-merge-deep";
-@import "tests/aleksi/maps/map-extend";
+@import "tests/aleksi/maps/map-filter-values";
+@import "tests/aleksi/maps/map-filter-keys";
+@import "tests/aleksi/maps/map-select-keys";
 @import "tests/aleksi/maps/map-remove-nth";
 @import "tests/aleksi/maps/map-replace-nth";

@@ -2,7 +2,6 @@
 // =ALEKSI - TO-SIDES-MAP
 // =============================================================================
 
-@import "sassy-maps";
 @import "aleksi/general/const";
 @import "aleksi/const/css/layout-sides";
 @import "aleksi/general/throw";
@@ -38,7 +37,8 @@
   }
 
   @each $side in const('CSS_LAYOUT_SIDES') {
-    $map: map-set($map, $side, side-value($list, $side));
+    $val: side-value($list, $side);
+    $map: map-merge($map, ($side: $val));
   }
 
   @return $map;

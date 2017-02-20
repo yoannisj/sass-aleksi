@@ -1,0 +1,49 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-GET-DEEP
+// =============================================================================
+
+@import "aleksi/maps/map-get-deep";
+
+@include test-module('The map-get-deep function')
+{
+  $map: (
+    'foo': 'hello',
+    'bar': (
+      'wiz': 10,
+      'tak': false
+    ),
+    'baz': true
+  );
+
+  $empty: ();
+
+  @include test('should get values for existing nested keys')
+  {
+    $res: map-get-deep($map, 'bar', 'wiz');
+    @include assert-equal($res, 10);
+  }
+
+  @include test('should accept a list of nested keys as second argument')
+  {
+    $res: map-get-deep($map, 'bar' 'tak');
+    @include assert-equal($res, false);
+  }
+
+  @include test('should throw a warning for unexisting nested keys')
+  {
+    $res: map-get-deep($map, 'bar', 'ugigze');
+    @include assert-equal($res, null);
+  }
+
+  @include test('should throw a warning for keys that leed to non-map values along the way')
+  {
+    $res: map-get-deep($map, 'baz', 'wiz');
+    @include assert-equal($res, null);
+  }
+
+  // @include xtest('should throw an error if one of the given keys is not a string')
+  // {
+  //   $res: map-get-deep($map, 'bar', 20);
+  //   @include assert-equal($res, null);
+  // }
+}

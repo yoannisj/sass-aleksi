@@ -6,7 +6,6 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "SassyLists";
-@import "sassy-maps";
 @import "aleksi/general/throw";
 @import "aleksi/maps/is-map";
 
@@ -38,7 +37,7 @@
   @each $key, $val in $map {
     @if not sl-contain($unique-values, $val) {
       $unique-values: append($unique-values, $val);
-      $res: map-set($res, $key, $val);
+      $res: map-merge($res, ($key: $val));
     }
   }
 

@@ -1,0 +1,39 @@
+// =============================================================================
+// =ALEKSI - MAP-SET
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+
+// =map-set( $map, $key, $value )
+// -----------------------------------------------------------------------------
+/// Sets the value for given key in a map.
+///
+/// @param {map} $map - The map in which to set the value
+/// @param {string} $key - The key for which to set the value
+/// @param {any} $value - The value to set
+///
+/// @return {map} - $map, with $key set to $value
+///
+/// @throw {error} $map is not a map
+/// @throw {error} $key is not a string
+///
+/// @api public
+/// @since 0.4.0
+
+@function map-set( $map, $key, $value )
+{
+  @if not is-map($map) {
+    @return throw-error('map-set(): $map must be a map – was #{inspect($map)}');
+  }
+
+  @if type-of($key) != 'string' {
+    @return throw-error('map-set(): $key must be a string – was #{inspect($key)}');
+  }
+
+  // use map-merge to set the key's value
+  @return map-merge($map, ($key: $value));
+}

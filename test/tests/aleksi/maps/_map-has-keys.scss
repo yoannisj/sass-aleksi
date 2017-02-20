@@ -22,32 +22,3 @@
     @include assert-equal( map-has-keys($num-map, 'int' 'px' 'foo'), false );
   }
 }
-
-@include test-module('The map-has-deep-key')
-{
-  @include test('should check if the given key nesting path corresponds to a maps structure')
-  {
-    @include assert-equal( map-has-deep-key($nested-map, 'nest', 'en'), true );
-    @include assert-equal( map-has-deep-key($nested-map, 'nest', 'foo'), false );
-    @include assert-equal( map-has-deep-key($double-nested-map, 'nest', 'sub-nest'), true );
-    @include assert-equal( map-has-deep-key($double-nested-map, 'nest', 'sub-nest', 'en'), true );
-  }
-
-  @include test('should only work if the path is given from the first-level on')
-  {
-    @include assert-equal( map-has-deep-key($double-nested-map, 'sub-nest', 'en'), false );
-  }
-
-  @include test('should also work when checking for a single-level path of keys')
-  {
-    @include assert-equal( map-has-deep-key($str-map, 'en'), true );
-    @include assert-equal( map-has-deep-key($nested-map, 'nest'), true );
-  }
-
-  @include test('should be aliased as map-has-nested-key')
-  {
-    @include assert-equal( map-has-nested-key($nested-map, 'nest', 'en'), map-has-deep-key($nested-map, 'nest', 'en') );
-    @include assert-equal( map-has-nested-key($double-nested-map, 'sub-nest', 'en'), map-has-deep-key($double-nested-map, 'sub-nest', 'en') );
-    @include assert-equal( map-has-nested-key($double-nested-map, 'nest', 'sub-nest', 'en'), map-has-deep-key($double-nested-map, 'nest', 'sub-nest', 'en') );
-  }
-}
