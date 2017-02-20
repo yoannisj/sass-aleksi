@@ -3,8 +3,6 @@
 // =============================================================================
 // Global variables intended to be used accross unit tests.
 
-@import "sassy-maps";
-
 // NULL
 $null: null;
 
@@ -116,8 +114,8 @@ $mix-map-types: (
   'em'         : 'number'
 );
 
-$nested-map: map-set($str-map, 'nest', $str-map);
-$double-nested-map: map-set($str-map, 'nest', map-set($str-map, 'sub-nest', $str-map));
+$nested-map: map-merge($str-map, ('nest': $str-map));
+$double-nested-map: map-merge($str-map, ('nest': map-merge($str-map, ('sub-nest': $str-map))));
 
 $map-a: (
   'a': (

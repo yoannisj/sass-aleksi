@@ -20,7 +20,10 @@
   @include test('should replace values for existing nested keys')
   {
     $res: map-set-deep($map, 'bar', 'wiz', 20);
+
     @include assert-equal(map-get(map-get($res, 'bar'), 'wiz'), 20);
+    @include assert-equal(map-has-key(map-get($res, 'bar'), 'tak'), true);
+    @include assert-equal(map-get(map-get($res, 'bar'), 'tak'), false);
   }
 
   @include test('should replace non-map values with nested map values')
