@@ -27,7 +27,7 @@ $__memo-table__: () !default;
 {
   // use interpolation to make sure $key is a string
   $__memo-table__: map-set-deep($__memo-table__, $ns, '#{$key}', $value) !global;
-  @return true;
+  @return $value;
 }
 
 // =memo-clear( $ns[, $key ])
