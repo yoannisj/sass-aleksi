@@ -63,8 +63,12 @@
   $map-level: ();
 
   @if $length > 1 {
-    $get-keys: sl-slice($keys, $length);
+    $get-keys: sl-slice($keys, 1, $length - 1);
     $map-level: map-get-deep($map, $get-keys);
+
+    @if not is-map($map-level) {
+      $map-level: ();
+    }
   }
 
   $merge: (nth($keys, $length): $value);
@@ -73,16 +77,20 @@
     $merge: map-merge($map-level, $merge);
   }
 
-  @for $i from (-1 * $length + 1) through -1
+  @for $i from ($length * -1 + 1) through -1
   {
     $j: abs($i);
     $key: nth($keys, $j);
 
     @if $j > 1
     {
-      $get-keys: sl-slice($keys, 1, $j);
+      $get-keys: sl-slice($keys, 1, $j - 1);
       $map-level: map-get-deep($map, $get-keys);
-      
+
+      @if not is-map($map-level) {
+        $map-level: ();
+      }
+
       @if $map-level {
         $merge: map-merge($map-level, ($key: $merge));
       }

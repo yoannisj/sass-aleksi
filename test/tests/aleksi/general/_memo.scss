@@ -1,0 +1,85 @@
+// =============================================================================
+// =ALEKSI TESTS - MEMO
+// =============================================================================
+
+@import "aleksi/general/memo";
+
+@include test-module('The memo-set function')
+{
+  $map: ('foo': true, 'bar': 'hello');
+  $map-str: '#{$map}';
+
+  @include test('should store given value in the memoization table')
+  {
+    $memo: memo-set('aleksi', 'foobar', 10);
+    $memo: memo-set('aleksi', 'barbaz', 'hello world');
+
+    @include assert-equal(map-has-key($__memo-table__, 'aleksi'), true);
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'foobar'), true);
+    @include assert-equal(map-get(map-get($__memo-table__, 'aleksi'), 'foobar'), 10);
+
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'barbaz'), true);
+    @include assert-equal(map-get(map-get($__memo-table__, 'aleksi'), 'barbaz'), 'hello world');
+  }
+
+  @include test('should cast mixed keys as strings (also maps)')
+  {
+    $memo: memo-set('aleksi', $map, 10);
+
+    @include assert-equal(map-has-key($__memo-table__, 'aleksi'), true);
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), $map-str), true);
+    @include assert-equal(map-get(map-get($__memo-table__, 'aleksi'), $map-str), 10);
+  }
+}
+
+@include test-module('The memo-clear function')
+{
+  $memo: memo-set('aleksi', 'wiz', false);
+  $memo: memo-set('aleksi', 'tok', 'hello world');
+
+  @include test('should clear all values currently stored under given namespace->key')
+  {
+    $memo: memo-clear('aleksi', 'wiz');
+
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'wiz'), false);
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'tok'), true);
+  }
+
+  @include test('should clear all values currently stored under given namespace')
+  {
+    $memo: memo-clear('aleksi');
+    @include assert-equal(map-has-key($__memo-table__, 'aleksi'), false);
+  }
+}
+
+@include test-module('The memo-has function')
+{
+  $memo: memo-clear('aleksi');
+  $memo: memo-set('aleksi', 'foobar', 20);
+
+  @include test('should test whether a value was already stored under a given namespace->key')
+  {
+    @include assert-equal(memo-has('aleksi', 'foobar'), true);
+    @include assert-equal(memo-has('aleksi', 'barbaz'), false);
+  }
+}
+
+@include test-module('The memo-get function')
+{
+  $map: ('foo': true, 'bar': 'hello');
+  $memo: memo-clear('aleksi');
+
+  $memo: memo-set('aleksi', 'foobar', 20);
+  $memo: memo-set('aleksi', $map, 'hello world');
+
+  @include test('should return a value that was previously stored')
+  {
+    @include assert-equal(memo-get('aleksi', 'foobar'), 20);
+    @include assert-equal(memo-get('aleksi', $map), 'hello world');
+  }
+
+  // @include xtest('should throw an error if trying to get a value that was not stored before')
+  // {
+  //   @include assert-equal(memo-get('aleksi', 'cihejhhi'), null);
+  // }
+}
