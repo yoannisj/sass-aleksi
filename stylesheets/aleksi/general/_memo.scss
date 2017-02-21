@@ -23,7 +23,7 @@ $__memo-table__: () !default;
 /// @api public
 /// @since 0.4.0
 
-@function memo-set( $ns, $key )
+@function memo-set( $ns, $key, $value )
 {
   // use interpolation to make sure $key is a string
   $__memo-table__: map-set-deep($__memo-table__, $ns, $key, $value) !global;
