@@ -23,7 +23,7 @@ $__memo-table__: () !default;
 /// @api public
 /// @since 0.4.0
 
-@function memo-set( $ns, $keys... )
+@function memo-set( $ns, $key )
 {
   // use interpolation to make sure $key is a string
   $__memo-table__: map-set-deep($__memo-table__, $ns, $key, $value) !global;
@@ -42,7 +42,7 @@ $__memo-table__: () !default;
 /// @api public
 /// @since 0.4.0
 
-@function memo-has( $ns, $keys... )
+@function memo-has( $ns, $key )
 {
   // check if $ns was already used to store a value
   @if map-has-key($__memo-table__, $ns) {
@@ -72,11 +72,11 @@ $__memo-table__: () !default;
 /// @api public
 /// @since 0.4.0
 
-@function memo-get( $ns, $keys... )
+@function memo-get( $ns, $key )
 {
   // return value that was stored using 'memo-set'
-  @if memo-has($ns, $keys...) {
-    @return map-get-deep($__memo-table__, $keys...);
+  @if memo-has($ns, $key) {
+    @return map-get-deep($__memo-table__, $key);
   }
 
   // build path to show in error message
