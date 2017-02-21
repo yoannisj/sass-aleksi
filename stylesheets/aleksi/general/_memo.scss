@@ -76,7 +76,7 @@ $__memo-table__: () !default;
 {
   // return value that was stored using 'memo-set'
   @if memo-has($ns, $key) {
-    @return map-get-deep($__memo-table__, $key);
+    @return map-get-deep($__memo-table__, $ns, $key);
   }
 
   @return throw-error('memo-get(): no value was found for #{inspect($ns)} -> #{inspect($key)} – always test with `memo-has()` before calling `memo-get()`');
