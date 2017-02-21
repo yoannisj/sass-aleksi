@@ -79,11 +79,5 @@ $__memo-table__: () !default;
     @return map-get-deep($__memo-table__, $key);
   }
 
-  // build path to show in error message
-  $path: '#{$ns}';
-  @each $key in sl-slice($keys, 2) {
-    $path: '#{$path}->#{$key}';
-  }
-
   @return throw-error('memo-get(): no value was found for #{inspect($ns)} -> #{inspect($key)} – always test with `memo-has()` before calling `memo-get()`');
 }
