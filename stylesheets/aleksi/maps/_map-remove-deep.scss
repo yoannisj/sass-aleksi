@@ -1,0 +1,60 @@
+// =============================================================================
+// =ALEKSI - MAP-HAS-DEEP-KEY
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/cast/to-list";
+@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-has-deep-key";
+@import "aleksi/maps/map-get-deep";
+@import "aleksi/maps/map-set-deep";
+
+// =map-remove-deep($map, $keys...)
+// -----------------------------------------------------------------------------
+/// Removes a deep key at given path from a nested map.
+/// @author [Hugo Giraudel](http://hugogiraudel.com)
+///
+/// @param {map} $map - The map to remove the deep key from
+/// @param {arglist} $keys - The path of keys leading to the key to remove
+///
+/// @return {map} - `$map` without the deep key at path defined by `$keys`
+/// @throw Error if `$map` is not a map.
+///
+/// @example scss
+///   $map: ('a': 'foo', 'b': ('ba': 'bar', 'bb': 'baz'));
+///   $foo: map-remove-deep($map, 'b', 'bb');
+///     // => ('a': 'foo', 'b': ('ba': 'bar'));
+///
+/// @access public
+/// @since 0.4.0
+
+@function map-remove-deep($map, $keys...)
+{
+  @if not is-map($map) {
+    @return throw-error('map-remove-deep(): `$map` must be a map – was #{inspect($map)}');
+  }
+
+  // allow passing a list of keys as second argument
+  @if length($keys) == 1 {
+    $keys: nth($keys, 1);
+  }
+
+  $length: length($keys);
+
+  @if $length > 1 and map-has-deep-key($map, $keys...)
+  {
+    // get map at upper level
+    $path: sl-slice($keys, 1, $length - 1);
+    $upper: map-get-deep($map, $path);
+
+    // remove key from map at upper level
+    $upper: map-remove($upper, nth($keys, -1));
+
+    // replace upper map with new map
+    @return map-set-deep($map, $path, $upper);
+  }
+
+  @return map-remove($map, nth($keys, 1));
+}

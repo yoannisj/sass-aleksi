@@ -22,20 +22,35 @@
     @include assert-equal(map-get(map-get($__memo-table__, 'aleksi'), 'barbaz'), 'hello world');
   }
 
-  @include test('should cast mixed keys as strings (also maps)')
+  @include test('should accept a path of nested keys to use')
   {
-    $memo: memo-set('aleksi', $map, 10);
+    $memo: memo-set('aleksi', 'ns', 'foobar', 10);
 
     @include assert-equal(map-has-key($__memo-table__, 'aleksi'), true);
-    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), $map-str), true);
-    @include assert-equal(map-get(map-get($__memo-table__, 'aleksi'), $map-str), 10);
+    @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'ns'), true);
+    @include assert-equal(map-has-key(map-get(map-get($__memo-table__, 'aleksi'), 'ns'), 'foobar'), true);
+    @include assert-equal(map-get(map-get(map-get($__memo-table__, 'aleksi'), 'ns'), 'foobar'), 10);
+  }
+
+  @include test('should return the value that was stored')
+  {
+    $memo-a: memo-set('aleksi', 'foobar', 10);
+    $memo-b: memo-set('aleksi', 'barbaz', 'hello world');
+    $memo-c: memo-set('aleksi', 'tok', $map);
+
+    @include assert-equal($memo-a, 10);
+    @include assert-equal($memo-b, 'hello world');
+    @include assert-equal($memo-c, $map);
   }
 }
 
 @include test-module('The memo-clear function')
 {
+  @debug 'TESTING MEMO-CLEAR';
+
   $memo: memo-set('aleksi', 'wiz', false);
   $memo: memo-set('aleksi', 'tok', 'hello world');
+  $memo: memo-set('aleksi', 'ns', 'foobar', 10);
 
   @include test('should clear all values currently stored under given namespace->key')
   {
@@ -43,6 +58,12 @@
 
     @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'wiz'), false);
     @include assert-equal(map-has-key(map-get($__memo-table__, 'aleksi'), 'tok'), true);
+  }
+
+  @include test('should accept a path of nested keys to clear')
+  {
+    $memo: memo-clear('aleksi', 'ns', 'foobar');
+    @include assert-equal(map-has-key(map-get(map-get($__memo-table__, 'aleksi'), 'ns'), 'foorbar'), false);
   }
 
   @include test('should clear all values currently stored under given namespace')
@@ -56,11 +77,18 @@
 {
   $memo: memo-clear('aleksi');
   $memo: memo-set('aleksi', 'foobar', 20);
+  $memo: memo-set('aleksi', 'ns', 'foobar', 10);
 
   @include test('should test whether a value was already stored under a given namespace->key')
   {
     @include assert-equal(memo-has('aleksi', 'foobar'), true);
     @include assert-equal(memo-has('aleksi', 'barbaz'), false);
+  }
+
+  @include test('should accept a path of nested keys to verify')
+  {
+    @include assert-equal(memo-has('aleksi', 'ns', 'foobar'), true);
+    @include assert-equal(memo-has('aleksi', 'ns', 'barbaz'), false);
   }
 }
 
@@ -70,12 +98,18 @@
   $memo: memo-clear('aleksi');
 
   $memo: memo-set('aleksi', 'foobar', 20);
-  $memo: memo-set('aleksi', $map, 'hello world');
+  $memo: memo-set('aleksi', '#{$map}', 'hello world');
+  $memo: memo-set('aleksi', 'ns', 'foobar', 10);
 
   @include test('should return a value that was previously stored')
   {
     @include assert-equal(memo-get('aleksi', 'foobar'), 20);
-    @include assert-equal(memo-get('aleksi', $map), 'hello world');
+    @include assert-equal(memo-get('aleksi', '#{$map}'), 'hello world');
+  }
+
+  @include test('should accept a path of nested keys to verify')
+  {
+    @include assert-equal(memo-get('aleksi', 'ns', 'foobar'), 10);
   }
 
   // @include xtest('should throw an error if trying to get a value that was not stored before')
