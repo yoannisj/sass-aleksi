@@ -33,6 +33,11 @@
     @return throw-error('map-has-deep-key():: $map must be a map, was #{inspect($map)}.');
   }
 
+  // allow passing a list of keys as second argument
+  @if length($keys) == 1 {
+    $keys: nth($keys, 1);
+  }
+
   @each $key in $keys
   {
     @if not map-has-key($map, $key) {

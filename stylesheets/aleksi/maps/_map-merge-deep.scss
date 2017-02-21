@@ -37,13 +37,15 @@
 
   $res: $map-a;
 
-  @each $key, $value in $map-b {
+  @each $key, $value in $map-b
+  {
+    $res-value: map-get($res, $key);
     // if we are merging a nested map
     // ('map-get()' will return'null' if $res does not have $key so it
     // is safe not to verify)
-    @if type-of($value) == 'map' and type-of(map-get($res, $key)) == 'map' {
+    @if type-of($value) == 'map' and type-of($res-value) == 'map' {
       // merge nested maps before setting the value
-      $value: map-merge-deep(map-get($res, $key), $value);
+      $value: map-merge-deep($res-value, $value);
     }
 
     $res: map-merge($res, ($key: $value));

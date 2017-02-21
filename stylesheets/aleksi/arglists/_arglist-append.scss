@@ -6,18 +6,18 @@
 //// @group aleksi-arglists
 //// @author [Yoannis Jamar](http://yoannis.com)
 
-// =arglist-prepend( $arglist, $value[, $separator ])
+// =arglist-append( $arglist, $value[, $separator ])
 // -----------------------------------------------------------------------------
 
-@function arglist-prepend($arglist, $value, $separator: list-separator($arglist))
-{
-  // add value at the beginning
-  $args: append((), $value, $separator);
-    
-  // build a list manually
-  @each $arg in $list {
+@function arglist-append($arglist, $value, $separator: list-separator($arglist))
+{ 
+  // build list manually
+  @each $arg in $arglist {
     $args: append($args, $arg, $separator);
   }
+
+  // add value at the end
+  $args: append((), $value, $separator);
 
   @return $args;
 }

@@ -26,6 +26,12 @@
     @include assert-equal(map-get(map-get($res, 'bar'), 'tak'), false);
   }
 
+  @include test('should also work with a single level of keys')
+  {
+    $res: map-set-deep($map, 'baz', false);
+    @include assert-equal(map-get($res, 'baz'), false);
+  }
+
   @include test('should replace non-map values with nested map values')
   {
     $res: map-set-deep($map, 'foo', 'tok', true);
