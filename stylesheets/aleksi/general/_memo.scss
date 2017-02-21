@@ -7,7 +7,6 @@
 $__memo-table__: () !default;
 
 @import "aleksi/maps/map-set-deep";
-@import "aleksi/maps/map-has-deep-key";
 @import "aleksi/maps/map-get-deep";
 
 // =memo-set( $ns, $key, $value)
@@ -26,42 +25,8 @@ $__memo-table__: () !default;
 @function memo-set( $ns, $key, $value )
 {
   // use interpolation to make sure $key is a string
-  $__memo-table__: map-set-deep($__memo-table__, $ns, '#{$key}', $value) !global;
+  $__memo-table__: map-set-deep($__memo-table__, $ns, $key, $value) !global;
   @return $value;
-}
-
-// =memo-clear( $ns[, $key ])
-// -----------------------------------------------------------------------------
-/// Clears all values currently stored under given namespace or key by removing
-/// it from the memoization table. If no key is given, the whole namespace will
-/// be cleared.
-///
-/// @param {string} $ns - the namespace to remove from the memoization table
-/// @param {string} $key ['__none__'] - the key to remove from the namespace
-///
-/// @return {bool} - true
-///
-/// @api public
-/// @since 0.4.0
-
-@function memo-clear( $ns, $key: '__none__' )
-{
-  @if map-has-key($__memo-table__, $ns)
-  {
-    // if no key was given
-    @if $key == '__none__' {
-      // remove the whole namespace
-      $__memo-table__: map-remove($__memo-table__, $ns) !global;
-    }
-
-    @else {
-      // only remove the given key
-      $values: map-remove(map-get($__memo-table__, $ns), $key);
-      $__memo-table__: map-merge($__memo-table__, ($ns: $values)) !global;
-    }
-  }
-
-  @return true;
 }
 
 // =memo-has( $ns, $key)
@@ -78,18 +43,15 @@ $__memo-table__: () !default;
 
 @function memo-has( $ns, $key )
 {
-  // // check if $ns was already used to store a value
-  // @if map-has-key($__memo-table__, $ns) {
-  //   // check if $key was already used to store a value with $ns
-  //   // - use interpolation to make sure $key is a string
-  //   @if map-has-key(map-get($__memo-table__, $ns), '#{$key}') {
-  //     @return true;
-  //   }
-  // }
+  // check if $ns was already used to store a value
+  @if map-has-key($__memo-table__, $ns) {
+    // check if $key was already used to store a value with $ns
+    @if map-has-key(map-get($__memo-table__, $ns), $key) {
+      @return true;
+    }
+  }
 
-  // @return false;
-
-  @return map-has-deep-key($__memo-table__, $ns, $key);
+  @return false;
 }
 
 // =memo-get( $ns, $key, $value)
@@ -97,7 +59,7 @@ $__memo-table__: () !default;
 /// Retrieves a value previously stored in the memoization table using
 /// 'memo-set'.
 /// **Note**: 'memo-get()' will throw an error if no value was found, so make
-/// sure you always test if a value has been stored before using 'memo-has'.
+/// sure you always use 'memo-has()' to test if a value has been stored before.
 ///
 /// @param {string} $ns - the namespace of the module storing the memo value
 /// @param {string} $key - the key under which the memo value should be stored
@@ -111,14 +73,10 @@ $__memo-table__: () !default;
 
 @function memo-get( $ns, $key )
 {
-  // use interpolation to make sure $key is a string
-  $key: '#{$key}';
-
   // return value that was stored using 'memo-set'
   @if memo-has($ns, $key) {
     @return map-get-deep($__memo-table__, $ns, $key);
   }
 
-  $e: throw-error('memo-get(): no value was found for #{inspect($ns)} -> #{inspect($key)} – always test with `memo-has()` before calling `memo-get()`');
-  @return '__none__';
+  @return throw-error('memo-get(): no value was found for #{inspect($ns)} -> #{inspect($key)} – always test with `memo-has()` before calling `memo-get()`');
 }
