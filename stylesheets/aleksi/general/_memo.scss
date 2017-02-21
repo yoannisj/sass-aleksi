@@ -32,6 +32,8 @@ $__memo-table__: () !default;
   // $ns is the first-level key
   $keys: arglist-prepend($keys, $ns);
 
+  @debug inspect($keys) + ' / ' + length($keys);
+
   // store value in the list of keys
   $__memo-table__: map-set-deep($__memo-table__, $keys...) !global;
 
@@ -57,9 +59,9 @@ $__memo-table__: () !default;
 {
   // namespace is the first-level key
   $keys: arglist-prepend($keys, $ns);
-  $i: length($keys);
 
-  // remove the longest path of keys that actually exist
+  // get the longest path of keys that actually exist
+  $i: length($keys);
   @while $i > 1 and not map-has-deep-key($__memo-table__, $keys...)
   {
     $i: $i - 1;
@@ -93,7 +95,10 @@ $__memo-table__: () !default;
 
 @function memo-has( $ns, $keys... )
 {
-  @return map-has-deep-key($__memo-table__, $ns, $keys...);
+  // $ns is the first-level key
+  $keys: arglist-prepend($keys, $ns);
+
+  @return map-has-deep-key($__memo-table__, $keys...);
 }
 
 // =memo-get( $ns, $key, $value)
@@ -115,17 +120,20 @@ $__memo-table__: () !default;
 
 @function memo-get( $ns, $keys... )
 {
+  // $ns is the first-level key
+  $keys: arglist-prepend($keys, $ns);
+
   // return value that was stored using 'memo-set'
   @if memo-has($ns, $keys...) {
-    @return map-get-deep($__memo-table__, $ns, $keys...);
+    @return map-get-deep($__memo-table__, $keys...);
   }
 
   // build path to show in error message
   $path: '#{$ns}';
-  @each $key in $path-keys {
-    $path: '->#{$key}';
+  @each $key in sl-slice($keys, 2) {
+    $path: '#{$path}->#{$key}';
   }
 
-  $e: throw-error('memo-get(): no value was found for `#{path}` – always test with `memo-has()` before calling `memo-get()`');
+  $e: throw-error('memo-get(): no value was found for `#{$path}` – always test with `memo-has()` before calling `memo-get()`');
   @return '__none__';
 }
