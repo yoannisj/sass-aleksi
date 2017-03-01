@@ -26,6 +26,6 @@
     "sassdoc"
   ],
   "dependencies": {
-    "SassyLists": "~2.2.4"
+    "SassyLists": "~3.0.1"
   }
 }
