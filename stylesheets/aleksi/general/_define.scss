@@ -1,6 +1,7 @@
 // =============================================================================
 // =ALEKSI - CONST
 // =============================================================================
+////
 //// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Hugo Giraudel]((http://hugogiraudel.com)
@@ -22,7 +23,7 @@ $constants: () !default;
 @function define($name, $value)
 {
   @if map-has-key($constants, $name) {
-    $w: throw-warning('define(): can not alter existing constant `#{$name}`. Returning constant\'s current value.');    
+    $w: throw-warning('define(): can not alter existing constant `#{$name}`. Returning constant\'s current value.');
     @return map-get($constants, $name);
   }
 
