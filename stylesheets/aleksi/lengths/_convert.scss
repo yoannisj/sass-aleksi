@@ -63,12 +63,8 @@ $root-font-size: $base-font-size !default;
 /// @access public
 /// @since 0.1.0
 
-@function convert-length(
-  $length,
-  $to-unit,
-  $from-context: $base-font-size,
-  $to-context: $from-context
-) {
+@function convert-length( $length, $to-unit, $from-context: $base-font-size, $to-context: $from-context )
+{
   $from-unit: unit($length);
 
   // Optimize for cases where `from` and `to` units are the same.
