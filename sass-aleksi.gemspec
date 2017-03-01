@@ -62,6 +62,5 @@ Gem::Specification.new do |s|
   s.add_dependency("sass",                ["~> 3.3"])
   s.add_dependency("compass-import-once", ["~> 1.0.5"])
   s.add_dependency("SassyLists",          ["~> 2.2"])
-  s.add_dependency("sassy-maps",          ["~> 0.4"])
   s.add_development_dependency("true",    ["~> 2.1.3"])
 end
