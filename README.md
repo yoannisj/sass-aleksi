@@ -36,6 +36,5 @@ Aleski requires Compass and will import only the needed parts from compass. Addi
 
 + [Sass (~> 3.3)](https://github.com/sass/sass)
 + [SassyLists (~> 2.2)](https://github.com/at-import/SassyLists)
-+ [Sassy-Maps (0.4.0)](https://github.com/at-import/Sassy-Maps/)
 
 These extensions are bundled with Aleksi, adding `@import "aleksi";` to your stylesheet will give you access to all their functionalities. Be sure to check out their respective documentations to take the most out of Aleksi.
