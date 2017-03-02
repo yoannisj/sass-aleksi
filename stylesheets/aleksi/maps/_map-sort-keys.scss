@@ -5,9 +5,9 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
+@import "aleksi/lists/sort";
 @import "aleksi/maps/is-map";
 
 // =map-sort-keys( $map[, $order ])
@@ -39,7 +39,7 @@
   }
 
   $keys: map-keys($map);
-  $order: default-to($order, sl-sort($keys));
+  $order: default-to($order, sort($keys));
   $res: ();
 
   @each $key in $order {

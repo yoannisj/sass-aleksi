@@ -1,0 +1,29 @@
+// =============================================================================
+// =ALEKSI TESTS - SORT
+// =============================================================================
+
+@import "aleksi/lists/sort";
+
+@include test-module('The sort function')
+{
+  $alpha-asc: 'a' 'b' 'c' 'd' 'e' 'f' 'g';
+  $alpha-desc: 'g' 'f' 'e' 'd' 'c' 'b' 'a';
+  $num-asc: '1' '2' '3' '4' '5';
+  $num-desc: '5' '4' '3' '2' '1';
+
+  $alpha-num-asc: '!' '.' ';' '0' '1' '2' '3' '4' '5' 'a' 'b' 'c' 'd' 'e' 'f' 'g';
+  $alpha-num-desc: 'g' 'f' 'e' 'd' 'c' 'b' 'a' '5' '4' '3' '2' '1' '0' '.' ';' '!';
+
+  @include test('should sort a list of strings, based on given character order')
+  {
+    @include assert-equal(sort('a' 'd' 'b', $alpha-asc), 'a' 'b' 'd');
+    @include assert-equal(sort('a' 'd' 'b', $alpha-desc), 'd' 'b' 'a');
+    @include assert-equal(sort('a' '!' 'c' 'f' '0', $alpha-num-asc), '!' '0' 'a' 'c' 'f');
+  }
+
+  @include test('should sort a list of numbers, based on given order')
+  {
+    @include assert-equal(sort(1 5 3, $num-asc), 1 3 5);
+    @include assert-equal(sort(1 5 3, $num-desc), 5 3 1);
+  }
+}

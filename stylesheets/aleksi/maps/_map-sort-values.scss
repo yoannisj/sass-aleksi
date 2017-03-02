@@ -8,6 +8,7 @@
 @import "SassyLists";
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
+@import "aleksi/lists/sort";
 @import "aleksi/maps/is-map";
 
 // =map-sort-values( $map[, $order ])
@@ -35,7 +36,7 @@
 
   $keys: map-keys($map);
   $values: map-values($map);
-  $order: default-to($order, sl-sort($values));
+  $order: default-to($order, sort($values));
   $leftover: $keys;
   $res: ();
 

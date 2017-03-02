@@ -31,7 +31,6 @@
   // clear memoization table
   $__memo-table__: () !global;
   $memo: memo-set('aleksi', 'foobar', 20);
-  $memo: memo-set('aleksi', 'ns', 'foobar', 10);
 
   @include test('should test whether a value was already stored under a given namespace->key')
   {
@@ -41,8 +40,8 @@
 
   @include test('should accept a path of nested keys to verify')
   {
-    @include assert-equal(memo-has('aleksi', 'ns', 'foobar'), true);
-    @include assert-equal(memo-has('aleksi', 'ns', 'barbaz'), false);
+    @include assert-equal(memo-has('aleksi', 'foobar'), true);
+    @include assert-equal(memo-has('aleksi', 'barbaz'), false);
   }
 }
 

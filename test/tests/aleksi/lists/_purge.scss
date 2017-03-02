@@ -1,0 +1,24 @@
+// =============================================================================
+// =ALEKSI TESTS - PURGE
+// =============================================================================
+
+@import "aleksi/lists/purge";
+
+@include test-module('The purge function')
+{
+  $strict-falsey: null false;
+  $decades: 10 20 30 40 50;
+  $nulley: null; 
+
+  @include test('should remove given prohibited values from a list')
+  {
+    @include assert-equal(purge(10 'foo' false 30 5 null 'bar', $strict-falsey), 10 'foo' 30 5 'bar');
+    @include assert-equal(purge(10 'foo' false 30 5 null 'bar', $decades), 'foo' false 5 null 'bar');
+    @include assert-equal(purge(10 'foo' false 30 5 null 'bar', $nulley), 10 'foo' false 30 5 'bar');
+  }
+
+  @include test('should remove all falsey values by default')
+  {
+    @include assert-equal(purge(10 true '' false 30 'foo' null 0), 10 true 30 'foo');
+  }
+}

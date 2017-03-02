@@ -1,0 +1,70 @@
+// =============================================================================
+// =ALEKSI - SORT
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+//// @link http://thesassway.com/advanced/implementing-bubble-sort-with-sass
+
+@import "aleksi/general/const";
+@import "aleksi/const/order-latin-chars-asc";
+@import "aleksi/cast/to-list";
+@import "aleksi/strings/str-compare";
+
+// =sort( $list[, $order ])
+// -----------------------------------------------------------------------------
+/// Sorts items in a list, based on given order of characters. If the list
+/// contains non-string values, those will be cast to a string during the
+/// comparison.
+/// **Note**: uses the [quick-sort](https://en.wikipedia.org/wiki/Quicksort).
+///
+/// @param {list} $list - the list of items to sort
+/// @param {list} $order [const('ORDER_ALPHANUMERIC_ASC')] - the order of characters to use when comparing strings
+///
+/// @return {list} - the list with items ordered
+///
+/// @api public
+/// @since 0.4.1
+
+@function sort($list, $order: const('ORDER_LATIN_CHARS_ASC'))
+{
+  $less: ();
+  $equal: ();
+  $more: ();
+
+  $sep: list-separator($list);
+  $length: length($list);
+
+  @if $length > 1
+  {
+    // compare items with the one in the midddle
+    $seed: nth($list, ceil($length / 2));
+
+    @each $item in $list
+    {
+      // recognize equal items
+      @if $item == $seed {
+        $equal: append($equal, $item);
+      }
+
+      // recognize string items coming before in the order
+      @else if str-compare($item, $seed, $order) {
+        $less: append($less, $item, $sep);
+      }
+
+      // recognize string items coming after in the order
+      @else if not str-compare($item, $seed, $order) {
+        $more: append($more, $item, $sep);
+      }
+    }
+
+    // recursively sort items that are not equal
+    $less: sort($less, $order);
+    $more: sort($more, $order);
+
+    // return ordered parts joined together
+    @return join(join($less, $equal), $more);
+  }
+
+  @return to-list($list);
+}

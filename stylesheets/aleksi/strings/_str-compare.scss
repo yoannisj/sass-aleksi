@@ -1,0 +1,49 @@
+// =============================================================================
+// =ALEKSI - STR-COMPARE
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+//// @link http://thesassway.com/advanced/implementing-bubble-sort-with-sass
+
+@import "aleksi/general/const";
+@import "aleksi/const/order-latin-chars-asc";
+
+// =sort( $str-a, $str-b[, $order ])
+// -----------------------------------------------------------------------------
+/// Compares two strings, and returns whether the first one given comes first in
+/// given order of characters.
+///
+/// @param {list} $str-a - the first string to compare
+/// @param {list} $str-b - the second string to compare
+/// @param {list} $order [const('ORDER_ALPHANUMERIC_ASC')] - the order of characters to use when comparing strings
+///
+/// @return {list} - whether $str-a comes before $str-b in given $order
+///
+/// @api public
+/// @since 0.4.1
+
+@function str-compare($str-a, $str-b, $order: const('ORDER_LATIN_CHARS_ASC'))
+{
+  // Cast values to strings
+  $str-a: to-lower-case($str-a + unquote(""));
+  $str-b: to-lower-case($str-b + unquote(""));
+
+  // Loop through and compare the characters of each string...
+  @for $i from 1 through min(str-length($str-a), str-length($str-b))
+  {
+    // Extract a character from each string
+    $char-a: str-slice($str-a, $i, $i);
+    $char-b: str-slice($str-b, $i, $i);
+    
+    // If characters exist in $order list and are different
+    // return true if first comes before second
+    @if $char-a and $char-b and index($order, $char-a) != index($order, $char-b) {
+      @return index($order, $char-a) < index($order, $char-b);
+    }
+  }
+
+  // In case they are equal after all characters in one string are compared,
+  // return the shortest first
+  @return str-length($str-a) < str-length($str-b);
+}

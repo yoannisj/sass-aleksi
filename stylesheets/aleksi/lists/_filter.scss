@@ -50,7 +50,7 @@
     @return list-filter($list, $test, $args...);
   }
 
-  $w: throw-warning('list-filter(): filtering a single value #{inspect($list)} – result will be returned inside a list.');
+  $w: throw-warning('filter(): filtering a single value #{inspect($list)} – result will be returned inside a list.');
   @return list-filter(to-list($list), $test, $args...);
 }
 
@@ -90,14 +90,8 @@
   $res: ();
   $separator: list-separator($list);
 
-  // default to comma list for single values
-  // - because other list manipulation functions return comma separated list
-  @if type-of($list) != 'list' {
-    $res: set-list-separator($res, 'comma');
-    $separator: 'comma';
-  }
-
-  @each $item in $list {
+  @each $item in $list
+  {
     @if call($test, $item, $args...) {
       $res: append($res, $item, $separator);
     }

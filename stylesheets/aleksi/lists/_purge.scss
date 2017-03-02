@@ -1,0 +1,77 @@
+// =============================================================================
+// =ALEKSI - PURGE
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.com)
+
+@import "aleksi/general/throw";
+@import "aleksi/cast/to-list";
+@import "aleksi/const/falsey-values";
+@import "aleksi/lists/is-list";
+
+// =purge( $list[, $prohibited ])
+// -----------------------------------------------------------------------------
+/// Removes given prohibited values from a list or map. By default, it will
+/// remove all falsey/empty values (i.e. `null` `false` `''` and `0`).
+/// **Note**: if a single value is given, it will be cast into a list before
+/// purging.
+///
+/// @param {any} $list - the list to purge
+/// @param {list} $prohibited [const(FALSEY_VALUES)] - values to remove
+///
+/// @return {list} - the list without falsey/null values
+///
+/// @api public
+/// @since 0.4.1
+
+@function purge($list, $prohibited: const('FALSEY_VALUES'))
+{
+  @if type-of($list) == 'map' {
+    @return map-purge($list, $prohibited);
+  }
+
+  @if is-list($list) {
+    @return list-purge($list, $prohibited);
+  }
+
+  $_: throw-warning('purge(): puring a single value `#{inspect($list)}` – result will be the value inside a list, or an empty list if value is to be purged');
+  @return list-purge(to-list($list), $prohibited);
+}
+
+// =list-purge( $list[, $prohibited ])
+// -----------------------------------------------------------------------------
+/// Removes given prohibited values from list. By default, it will remove all
+/// falsey/empty values (i.e. `null`, `false`, `''`, and `0`).
+///
+/// @param {list} $list - the list to purge
+/// @param {list} $prohibited [const(FALSEY_VALUES)] - values to remove
+///
+/// @return {list} - the list without falsey/null values
+///
+/// @api public
+/// @since 0.4.1
+
+@function list-purge($list, $prohibited: const('FALSEY_VALUES'))
+{
+  // sanitize $list argument
+  @if not is-list($list) {
+    @return throw-error('list-purge(): `$list` must be a list – was `#{inspect($list)}`');
+  }
+
+  // allow a single value to be prohibited
+  @if type-of($prohibited) != 'list' {
+    $prohibited: to-list($prohibited);
+  }
+
+  $res: ();
+
+  @each $item in $list
+  {
+    @if index($prohibited, $item) == null {
+      $res: append($res, $item);
+    }
+  }
+
+  @return $res;
+}
