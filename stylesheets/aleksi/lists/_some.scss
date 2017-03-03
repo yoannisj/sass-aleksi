@@ -1,0 +1,93 @@
+
+// =============================================================================
+// =ALEKSI - SOME
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/lists/is-list";
+@import "aleksi/maps/map-some";
+
+// =some( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Checks whether at least one item in a list/map pass the given test function.
+/// **Note**: also accepts maps, which delegates to `map-some()`.
+///
+/// @param {list|map} $list - The list to analyze
+/// @param {string} $test - The name of the test to run on each item
+/// @param {arglist} $args - additional arguments for the test function
+///
+/// @return {bool} - Whether at least one item passes `$test` or not
+/// @throw {error} - If given $test is not a string, or doesnt correspond to an existing function
+///
+/// @access public
+/// @since 0.4.2
+
+@function some($list, $test, $args...)
+{
+  // run test on all values in the map
+  @if type-of($list) == 'map' {
+    @return map-some($list, $test, $args...);
+  }
+
+  // run test on all items in the list
+  @if is-list($list) {
+    @return list-some($list, $test, $args...);
+  }
+
+  @if type-of($test) != 'string' {
+    @return throw-error('some(): `$test` must be a string – was #{inspect($test)}'); 
+  }
+
+  @if function-exists($test) == false {
+    @return throw-error('some(): can\'t find test function #{inspect($test)}');
+  }
+
+  // run test on single value
+  @return call($test, $list, $args...);
+}
+
+// =list-some( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Checks whether at least one item in a list/map pass the given test function.
+/// item passes the test or not.
+///
+/// @param {list} $list - The list to analyze
+/// @param {string} $test - The name of the test to run on each item
+/// @param {arglist} $args - additional arguments for the test function
+///
+/// @return {bool} - Whether at least one item in $list passes $test
+/// @throw {error} - If $list is not a list
+/// @throw {error} - If $test is not a string, or doesnt correspond to an existing function
+///
+/// @access public
+/// @since 0.4.2
+
+@function list-some($list, $test, $args...)
+{
+  @if not is-list($list) {
+    @return throw-error('list-some(): `$list` must be a list – was #{inspect($list)}');
+  }
+
+  @if type-of($test) != 'string' {
+    @return throw-error('list-some(): `$test` must be a string – was #{inspect($test)}'); 
+  }
+
+  @if function-exists($test) == false {
+    @return throw-error('list-some(): can\'t find test function #{inspect($test)}');
+  }
+
+  // run test on all items in the list
+  @each $item in $list
+  {
+    // return true as soon as one item passes given test
+    @if call($test, $item, $args...) {
+      @return true;
+    }
+  }
+
+  // no value passed the test
+  @return false;
+}

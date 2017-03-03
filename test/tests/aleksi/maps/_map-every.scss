@@ -1,0 +1,39 @@
+// =============================================================================
+// =ALEKSI TESTS - MAP-EVERY
+// =============================================================================
+
+@import "aleksi/maps/map-every";
+@import "aleksi/general/is-of-type";
+
+@include test-module('The map-every function')
+{
+  $map-nums: (
+    'a': 1,
+    'b': 2,
+    'c': 30
+  );
+
+  $map-mixed: (
+    'a': 1,
+    'b': true,
+    'c': 'foo'
+  );
+
+  @include test('should check whether all values in map pass given test')
+  {
+    @include assert-equal( map-every($map-nums, 'is-of-type', 'number'), true);
+    @include assert-equal( map-every($map-mixed, 'is-of-type', 'number'), false);
+  }
+
+  // @include test('should throw an error if $map is not a map') {
+  //   @include assert-equal( map-every(true, 'is-of-type', 'string'), null );
+  // }
+
+  // @include test('should throw an error if $test is not a string') {
+  //   @include assert-equal( map-every($map-nums, 10), null );
+  // }
+
+  // @include test('should throw an error if given test function does not exist') {
+  //   @include assert-equal( map-every($map-mixed, 'foobarbaz'), null );
+  // }
+}

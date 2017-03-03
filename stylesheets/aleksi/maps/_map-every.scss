@@ -1,0 +1,47 @@
+// =============================================================================
+// =ALEKSI - MAP-EVERY
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =map-every( $map, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Checks whether all values in a map pass the given test function.
+///
+/// @param {map} $map - The map to analyze
+/// @param {string} $test - The name of the test to run on each item
+/// @param {arglist} $args - additional arguments for the test function
+///
+/// @return {bool} - Whether all values in $map pass $test
+/// @throw {error} if `$map` is not a map
+/// @throw {error} - If $test is not a string, or doesnt correspond to an existing function
+///
+/// @access public
+/// @since 0.4.2
+
+@function map-every( $map, $test, $args... )
+{
+  @if not is-map($map) {
+    @return throw-error('map-every(): `$map` must be a map – was #{inspect($map)}');
+  }
+
+  @if type-of($test) != 'string' {
+    @return throw-error('map-every(): `$test` must be a string – was #{inspect($test)}'); 
+  }
+
+  @if function-exists($test) == false {
+    @return throw-error('map-every(): can\'t find test function #{inspect($test)}');
+  }
+
+  @each $key, $val in $map
+  {
+    // return false as soon as one value does not pass given test
+    @if not call($test, $val, $args...) {
+      @return false;
+    }
+  }
+
+  // all values passed the test
+  @return true;
+}

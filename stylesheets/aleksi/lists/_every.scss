@@ -1,0 +1,92 @@
+
+// =============================================================================
+// =ALEKSI - EVERY
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/lists/is-list";
+@import "aleksi/maps/map-every";
+
+// =every( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Checks whether all items in a list/map pass the given test function.
+/// **Note**: also accepts maps, which delegates to `map-every()`.
+///
+/// @param {list|map} $list - The list to analyze
+/// @param {string} $test - The name of the test to run on each item
+/// @param {arglist} $args - additional arguments for the test function
+///
+/// @return {bool} - Whether at least one item passes `$test` or not
+/// @throw {error} - If given $test is not a string, or doesnt correspond to an existing function
+///
+/// @access public
+/// @since 0.4.2
+
+@function every($list, $test, $args...)
+{
+  // run test on all values in the map
+  @if type-of($list) == 'map' {
+    @return map-every($list, $test, $args...);
+  }
+
+  // run test on all items in the list
+  @if is-list($list) {
+    @return list-every($list, $test, $args...);
+  }
+
+  @if type-of($test) != 'string' {
+    @return throw-error('every(): `$test` must be a string – was #{inspect($test)}'); 
+  }
+
+  @if function-exists($test) == false {
+    @return throw-error('every(): can\'t find test function #{inspect($test)}');
+  }
+
+  // run test on single value
+  @return call($test, $list, $args...);
+}
+
+// =list-every( $list, $test[, $args... ])
+// -----------------------------------------------------------------------------
+/// Checks whether all items in a list/map pass the given test function.
+///
+/// @param {list} $list - The list to analyze
+/// @param {string} $test - The name of the test to run on each item
+/// @param {arglist} $args - additional arguments for the test function
+///
+/// @return {bool} - Whether all items in $list pass $test
+/// @throw {error} - If $list is not a list
+/// @throw {error} - If $test is not a string, or doesnt correspond to an existing function
+///
+/// @access public
+/// @since 0.4.2
+
+@function list-every($list, $test, $args...)
+{
+  @if not is-list($list) {
+    @return throw-error('list-every(): `$list` must be a list – was #{inspect($list)}');
+  }
+
+  @if type-of($test) != 'string' {
+    @return throw-error('list-every(): `$test` must be a string – was #{inspect($test)}'); 
+  }
+
+  @if function-exists($test) == false {
+    @return throw-error('list-every(): can\'t find test function #{inspect($test)}');
+  }
+
+  // run test on all items in the list
+  @each $item in $list
+  {
+    // return false as soon as one item does not pass given test
+    @if not call($test, $item, $args...) {
+      @return false;
+    }
+  }
+
+  // all values passed the test
+  @return true;
+}

@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI TESTS - SOME
+// =============================================================================
+
+@import "aleksi/lists/some";
+@import "aleksi/general/is-of-type";
+
+@include test-module('The list-some function')
+{
+  $list-some: 1, true, 'foo', 2;
+  $list-none: 10 20 30, true, 'foo';
+
+  @include test('should check whether at least one item in list passes given test')
+  {
+    @include assert-equal( list-some($list-some, 'is-of-type', 'number'), true);
+    @include assert-equal( list-some($list-none, 'is-of-type', 'number'), false);
+  }
+
+  // @include test('should throw an error if $list is not a list') {
+  //   @include assert-equal( list-some(true, 'is-of-type', 'string'), null );
+  // }
+
+  // @include test('should throw an error if $test is not a string') {
+  //   @include assert-equal( list-some($list-some, 10), null );
+  // }
+
+  // @include test('should throw an error if given test function does not exist') {
+  //   @include assert-equal( list-some($list-some, 'foobarbaz'), null );
+  // }
+}

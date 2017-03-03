@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI TESTS - EVERY
+// =============================================================================
+
+@import "aleksi/lists/every";
+@import "aleksi/general/is-of-type";
+
+@include test-module('The list-every function')
+{
+  $list-numbers: 1, 2, 30;
+  $list-mixed: 1, true, 'foo';
+
+  @include test('should check whether all items in list pass given test')
+  {
+    @include assert-equal( list-every($list-numbers, 'is-of-type', 'number'), true);
+    @include assert-equal( list-every($list-mixed, 'is-of-type', 'number'), false);
+  }
+
+  // @include test('should throw an error if $list is not a list') {
+  //   @include assert-equal( list-every(true, 'is-of-type', 'string'), null );
+  // }
+
+  // @include test('should throw an error if $test is not a string') {
+  //   @include assert-equal( list-every($list-numbers, 10), null );
+  // }
+
+  // @include test('should throw an error if given test function does not exist') {
+  //   @include assert-equal( list-every($list-mixed, 'foobarbaz'), null );
+  // }
+}

@@ -45,6 +45,8 @@
 @import "tests/aleksi/lists/wrap-in-list";
 @import "tests/aleksi/lists/remove-nth";
 @import "tests/aleksi/lists/replace-nth";
+@import "tests/aleksi/lists/every";
+@import "tests/aleksi/lists/some";
 
 // MAPS
 @import "tests/aleksi/maps/is-map";
@@ -63,6 +65,8 @@
 @import "tests/aleksi/maps/map-find-keys";
 @import "tests/aleksi/maps/map-has-keys";
 @import "tests/aleksi/maps/map-has-deep-key";
+@import "tests/aleksi/maps/map-every";
+@import "tests/aleksi/maps/map-some";
 
 @import "tests/aleksi/maps/map-walk-values";
 @import "tests/aleksi/maps/map-walk-keys";
