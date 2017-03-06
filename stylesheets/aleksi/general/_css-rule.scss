@@ -2,6 +2,8 @@
 // =ALEKSI - CSS-RULE
 // =============================================================================
 
+@import "aleksi/arglists/arglist-prepend";
+
 // =css-value( $value[, $important, $func, $args... ])
 // -----------------------------------------------------------------------------
 /// Optionally appends the !important flag to a css-value. Can also run the
@@ -29,10 +31,18 @@
 /// @access public
 /// @since 0.1.0
 
-@function css-value( $value, $important: false, $func: null, $args...  )
+@function css-value( $value, $important: false, $func: '__none__', $args...  )
 {
+  // allow omitting the $important argument
+  @if type-of($important) == 'string'
+  {
+    $args: if($func != '__none__', $args, arglist-prepend($args, $fn), $args);
+    $func: $important;
+    $important: false;
+  }
+
   // optionally apply a given funtion to modify the value
-  $value: if($func, call($func, $value, $args...), $value);
+  $value: if($func != '__none__', call($func, $value, $args...), $value);
 
   // don't append the '!important' flag to `null` because that will make SASS
   // output it in the final CSS, when `null` alone will be left out.

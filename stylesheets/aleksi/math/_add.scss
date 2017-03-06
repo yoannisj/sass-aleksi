@@ -40,7 +40,7 @@
   }
 
   @if length($terms) < 2 {
-    @return thow-error('add():: wrong number of arguments, 1 instead of 2 or more.');
+    @return throw-error('add():: wrong number of arguments, 1 instead of 2 or more.');
   }
 
   $sum: nth($terms, 1);
