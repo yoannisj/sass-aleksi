@@ -1,0 +1,17 @@
+
+
+@function is-littler($a, $b) {
+  @return ($a < $b);
+}
+
+@function is-littler-or-equal($a, $b) {
+  @return ($a <= $b);
+}
+
+@function lt() {
+  @return is-littler($a, $b);
+}
+
+@function lte() {
+  @return is-littler-or-equal($a, $b);
+}
