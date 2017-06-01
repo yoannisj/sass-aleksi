@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALEKSI - unique-id-for
+// =============================================================================
+////
+//// @group aleksi-general
+//// @author [Yoannis Jamar](http://yoannis.com)
+
+@import "aleksi/general/default-to";
+
+$__unique-ids__: () !default;
+
+// =unique-id-for( $ns, $val )
+// -----------------------------------------------------------------------------
+/// Creates a unique if for given value, or returns the one that was previously
+/// created for it – if any. Allows to associate a given value to a unique css
+/// identifier.
+///
+/// @param $ns {string} - a namespace in which to store val <=> id associaition
+/// @param $val {any} - the value for which to get a unique id
+///
+/// @return {any} - the unique id associatef to $val inside $ns
+/// @throw {error} - if $ns is not a string
+///
+/// @api public
+/// @since 0.4.2
+
+@function unique-id-for($ns, $val)
+{
+  @if type-of($ns) != 'string' {
+    @return throw('unique-id-for(): `$ns` must be a string – was `#{inspect($ns)}`');
+  }
+
+  $vals: default-to(map-get($__unique-ids__, $ns), ();
+  $key: '#{inspect($val)}';
+  
+  // and given value already has a unique id in $ns
+  @if map-has-key($vals, $key) {
+    // return that id
+    @return map-get($vals, $key);
+  }
+
+  // create unique id for given value
+  $id: unique-id();
+  // add it to other values in given namespace
+  $vals: map-merge($vals, ('#{$key}': $id));
+  // update namespace in global map of ids
+  $__unique-ids__: map-merge($__unique-ids__, ('#{$ns}': $vals)) !global;
+
+  return $id;
+}
