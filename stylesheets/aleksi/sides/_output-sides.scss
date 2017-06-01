@@ -42,7 +42,8 @@
 {
   // output separate property if setting offset or if one side
   // should be omitted
-  @if $property == 'offset' or sl-contain($values, null) {
+  @if $property == 'offset' or sl-contain($values, null)
+  {
     @each $side in const('CSS_LAYOUT_SIDES') {
       // append the side to the property name, or use the side only for offsets
       $prop: if($property == 'offset', $side, '#{$property}-#{$side}');
