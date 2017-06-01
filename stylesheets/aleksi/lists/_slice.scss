@@ -1,0 +1,77 @@
+// =============================================================================
+// =ALEKSI - DEPTH
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](http://yoannis.com)
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
+
+@import "aleksi/general/throw";
+
+// =slice( $list, $start[, $end ])
+// -----------------------------------------------------------------------------
+/// Returns a part of a list, based on given range of indexes.
+///
+/// @param {list|map} $list - The list to slice
+/// @param {number} $start - The index of the first item to include
+/// @param {number} $end [length($list)] - The indef of the last item to include
+///
+/// @return {list} - The resulting list
+///
+/// @access public
+/// @since 0.1.0
+
+@function slice( $list, $start, $end: -1 )
+{
+  @if $list == () {
+    @return ();
+  }
+
+  @if type-of($list) != 'list' {
+    @return throw-error('slice(): `$list` must be a list – was `#{inspect($list)}`');
+  }
+
+  @if type-of($start) != 'number' {
+    @return throw-error('slice(): `$start` must be a number – was `#{inspect($start)}`');
+  }
+
+  @if type-of($end) != 'number' {
+    @return throw-error('slice(): `$end` must be a number – was `#{inspect($end)}`');
+  }
+
+  // get list's length
+  $ln: length($list);
+
+  // accept negative indexes
+  @if $start < 0 { $start: $ln + $start + 1; }
+  @if $end < 0 { $end: $ln + $end + 1; }
+  // make sure 'end' index is in bound
+  @else if $end > $ln { $end: $ln; }
+
+  // check if indexes are in list's boundaries
+  @if $start <= 0 {
+    @return throw-error('slice(): `$start` index `#{$start}` out of bound – must be greater than `0`');
+  }
+
+  @if $end <= 0 {
+    @return throw-error('slice(): `$end` index `#{$end}` out of bound – must be greater than `0`');
+  }
+
+  @if $start > $ln {
+    @return throw-error('slice(): `$start` index `#{$start}` out of bound – can not be greater than list\'s length');
+  }
+
+  @if $start > $end {
+    @return throw-error('slice(): `$start` must be smaller than `$end`');
+  }
+
+  // build new list with selected items
+  $res: ();
+  $sep: list-separator($list);
+
+  @for $i from $start through $end {
+    $res: append($res, nth($list, $i), $sep);
+  }
+
+  @return $res;
+}
