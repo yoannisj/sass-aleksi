@@ -29,6 +29,11 @@
 
 @function sides-list-to-map( $list )
 {
+  // optimise for empty lists
+  @if $list == () {
+    @return ();
+  }
+
   $l: length($list);
   $map: ();
 
