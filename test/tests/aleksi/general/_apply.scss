@@ -9,7 +9,7 @@
   @include test('should apply a given function to a simple value')
   {
     @include assert-equal( apply($word, 'to-upper-case'), 'FOO' );
-    @include assert-equal( apply($hsl, 'hue'), 185deg );
+    @include assert-equal( apply($hsl, 'hue'), 185deg, $inspect: true );
   }
 
   @include test('should not return simple values inside a list')
@@ -20,14 +20,14 @@
   @include test('should accepts additional arguments and pass them over to the function')
   {
     @include assert-equal( apply($word, 'str-slice', 1, 2), $word-sliced );
-    // @include assert-equal( apply($rgba, 'darken', 10%), $rgba-darkened );
+    @include assert-equal( apply($rgba, 'darken', 10%), $rgba-darkened, $inspect: true );
   }
 
   @include test('should apply a given function to all values inside a list')
   {
     @include assert-equal( apply($str-list, 'to-upper-case'), $str-list-upper-case );
     @include assert-equal( apply($mix-list, 'type-of'), $mix-list-types );
-    @include assert-equal( apply($num-list, 'unit'), $num-list-units );
+    @include assert-equal( apply($num-list, 'unit'), $num-list-units, $inspect: true );
   }
 
   @include test('should apply a given function to all values inside a map')
