@@ -7,6 +7,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "aleksi/general/throw";
+@import "aleksi/arglists/arglist-prepend";
 @import "aleksi/lists/is-list";
 @import "aleksi/maps/map-every";
 
@@ -46,7 +47,8 @@
   }
 
   // run test on single value
-  @return call($test, $list, $args...);
+  $test-args: arglist-prepend($args, $list);
+  @return call($test, $test-args...);
 }
 
 // =list-every( $list, $test[, $args... ])
@@ -82,7 +84,8 @@
   @each $item in $list
   {
     // return false as soon as one item does not pass given test
-    @if not call($test, $item, $args...) {
+    $test-args: arglist-prepend($args, $item);
+    @if not call($test, $test-args...) {
       @return false;
     }
   }

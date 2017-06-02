@@ -5,6 +5,8 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/arglists/arglist-prepend";
+
 // =map-some( $map, $test[, $args... ])
 // -----------------------------------------------------------------------------
 /// Checks whether at least one value in a map passes the given test function.
@@ -37,7 +39,8 @@
   @each $key, $val in $map
   {
     // return true as soon as one value passes given test
-    @if call($test, $val, $args...) {
+    $test-args: arglist-prepend($args, $val);
+    @if call($test, $test-args...) {
       @return true;
     }
   }

@@ -42,7 +42,8 @@
   }
 
   // optionally apply a given funtion to modify the value
-  $value: if($func != '__none__', call($func, $value, $args...), $value);
+  $call-args: arglist-prepend($args, $value);
+  $value: if($func != '__none__', call($func, $call-args...), $value);
 
   // don't append the '!important' flag to `null` because that will make SASS
   // output it in the final CSS, when `null` alone will be left out.
