@@ -5,6 +5,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Chris Eppstein](http://chriseppstein.github.io/)
 
+@import "aleksi/general/memo";
 @import "aleksi/lengths/strip-unit";
 
 // =default globals
@@ -35,17 +36,37 @@ $root-font-size: $base-font-size !default;
 {
   $res: ();
 
-  @each $value in $values
+  @if type-of($values) == 'list'
   {
-    // convert length values
-    @if type-of($value) == number {
-      $value: convert-length($value, $to-unit, $from-context, $to-context);
+    @each $value in $values
+    {
+      // convert length values
+      @if type-of($value) == 'number' {
+        $value: convert-length($value, $to-unit, $from-context, $to-context);
+      }
+
+      $res: append($res, $value);
     }
 
-    $res: append($res, $value);
+    @return $res;
   }
 
-  @return $res;
+  @else if type-of($values) == 'map'
+  {
+    @each $key, $val in $values
+    {
+      // convert length values
+      @if type-of($val) == 'number' {
+        $val: convert-length($val, $to-unit, $from-context, $to-context);
+      }
+
+      $res: map-merge($res, ('#{$key}': $val));
+    }
+
+    @return $res;
+  }
+
+  @return convert-length($values, $to-unit, $from-context, $to-context);
 }
 
 // =convert-length( $length, $to-unit[, $from-context, $to-context ])
@@ -65,32 +86,73 @@ $root-font-size: $base-font-size !default;
 
 @function convert-length( $length, $to-unit, $from-context: $base-font-size, $to-context: $from-context )
 {
+  // accept null, and return as is
+  @if type-of($length) == 'null' {
+    @return $length;
+  }
+
+  // validate given length
+  @if type-of($length) != 'number' {
+    @return throw-error('convert-length(): `$length` must be `null` or a number – was `#{inspect($length)}`');
+  }
+
+  // validate context lengths
+  // these must be in px so we can determine a conversion ratio for relative units
+  @if unit($from-context) != 'px' {
+    @return throw-error('convert-length(): `$from-context` must resolve to a value in pixels — was `#{inspect($from-context)}`');
+  }
+
+  @if unit($to-context) != 'px' {
+    @return throw-error('convert-length(): `$to-context` must resolve to a value in pixels — was `#{inspect($to-context)}`');
+  }
+
+  $_memo_: 'convert-length-#{$length}-#{$to-unit}-#{$from-context}-#{$to-context}';
+  @if memo-has('aleksi', $_memo_) {
+    @return memo-get('aleksi', $_memo_);
+  }
+
+  // 0 is always 0, and should be unitless
+  @if strip-unit($length) == 0 {
+    @return memo-set('aleksi', $_memo_, 0);
+  }
+
+  // get original unit
   $from-unit: unit($length);
 
-  // Optimize for cases where `from` and `to` units are the same.
-  @if $from-unit == $to-unit { @return $length; }
+  // accept `null` and `'unitless'` as $to-unit for unitless conversion
+  @if $to-unit == null or $to-unit == 'unitless' {
+    $to-unit: '';
+  }
 
-  // 0 is always 0
-  @if (strip-unit($length) == 0) { @return 0; }
+  // optimize for cases where `from` and `to` units are the same.
+  @if $from-unit == $to-unit {
+    @return memo-set('aleksi', $_memo_, $length);
+  }
+
+  // use 'root-font-size' setting as context for 'rem' conversions
+  @if $to-unit == 'rem' or $from-unit == 'rem'
+  {
+    $rfs: if(global-variable-exists('root-font-size'), $root-font-size,
+        if(global-variable-exists('base-font-size'), $base-font-size, 16px));
+    $to-context: if($from-context == $to-context, $rfs, $to-context);
+  }
 
   // if converting to unitless
   @if $to-unit == '' {
     // convert length into context unit in order to..
     $length: convert-length($length, 'px', $from-context, $to-context);
     // calculate and return mutliplying factor between length and context
-    @return $length / $to-context;
+    $length: $length / $to-context;
+
+    @return memo-set('aleksi', $_memo_, $length);
   }
 
   // if converting from unitless
   @if $from-unit == '' {
     // consider length as a factor for context unit
-    @return convert-length($length * $from-context, $to-unit, $from-context, $to-context);
+    $length: convert-length($length * $from-context, $to-unit, $from-context, $to-context);
+    @return memo-set('aleksi', $_memo_, $length);
   }
-
-  // Context values must be in px so we can determine a conversion ratio for
-  // relative units.
-  @if unit($from-context) != 'px' { @warn "Paremeter $from-context must resolve to a value in pixel units."; }
-  @if unit($to-context) != 'px' { @warn "Parameter $to-context must resolve to a value in pixel units."; }
 
   // Convert input length to pixels
   $px-length: $length;
@@ -113,15 +175,15 @@ $root-font-size: $base-font-size !default;
              $from-unit == 'vh'  or
              $from-unit == 'vmin' {
       @warn "#{$from-unit} units can't be reliably converted; Returning original value.";
-      @return $length;
+      @return memo-set('aleksi', $_memo_, $length);
     }
     @else {
       @warn "#{$from-unit} is an unknown length unit. Returning original value.";
-      @return $length;
+      @return memo-set('aleksi', $_memo_, $length);
     }
   }
 
-  // Convert length in pixels to the output unit
+  // convert length in pixels to the output unit
   $output-length: $px-length;
   @if $to-unit != 'px' {
     // Relative units
@@ -140,16 +202,16 @@ $root-font-size: $base-font-size !default;
              $to-unit == 'vw'  or
              $to-unit == 'vh'  or
              $to-unit == 'vmin' {
-      @warn "#{$to-unit} units can't be reliably converted; Returning original value.";
-      @return $length;
+      @warn "`#{inspect($to-unit)}` units can't be reliably converted; Returning original value.";
+      @return memo-set('aleksi', $_memo_, $length);
     }
     @else {
-      @warn "#{$to-unit} is an unknown length unit. Returning original value.";
-      @return $length;
+      @warn "`#{inspect($to-unit)}` is an unknown length unit. Returning original value.";
+      @return memo-set('aleksi', $_memo_, $length);
     }
   }
 
-  @return $output-length;
+  @return memo-set('aleksi', $_memo_, $output-length);
 }
 
 // =to-px( $length[, $from-context, $to-context ])
