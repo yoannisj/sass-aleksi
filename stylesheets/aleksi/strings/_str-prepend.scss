@@ -1,0 +1,32 @@
+// =============================================================================
+// =ALEKSI - STR-PREPEND
+// =============================================================================
+////
+//// @group aleksi-strings
+//// @author [Yoannis Jamar](http://yoannis.me)
+//// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+// =str-prepend( $str, $prefix )
+// -----------------------------------------------------------------------------
+/// Adds given prefix to the start of a string.
+///
+/// @param {string} $str - The string to prepend
+/// @param {string} $prefix - The prefix string to add
+///
+/// @return {string} - `$str` with `$prefix` added to the start
+///
+/// @access public
+/// @since 0.4.2
+
+@function str-prepend( $str, $prefix )
+{
+  @if type-of($str) != "string" {
+    @return throw-error('str-prepend():: $str must be a string, was #{inspect($str)}.');
+  }
+
+  @if type-of($prefix) != "string" {
+    @return throw-error('str-prepend():: `$prefix` must be a string — was `#{inspect($prefix)}`');
+  }
+
+  @return '#{$prefix}#{$str}';
+}
