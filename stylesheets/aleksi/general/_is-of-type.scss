@@ -39,12 +39,15 @@
 @function is-of-type( $value, $type )
 {
   // accept a list of multiple types to test against
-  @if is-list($type) {
-    @each $t in $type {
+  @if is-list($type)
+  {
+    @each $t in $type
+    {
       @if is-of-type($value, $t) {
         @return true;
       }
     }
+
     // stop if none of the types in $type correspond
     @return false;
   }

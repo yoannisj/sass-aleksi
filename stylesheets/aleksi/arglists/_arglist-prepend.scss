@@ -12,7 +12,7 @@
 {
   // add value at the beginning
   $args: append((), $value, $separator);
-    
+
   // build a list manually
   @each $arg in $arglist {
     $args: append($args, $arg, $separator);

@@ -37,7 +37,7 @@
 @function multiply( $terms... )
 {
   @if not sl-every($terms, 'is-of-type', 'number') {
-    @return throw-warning('multiply():: all $terms must be numbers — returning null.');
+    @return throw-warning('multiply():: all terms in `#{inspect($terms)}` must be numbers — returning null.');
   }
 
   @if length($terms) < 2 {

@@ -16,7 +16,7 @@
 // -----------------------------------------------------------------------------
 /// Cast a value to a number if possible or return 0
 ///
-/// @param {string} $value - complete source
+/// @param {any} $value - the source value to convert
 /// @return {number|null} - the converted number or 'null' if unsuccessful
 ///
 /// @author [Yoannis Jamar](http://yoannis.me)
