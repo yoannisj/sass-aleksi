@@ -41,6 +41,10 @@
     @return throw-error("get-side-value():: $side must be either 'top', 'right', 'bottom' or 'left'. Was #{inspect($side)}.");
   }
 
+  @if $list == () {
+    @return null;
+  }
+
   // consider maps as single values inside a single item sides-list
   @if is-map($list) {
     @return $list;

@@ -35,29 +35,37 @@
 {
   $list: ();
 
-  @if not is-of-type($map, 'map') {
-    @return throw-error('sides-map-to-sides-list():: $map must be a map. Was #{inspect($map)}.');
+  // optimise for empty maps
+  @if $map == () {
+    $list: null null null null;
   }
 
-  @if not sl-some(map-keys($map), 'contained-in', const('CSS_LAYOUT_SIDES')) {
-    @return throw-warnig('sides-map-to-sides-list():: $map does not contain any CSS side, value pair.');
-  }
+  @else
+  {
+    @if not is-of-type($map, 'map') {
+      @return throw-error('sides-map-to-sides-list():: $map must be a map. Was #{inspect($map)}.');
+    }
 
-  @each $side in const('CSS_LAYOUT_SIDES') {
-    $list: append($list, map-get($map, $side));
+    @if not sl-some(map-keys($map), 'contained-in', const('CSS_LAYOUT_SIDES')) {
+      @return throw-warning('sides-map-to-sides-list():: $map does not contain any CSS side, value pair.');
+    }
+
+    @each $side in const('CSS_LAYOUT_SIDES') {
+      $list: append($list, map-get($map, $side));
+    }
   }
 
   @return if($reduce, reduce-sides-list($list), $list);
 }
 
-// =to-sides-list( $map )
+// =to-sides-list( $map[, $reduce ])
 // -----------------------------------------------------------------------------
 /// @alias sides-map-to-list
 ///
 /// @access public
 /// @since 0.1.0
 
-@function to-sides-list( $map )
+@function to-sides-list( $map, $reduce: false )
 {
-  @return sides-map-to-list($map);
+  @return sides-map-to-list($map, $reduce);
 }
