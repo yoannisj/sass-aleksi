@@ -4,8 +4,8 @@
 //// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/arglists/arglist-prepend";
 @import "aleksi/lists/walk";
-@import "aleksi/maps/map-walk-values";
 
 // =apply( $value, $func[, $args... ])
 // -----------------------------------------------------------------------------
@@ -37,5 +37,6 @@
     @return walk($value, $func, $args...);
   }
 
-  @return call($func, $value, $args...);
+  $args: arglist-prepend($args, $value);
+  @return call($func, $args...);
 }

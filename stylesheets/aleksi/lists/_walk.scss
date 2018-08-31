@@ -7,6 +7,7 @@
 
 @import "aleksi/general/throw";
 @import "aleksi/cast/to-list";
+@import "aleksi/arglists/arglist-prepend";
 @import "aleksi/lists/is-list";
 @import "aleksi/lists/set-list-separator";
 @import "aleksi/maps/map-walk-values";
@@ -86,8 +87,10 @@
   $sep: list-separator($list);
   $res: ();
 
-  @each $item in $list {
-    $new: call($func, $item, $args...);
+  @each $item in $list 
+  {
+    $call-args: arglist-prepend($args, $item);
+    $new: call($func, $call-args...);
     $res: append($res, $new);
   }
 
