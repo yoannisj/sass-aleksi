@@ -1,5 +1,5 @@
 // =============================================================================
-// =ALEKSI - IS-CONTAINED
+// =ALEKSI - CONTAINED-IN
 // =============================================================================
 
 // =contained-in( $value, $list )
@@ -14,13 +14,13 @@
 /// @throw Description
 ///
 /// @example scss
-///   $foo: contained-in(10px 'foo', 10px);
+///   $foo: contained-in(10px, 10px 'foo');
 ///     // => true
-///   $bar: contained-in(10px 'foo', 'bar');
+///   $bar: contained-in('bar', 10px 'foo');
 ///     // => false
-///   $baz: sl-every('a' 'b' 'c' 'd', 'contained-in', 'a' 'b' 'c');
+///   $baz: every('a' 'b' 'c' 'd', 'contained-in', 'a' 'b' 'c');
 ///     // => false
-///   $wiz: sl-every('a' 'b' 'c', 'contained-in', 'a' 'b' 'c');
+///   $wiz: every('a' 'b' 'c', 'contained-in', 'a' 'b' 'c');
 ///     // => true
 ///
 /// @access public

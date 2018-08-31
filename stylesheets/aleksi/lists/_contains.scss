@@ -1,0 +1,28 @@
+// =============================================================================
+// =ALEKSI - CONTAINS
+// =============================================================================
+
+// =contains( $list, $value )
+// -----------------------------------------------------------------------------
+/// Checks if a list contains given value.
+///
+/// @param {type|...} $name [default] - Description
+///
+/// @return {type|...} - Description
+/// @throw Description
+///
+/// @example scss
+///   $foo: contains(10px 'foo', 10px);
+///     // => true
+///   $bar: contains(10px 'foo', 'bar');
+///     // => false
+///
+/// @access public
+/// @since version
+///
+/// @todo Test the 'contains' function
+
+@function contains( $list, $value )
+{
+  @return (index($list, $value) != null);
+}
