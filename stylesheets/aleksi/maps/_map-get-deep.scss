@@ -96,16 +96,16 @@ $__aleksi-suppress-deep-map-warnings__: false;
 
 @function _map-get-deep-warning($path, $val, $key)
 {
-  @if not $__aleksi-suppress-deep-map-warnings__
-  {
-    @if $val == null {
-      @return throw-warning('map-get-deep(): $map has no value for key search `#{$path}`');
-    }
+  // @if $__aleksi-suppress-deep-map-warnings__ == false
+  // {
+  //   @if $val == null {
+  //     @return throw-warning('map-get-deep(): $map has no value for key search `#{$path}`');
+  //   }
 
-    @if not is-map($val) {
-      @return throw-warning('map-get-deep(): non-map value found in $map for key search `#{$path}`, cannot search for key #{$key}`');
-    }
-  }
+  //   @if not is-map($val) {
+  //     @return throw-warning('map-get-deep(): non-map value found in $map for key search `#{$path}`, cannot search for key #{$key}`');
+  //   }
+  // }
 
   @return null;
 }
