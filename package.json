@@ -1,7 +1,7 @@
 {
   "name": "sass-aleksi",
   "title": "Aleksi Sass",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "A collection of Sass helper functions and mixins.",
   "keywords": [
     "eyeglass-module"
