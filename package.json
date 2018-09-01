@@ -3,6 +3,9 @@
   "title": "Aleksi Sass",
   "version": "0.4.2",
   "description": "A collection of Sass helper functions and mixins.",
+  "keywords": [
+    "eyeglass-module"
+  ],
   "homepage": "https://github.com/yoannisj/aleksi",
   "license": "MIT",
   "author": {
@@ -13,6 +16,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yoannisj/sass-aleksi.git"
+  },
+  "eyeglass": {
+    "name": "aleksi",
+    "sassDir": "stylesheets/aleksi",
+    "needs": "^1.5.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
