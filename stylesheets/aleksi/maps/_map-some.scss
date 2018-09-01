@@ -36,6 +36,10 @@
     @return throw-error('map-some(): can\'t find test function #{inspect($test)}');
   }
 
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
+  }
+
   @each $key, $val in $map
   {
     // return true as soon as one value passes given test

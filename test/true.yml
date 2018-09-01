@@ -5,5 +5,3 @@ options:
 # require ruby sass extension libraries
 require:
   - "compass/import-once/activate"
-  - "SassyLists"
-  - "sassy-maps"

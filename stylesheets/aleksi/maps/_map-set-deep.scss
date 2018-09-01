@@ -5,8 +5,8 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
+@import "aleksi/lists/slice";
 @import "aleksi/maps/is-map";
 @import "aleksi/maps/map-get-deep";
 
@@ -53,7 +53,7 @@
   // - value is the last argument
   @else {
     $value: nth($keys, -1);
-    $keys: sl-slice($keys, 1, $length - 1);
+    $keys: slice($keys, 1, $length - 1);
   }
 
   // do not log warnings when iterating
@@ -64,7 +64,7 @@
   $map-level: ();
 
   @if $length > 1 {
-    $get-keys: sl-slice($keys, 1, $length - 1);
+    $get-keys: slice($keys, 1, $length - 1);
     $map-level: map-get-deep($map, $get-keys);
 
     @if not is-map($map-level) {
@@ -86,7 +86,7 @@
     
     @if $i > 1
     {
-      $get-keys: sl-slice($keys, 1, $i - 1);
+      $get-keys: slice($keys, 1, $i - 1);
       $map-level: map-get-deep($map, $get-keys);
 
       @if not is-map($map-level) {

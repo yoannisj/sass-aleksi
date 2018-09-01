@@ -36,6 +36,10 @@
 
   $res: ();
 
+  @if type-of($func) == 'string' {
+    $func: get-function($func);
+  }
+
   @each $key, $val in $map
   {
     $call-args: arglist-prepend($args, $val);

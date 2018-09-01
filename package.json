@@ -15,10 +15,10 @@
     "url": "https://github.com/yoannisj/sass-aleksi.git"
   },
   "devDependencies": {
-    "mocha": "^3.1.0",
-    "node-sass": "^4.5.3",
+    "mocha": "^5.2.0",
+    "node-sass": "^4.9.3",
     "node-sass-import-once": "^1.2.0",
-    "sass-true": "^3.0.0-beta.1"
+    "sass-true": "^4.0.0"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",

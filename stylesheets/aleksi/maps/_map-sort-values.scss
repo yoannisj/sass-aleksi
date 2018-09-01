@@ -5,10 +5,10 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
 @import "aleksi/lists/sort";
+@import "aleksi/lists/whitout";
 @import "aleksi/maps/is-map";
 
 // =map-sort-values( $map[, $order ])
@@ -47,7 +47,7 @@
     {
       $key: nth($keys, $i);
       $res: map-merge( $res, ($key: $val));
-      $leftover: sl-remove($leftover, $key);
+      $leftover: list-without($leftover, $key);
     }
   }
 

@@ -5,6 +5,7 @@
 //// @group aleksi-lists
 //// @author [Yoannis Jamar](http://yoannis.me)
 
+@import "aleksi/lists/is-list";
 @import "aleksi/maps/map-depth";
 
 // =depth( $list )
@@ -36,8 +37,9 @@
 
   $lvl: 1;
 
-  @each $item in $list {
-    @if type-of($item) == 'list' {
+  @each $item in $list
+  {
+    @if is-list($item) {
       $lvl: max(depth($item) + 1, $lvl);
     }
   }

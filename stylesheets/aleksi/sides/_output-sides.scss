@@ -5,8 +5,10 @@
 @import "aleksi/general/const";
 @import "aleksi/general/css-rule";
 @import "aleksi/const/css/layout-sides";
+@import "aleksi/lists/contains";
 @import "aleksi/sides/side-value";
 @import "aleksi/sides/reduce-sides";
+
 
 // =output-sides( $property, $values[, $important ])
 // -----------------------------------------------------------------------------
@@ -42,7 +44,7 @@
 {
   // output separate property if setting offset or if one side
   // should be omitted
-  @if $property == 'offset' or sl-contain($values, null)
+  @if $property == 'offset' or contains($values, null)
   {
     @each $side in const('CSS_LAYOUT_SIDES') {
       // append the side to the property name, or use the side only for offsets

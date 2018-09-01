@@ -91,9 +91,14 @@
   $res: ();
   $separator: list-separator($list);
 
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
+  }
+
   @each $item in $list
   {
     $test-args: arglist-prepend($args, $item);
+
     @if call($test, $test-args...) {
       $res: append($res, $item, $separator);
     }

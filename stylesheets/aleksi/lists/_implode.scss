@@ -7,6 +7,7 @@
 
 @import "aleksi/general/throw";
 @import "aleksi/cast/to-string";
+@import "aleksi/lists/is-list";
 @import "aleksi/maps/is-map";
 
 // =implode( $list[, $glue ])
@@ -36,7 +37,7 @@
 @function implode( $list, $glue: null )
 {
   // simply cast none-lists
-  @if not type-of($list) == 'list' or is-map($list) {
+  @if not is-list($list) or is-map($list) {
     @return to-string($list);
   }
 

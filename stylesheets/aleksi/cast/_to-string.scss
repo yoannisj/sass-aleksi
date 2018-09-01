@@ -27,7 +27,7 @@
 
   // warn about sass color conversion
   @if type-of($value) == 'color' {
-    @include throw-warning('to-string(): beware! Sass does some color conversion. The resulting string may be different from the color input.');
+    @return throw-warning('to-string(): beware! Sass does some color conversion. The resulting string may be different from the color input.');
   }
 
   @return inspect($value);

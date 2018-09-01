@@ -48,6 +48,10 @@
 
   // run test on single value
   $test-args: arglist-prepend($args, $list);
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
+  }
+
   @return call($test, $test-args...);
 }
 
@@ -79,6 +83,10 @@
 
   @if function-exists($test) == false {
     @return throw-error('list-some(): can\'t find test function #{inspect($test)}');
+  }
+
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
   }
 
   // run test on all items in the list

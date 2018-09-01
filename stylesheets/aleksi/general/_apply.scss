@@ -38,5 +38,9 @@
   }
 
   $args: arglist-prepend($args, $value);
+  @if type-of($func) == 'string' {
+    $func: get-function($func);
+  }
+
   @return call($func, $args...);
 }

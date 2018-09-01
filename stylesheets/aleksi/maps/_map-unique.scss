@@ -5,8 +5,8 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
+@import "aleksi/lists/contains";
 @import "aleksi/maps/is-map";
 
 // =map-unique( $map )
@@ -34,8 +34,9 @@
   $unique-values: ();
   $res: ();
 
-  @each $key, $val in $map {
-    @if not sl-contain($unique-values, $val) {
+  @each $key, $val in $map
+  {
+    @if not contains($unique-values, $val) {
       $unique-values: append($unique-values, $val);
       $res: map-merge($res, ($key: $val));
     }

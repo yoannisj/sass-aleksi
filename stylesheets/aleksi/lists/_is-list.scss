@@ -7,7 +7,7 @@
 
 // =is-list( $value )
 // -----------------------------------------------------------------------------
-/// Checks whether the given value is a number. Also accepts argument lists,
+/// Checks whether the given value is a list. Also accepts argument lists,
 /// contrary to manually testing `type-of($args) == list`.
 ///
 /// @param {any} $value - The value to test.
@@ -30,6 +30,8 @@
 /// @access public
 /// @since 0.1.0
 
-@function is-list( $value ) {
-  @return (type-of($value) == 'list' or type-of($value) == 'arglist');
+@function is-list( $value )
+{
+  $type: type-of($value);
+  @return ($type == 'list' or $type == 'arglist');
 }

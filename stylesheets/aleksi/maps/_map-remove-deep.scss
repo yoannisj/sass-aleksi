@@ -6,6 +6,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "aleksi/cast/to-list";
+@import "aleksi/lists/slice";
 @import "aleksi/maps/is-map";
 @import "aleksi/maps/map-has-deep-key";
 @import "aleksi/maps/map-get-deep";
@@ -46,7 +47,7 @@
   @if $length > 1 and map-has-deep-key($map, $keys...)
   {
     // get map at upper level
-    $path: sl-slice($keys, 1, $length - 1);
+    $path: slice($keys, 1, $length - 1);
     $upper: map-get-deep($map, $path);
 
     // remove key from map at upper level

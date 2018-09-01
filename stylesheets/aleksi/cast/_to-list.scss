@@ -27,6 +27,16 @@
     $res: $value;
   }
 
+  // If the value is an arglist, rebuild a list with each arg in it
+  @else if ($type == 'arglist')
+  {
+    @each $item in $value {
+      $res: append($res, $item, $separator);
+    }
+
+    @return $res;
+  }
+
   // If the value is a map, we return a zip of keys and values (aka a list-map).
   @else if ($type == 'map') {
     $res: zip(map-keys($value), map-values($value));

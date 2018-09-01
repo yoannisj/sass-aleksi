@@ -24,8 +24,5 @@
     "tests",
     "tmp",
     "sassdoc"
-  ],
-  "dependencies": {
-    "SassyLists": "~3.0.1"
-  }
+  ]
 }

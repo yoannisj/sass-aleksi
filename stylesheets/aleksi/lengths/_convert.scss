@@ -35,8 +35,9 @@ $root-font-size: $base-font-size !default;
 @function convert-lengths($values, $to-unit, $from-context: $base-font-size, $to-context: $from-context)
 {
   $res: ();
+  $type: type-of($values);
 
-  @if type-of($values) == 'list'
+  @if $type == 'list' or $type == 'arglist'
   {
     @each $value in $values
     {
@@ -51,7 +52,7 @@ $root-font-size: $base-font-size !default;
     @return $res;
   }
 
-  @else if type-of($values) == 'map'
+  @else if $type == 'map'
   {
     @each $key, $val in $values
     {
@@ -168,7 +169,7 @@ $root-font-size: $base-font-size !default;
              $from-unit == 'mm'  or
              $from-unit == 'cm'  or
              $from-unit == 'pt'  or
-             $from-unit == 'pc'  { $px-length: 0px + $length }
+             $from-unit == 'pc'  { $px-length: 0px + $length; }
     // Certain units can't be converted.
     @else if $from-unit == 'ch'  or
              $from-unit == 'vw'  or

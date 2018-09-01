@@ -87,9 +87,14 @@
   $sep: list-separator($list);
   $res: ();
 
+  @if type-of($func) == 'string' {
+    $func: get-function($func);
+  }
+
   @each $item in $list 
   {
     $call-args: arglist-prepend($args, $item);
+
     $new: call($func, $call-args...);
     $res: append($res, $new);
   }

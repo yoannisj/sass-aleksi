@@ -5,8 +5,8 @@
 //// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
+@import "aleksi/lists/slice";
 
 // =map-extend( $maps... )
 // -----------------------------------------------------------------------------
@@ -21,7 +21,7 @@
   }
 
   $res: nth($maps, 1);
-  @each $map in sl-slice($maps, 2) {
+  @each $map in slice($maps, 2) {
     $res: map-merge($res, $map);
   }
 

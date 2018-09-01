@@ -5,9 +5,10 @@
 //// @group aleksi-math
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "SassyLists";
 @import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
+@import "aleksi/lists/every";
+@import "aleksi/lists/slice";
 
 // =divide( $terms... )
 // -----------------------------------------------------------------------------
@@ -36,7 +37,7 @@
 
 @function divide( $terms... )
 {
-  @if not sl-every($terms, 'is-of-type', 'number') {
+  @if not every($terms, 'is-of-type', 'number') {
     @return throw-warning('divide():: all $terms must be numbers — returning null.');
   }
 
@@ -46,7 +47,7 @@
 
   $quot: nth($terms, 1);
 
-  @each $term in sl-slice($terms, 2) {
+  @each $term in slice($terms, 2) {
     $quot: $quot / $term;
   }
 

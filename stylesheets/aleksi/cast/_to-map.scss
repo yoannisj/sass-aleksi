@@ -25,7 +25,8 @@
 
   // If the type is a list, we return an empty list if it has a no item or we
   // map each item to its index in the list.
-  @if ($type == 'list') {
+  @if ($type == 'list' or $type == 'arglist')
+  {
     $length: length($value);
 
     @if ($length == 0) {

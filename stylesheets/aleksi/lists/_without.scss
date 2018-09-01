@@ -6,7 +6,7 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @TODO: document and test these functions
 
-@import "aleksi/maps/without";
+@import "aleksi/maps/map-without";
 
 // =without( $list, $func[, $args... ])
 // -----------------------------------------------------------------------------
@@ -16,17 +16,17 @@
 @function without($list, $value)
 {
   @if type-of($list) == 'map' {
-    @return map-without-value($value);
+    @return map-without($value);
   }
 
-  @if type-of($list) == 'list' {
-    @return list-without-value($value);
+  @if is-list($list) {
+    @return list-without($value);
   }
 
   @return if($list == $value, null, $list);
 }
 
-// =without( $list, $val)
+// =list-without( $list, $val)
 // -----------------------------------------------------------------------------
 /// Removes given value from a list.
 /// **Note** SasssyLists has a similar 'sl-without' method, but it replaces

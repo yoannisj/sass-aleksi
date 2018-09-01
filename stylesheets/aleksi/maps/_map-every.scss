@@ -36,10 +36,15 @@
     @return throw-error('map-every(): can\'t find test function #{inspect($test)}');
   }
 
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
+  }
+
   @each $key, $val in $map
   {
     // return false as soon as one value does not pass given test
     $test-args: arglist-prepend($args, $val);
+
     @if not call($test, $test-args...) {
       @return false;
     }

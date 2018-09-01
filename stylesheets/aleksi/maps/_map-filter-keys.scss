@@ -36,9 +36,14 @@
 
   $res: ();
 
+  @if type-of($test) == 'string' {
+    $test: get-function($test);
+  }
+
   @each $key, $val in $map
   {
     $test-args: arglist-prepend($args, $key);
+
     @if call($test, $test-args...) {
       $res: map-merge($res, ($key: $val));
     }

@@ -6,8 +6,8 @@
 //// @author [Yoannis Jamar](http://yoannis.com)
 
 @import "aleksi/general/throw";
-@import "aleksi/cast/to-list";
 @import "aleksi/const/falsey-values";
+@import "aleksi/cast/to-list";
 @import "aleksi/lists/is-list";
 
 // =purge( $list[, $prohibited ])
@@ -60,7 +60,7 @@
   }
 
   // allow a single value to be prohibited
-  @if type-of($prohibited) != 'list' {
+  @if not is-list($prohibited) {
     $prohibited: to-list($prohibited);
   }
 
