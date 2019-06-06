@@ -1,6 +1,7 @@
 var path = require('path');
-var sassTrue = require('sass-true');
+var sass = require('node-sass');
 var importOnce = require('node-sass-import-once');
+var sassTrue = require('sass-true');
 var mocha = require('mocha');
 
 // get path to test file
@@ -21,4 +22,8 @@ sassTrue.runSass({
   file: sassFile,
   importer: importOnce,
   includePaths: sassIncludePaths,
-}, mocha.describe, mocha.it);
+}, {
+  sass: sass,
+  describe: mocha.describe,
+  it: mocha.it
+});
