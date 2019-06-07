@@ -33,3 +33,15 @@
 
   @return null;
 }
+
+// =df( $values... )
+// -----------------------------------------------------------------------------
+/// @alias default-to
+///
+/// @access public
+/// @since 0.6.0
+
+@function df( $values... )
+{
+  @return default-to($values...);
+}
