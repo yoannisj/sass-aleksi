@@ -19,12 +19,17 @@
     @include assert-equal( add(10, 5, 3, 2, 1), 21 );
   }
 
-  @include test('should warn if one of the arguments is not a number, and return null')
+  @include test('should warn and return null if one of the arguments is not a number nor null')
   {
     @include assert-equal( add(10, 'hello'), null );
-    @include assert-equal( add(10, null), null );
     @include assert-equal( add(10, false), null );
     @include assert-equal( add(10 5, 3), null );
+  }
+
+  @include test('should ignore terms that are null')
+  {
+    @include assert-equal(add(null, 10, 5), add(10, 5));
+    @include assert-equal(add(10, null, 5), add(10, 5));
   }
 
   @include test('should be aliased as sum')

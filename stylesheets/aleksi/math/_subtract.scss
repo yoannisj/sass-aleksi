@@ -37,7 +37,7 @@
 
 @function subtract( $terms... )
 {
-  @if not every($terms, 'is-of-type', 'number') {
+  @if not every($terms, 'is-of-type', 'number' 'null') {
     @return throw-warning('subtract():: all $terms must be numbers — returning null.');
   }
 
@@ -45,10 +45,17 @@
     @return thow-error('subtract():: wrong number of arguments, 1 instead of 2 or more.');
   }
 
-  $diff: nth($terms, 1);
+  $diff: null;
 
-  @each $term in slice($terms, 2) {
-    $diff: $diff - $term;
+  @each $term in $terms
+  {
+    @if type-of($diff) == 'null' {
+      $diff: $term;
+    }
+
+    @else {
+      $diff: $diff - default-to($term, 0);
+    }
   }
 
   @return $diff;

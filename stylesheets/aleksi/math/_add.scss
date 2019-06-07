@@ -6,6 +6,7 @@
 
 @import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
+@import "aleksi/general/default-to";
 @import "aleksi/lists/every";
 @import "aleksi/lists/slice";
 
@@ -16,7 +17,7 @@
 /// **Note**: passing more then 2 arguments will add them successively.
 /// **Note**: if one of the terms is not a number, it will return `null`.
 ///
-/// @param {arglist} $terms - The operators in the addition.
+/// @param {arglist} $terms - The terms in the addition.
 ///
 /// @return {number|null} - The sum resulting from adding `$terms`.
 /// @throw Warning if one of the terms is not a number.
@@ -36,7 +37,7 @@
 
 @function add( $terms... )
 {
-  @if not every($terms, 'is-of-type', 'number') {
+  @if not every($terms, 'is-of-type', 'number' 'null') {
     @return throw-warning('add():: all $terms must be numbers — returning null.');
   }
 
@@ -44,10 +45,17 @@
     @return throw-error('add():: wrong number of arguments, 1 instead of 2 or more.');
   }
 
-  $sum: nth($terms, 1);
+  $sum: null;
 
-  @each $term in slice($terms, 2) {
-    $sum: $sum + $term;
+  @each $term in $terms
+  {
+    @if type-of($sum) == 'null' {
+      $sum: $term;
+    }
+
+    @else {
+      $sum: $sum + default-to($term, 0);
+    }
   }
 
   @return $sum;

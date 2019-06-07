@@ -19,12 +19,17 @@
     @include assert-equal( subtract(10, 5, 3, 2, 1), -1 );
   }
 
-  @include test('should warn if one of the arguments is not a number, and return null')
+  @include test('should warn and return null if one of the arguments is not a number nor null')
   {
     @include assert-equal( subtract(10, 'hello'), null );
-    @include assert-equal( subtract(10, null), null );
     @include assert-equal( subtract(10, false), null );
     @include assert-equal( subtract(10 5, 3), null );
+  }
+
+  @include test('should ignore terms that are null')
+  {
+    @include assert-equal(subtract(null, 10, 5), subtract(10, 5));
+    @include assert-equal(subtract(10, null, 5), subtract(10, 5));
   }
 
   @include test('should be aliased as diff')

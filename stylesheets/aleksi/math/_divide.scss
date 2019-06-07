@@ -37,7 +37,7 @@
 
 @function divide( $terms... )
 {
-  @if not every($terms, 'is-of-type', 'number') {
+  @if not every($terms, 'is-of-type', 'number' 'null') {
     @return throw-warning('divide():: all $terms must be numbers — returning null.');
   }
 
@@ -45,10 +45,17 @@
     @return thow-error('divide():: wrong number of arguments, 1 instead of 2 or more.');
   }
 
-  $quot: nth($terms, 1);
+  $quot: null;
 
-  @each $term in slice($terms, 2) {
-    $quot: $quot / $term;
+  @each $term in $terms
+  {
+    @if type-of($quot) == 'null' {
+      $quot: $term;
+    }
+
+    @else {
+      $quot: $quot / default-to($term, 1);
+    }
   }
 
   @return $quot;

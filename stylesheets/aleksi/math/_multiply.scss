@@ -1,12 +1,12 @@
 // =============================================================================
 // =ALEKSI - MULTIPLY
 // =============================================================================
-////
 //// @group aleksi-math
 //// @author [Yoannis Jamar](http://yoannis.me)
 
 @import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
+@import "aleksi/general/default-to";
 @import "aleksi/lists/every";
 @import "aleksi/lists/slice";
 
@@ -37,7 +37,7 @@
 
 @function multiply( $terms... )
 {
-  @if not every($terms, 'is-of-type', 'number') {
+  @if not every($terms, 'is-of-type', 'number' 'null') {
     @return throw-warning('multiply():: all terms in `#{inspect($terms)}` must be numbers — returning null.');
   }
 
@@ -45,10 +45,17 @@
     @return thow-error('multiply():: wrong number of arguments, 1 instead of 2 or more.');
   }
 
-  $prod: nth($terms, 1);
+  $prod: null;
 
-  @each $term in slice($terms, 2) {
-    $prod: $prod * $term;
+  @each $term in $terms
+  {
+    @if type-of($prod) == 'null' {
+      $prod: $term;
+    }
+
+    @else {
+      $prod: $prod * default-to($term, 1);
+    }
   }
 
   @return $prod;
