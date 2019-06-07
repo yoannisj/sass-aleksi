@@ -1,0 +1,31 @@
+// =============================================================================
+// =ALEKSI - TO-MM
+// =============================================================================
+//// @group aleksi-lengths
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/lengths/convert";
+@import "aleksi/lists/is-list";
+
+// =to-mm( $length[, $from-context, $to-context ])
+// -----------------------------------------------------------------------------
+/// Convert any CSS <length> or <percentage> value to milimeters. Accepts a list
+/// of values to convert, in which case it will convert each item in the list.
+///
+/// @param {number|list} $length - A css <length> or <percentage> value
+/// @param {number} $from-context [$base-font-size] - The absolute length (in px) to which `$length` refers
+/// @param {number} $to-context [$from-context] - the absolute length in px to which the output value will refer.
+///
+/// @return {length|list} - value of '$length' in exs
+///
+/// @access public
+/// @since 0.3.1
+
+@function to-mm( $length, $from-context: $base-font-size, $to-context: $from-context)
+{
+  @if is-list($length) {
+    @return convert-lengths($length, 'mm', $from-context, $to-context);
+  }
+
+  @return convert-length($length, 'mm', $from-context, $to-context);
+}
