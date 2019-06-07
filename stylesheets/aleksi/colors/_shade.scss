@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI - SHADE
+// =============================================================================
+//// @group aleksi-colors
+//// @author [Hugo Giraudel](https://hugogiraudel.com/)
+
+// =shade( $color, $amount[, $shade-color ])
+// -----------------------------------------------------------------------------
+/// Darkens given color, by mixing it with a dark color (most often black).
+/// @link https://css-tricks.com/snippets/sass/shade-shade-functions/
+///
+/// @param {color} $color - The color to shade (i.e. darken)
+/// @param {percentage} $amount - The amount of $color to mix in the result
+///
+/// @return {color} - The darkened version of $color
+///
+/// @example scss
+///   $blue: #0000ff;
+///   $light-blue: shade($blue, 20%);
+///     // => #000099
+///   $light-blue: shade($blue, 40%);
+///     // => #0000cc
+///
+/// @access public
+/// @since 0.6.0
+
+@function shade( $color, $amount )
+{
+  @return mix(black, $color, $amount);
+}

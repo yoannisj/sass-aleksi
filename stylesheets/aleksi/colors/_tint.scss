@@ -1,0 +1,30 @@
+// =============================================================================
+// =ALEKSI - TINT
+// =============================================================================
+//// @group aleksi-colors
+//// @author [Hugo Giraudel](https://hugogiraudel.com/)
+
+// =tint( $color, $amount[, $tint-color ])
+// -----------------------------------------------------------------------------
+/// Lightens given color, by mixing it with white.
+/// @link https://css-tricks.com/snippets/sass/tint-shade-functions/
+///
+/// @param {color} $color - The color to tint (i.e. lighten)
+/// @param {percentage} $amount - The amount of $color to mix in the result
+///
+/// @return {color} - The lightened version of $color
+///
+/// @example scss
+///   $blue: #00F;
+///   $light-blue: tint($blue, 15%);
+///     // => #2626ff
+///   $light-blue: tint($blue, 30%);
+///     // => #4d4dff
+///
+/// @access public
+/// @since 0.6.0
+
+@function tint( $color, $amount )
+{
+  @return mix(white, $color, $amount);
+}
