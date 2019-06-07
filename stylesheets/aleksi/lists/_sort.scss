@@ -1,7 +1,6 @@
 // =============================================================================
 // =ALEKSI - SORT
 // =============================================================================
-////
 //// @group aleksi-lists
 //// @author [Hugo Giraudel](http://hugogiraudel.com)
 //// @link http://thesassway.com/advanced/implementing-bubble-sort-with-sass
@@ -17,9 +16,11 @@
 /// contains non-string values, those will be cast to a string during the
 /// comparison.
 /// **Note**: uses the [quick-sort](https://en.wikipedia.org/wiki/Quicksort).
+/// **NOT**: to sort numbers with custom order, make sure you pass the numbers
+/// as strings in the `$order` parameter.
 ///
 /// @param {list} $list - the list of items to sort
-/// @param {list} $order [const('ORDER_ALPHANUMERIC_ASC')] - the order of characters to use when comparing strings
+/// @param {list} $order [const('ORDER_LATIN_CHARS_ASC')] - the order of characters to use when comparing strings
 ///
 /// @return {list} - the list with items ordered
 ///
@@ -39,20 +40,13 @@
   {
     // compare items with the one in the midddle
     $seed: nth($list, ceil($length / 2));
-    $seed-is-nr: type-of($seed);
+    $seed-is-nr: type-of($seed) == 'number';
 
     @each $item in $list
     {
       // recognize equal items
       @if $item == $seed {
         $equal: append($equal, $item);
-      }
-
-      // compare numbers
-      @else if $seed-is-nr and type-of($item) == 'number'
-      {
-        @if $item < $seed { $less: append($less, $item, $sep); }
-        @else if $item > $seed { $more: append($more, $item, $sep); }
       }
 
       // recognize string items coming before in the order
