@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALEKSI - TOP
+// =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/is-list";
+@import "aleksi/sides/side-value";
+
+// =top( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// Returns the top value in a list of side values
+///
+/// @param {list|number} $values - The list of side values.
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     position: absolute;
+///     top: top(null null 5px 10px);
+///     padding-top: top(10px 20px);
+///     margin-top: top(30px 40px 20px);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     // 'top' property left out, because it resulted to `null`
+///     padding-top: 10px;
+///     margin-top: 30px;
+///   }
+///
+/// @access public
+/// @since 0.6.0
+
+@function top( $values )
+{
+  @if is-list($values) {
+    @return side-value($values, 'top');
+  }
+
+  @else if type-of($values) == 'number' {
+    @return $values;
+  }
+
+  @else {
+    @return throw-warning('top(): `$values` argument must be a list or number - was #{inspect($values)}');
+  }
+}

@@ -1,6 +1,8 @@
 // =============================================================================
 // =ALEKSI - SIDE-PROPERTY
 // =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/const";
 @import "aleksi/general/css-rule";
@@ -9,11 +11,10 @@
 @import "aleksi/sides/side-value";
 @import "aleksi/sides/reduce-sides";
 
-
 // =output-sides( $property, $values[, $important ])
 // -----------------------------------------------------------------------------
 /// Output a CSS property for a side-list value. The keyword 'offset' is
-/// accepted to output the 'top', 'right', 'bottom' and 'left'.
+/// accepted to output the 'top', 'right', 'bottom' and 'left' properties.
 ///
 /// @param {property} $name - The CSS property name to output.
 /// @param {list} $values - The sides-list describing the property's values.

@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALEKSI - RIGHT
+// =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/is-list";
+@import "aleksi/sides/side-value";
+
+// =right( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// Returns the right value in a list of side values
+///
+/// @param {list|number} $values - The list of side values.
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     position: absolute;
+///     right: right(5px null null 10px);
+///     padding-right: right(10px 20px);
+///     margin-right: right(30px 20px 30px 40px);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     // 'right' property right out, because it resulted to `null`
+///     padding-right: 20px;
+///     margin-right: 20px;
+///   }
+///
+/// @access public
+/// @since 0.6.0
+
+@function right( $values )
+{
+  @if is-list($values) {
+    @return side-value($values, 'right');
+  }
+
+  @else if type-of($values) == 'number' {
+    @return $values;
+  }
+
+  @else {
+    @return throw-warning('right(): `$values` argument must be a list or number - was #{inspect($values)}');
+  }
+}

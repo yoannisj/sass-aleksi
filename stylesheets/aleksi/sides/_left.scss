@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALEKSI - LEFT
+// =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/is-list";
+@import "aleksi/sides/side-value";
+
+// =left( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// Returns the left value in a list of side values
+///
+/// @param {list|number} $values - The list of side values.
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     position: absolute;
+///     left: left(5px 10px null null);
+///     padding-left: left(10px 20px);
+///     margin-left: left(30px 20px 30px 40px);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     // 'left' property left out, because it resulted to `null`
+///     padding-left: 20px;
+///     margin-left: 40px;
+///   }
+///
+/// @access public
+/// @since 0.6.0
+
+@function left( $values )
+{
+  @if is-list($values) {
+    @return side-value($values, 'left');
+  }
+
+  @else if type-of($values) == 'number' {
+    @return $values;
+  }
+
+  @else {
+    @return throw-warning('left(): `$values` argument must be a list or number - was #{inspect($values)}');
+  }
+}

@@ -1,0 +1,48 @@
+// =============================================================================
+// =ALEKSI - BOTTOM
+// =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/is-list";
+@import "aleksi/sides/side-value";
+
+// =bottom( $property, $values[, $important ])
+// -----------------------------------------------------------------------------
+/// Returns the bottom value in a list of side values
+///
+/// @param {list|number} $values - The list of side values.
+///
+/// @example scss - SCSS stylesheet
+///   .foo {
+///     position: absolute;
+///     bottom: bottom(5px 10px null null);
+///     padding-bottom: bottom(10px 20px);
+///     margin-bottom: bottom(30px 40px 20px);
+///   }
+///
+/// @example css - CSS output
+///   .foo {
+///     position: absolute;
+///     // 'bottom' property left out, because it resulted to `null`
+///     padding-bottom: 10px;
+///     margin-bottom: 20px;
+///   }
+///
+/// @access public
+/// @since 0.6.0
+
+@function bottom( $values )
+{
+  @if is-list($values) {
+    @return side-value($values, 'bottom');
+  }
+
+  @else if type-of($values) == 'number' {
+    @return $values;
+  }
+
+  @else {
+    @return throw-warning('bottom(): `$values` argument must be a list or number - was #{inspect($values)}');
+  }
+}

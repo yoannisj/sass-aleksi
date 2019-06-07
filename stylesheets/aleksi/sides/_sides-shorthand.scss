@@ -1,6 +1,8 @@
 // =============================================================================
 // =ALEKSI - SIDES-FOR-KEYWORD
 // =============================================================================
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 // =sides-shorthand( $side, $value )
 // -----------------------------------------------------------------------------
@@ -15,13 +17,13 @@
 /// @throw Warning if $side is not a recognized sides-list keyword.
 ///
 /// @example scss
-///   $foo: sides-for-keyword('left', 10px);
+///   $foo: sides-shorthand('left', 10px);
 ///     // => null null null 10px
-///   $bar: sides-for-keyword('all', 10px);
+///   $bar: sides-shorthand('all', 10px);
 ///     // => 10px
-///   $baz: sides-for-keyword('ends', 10px);
+///   $baz: sides-shorthand('ends', 10px);
 ///     // => 10px null
-///   $wiz: sides-for-keyword('sides', 10px);
+///   $wiz: sides-shorthand('sides', 10px);
 ///     // => null 10px
 ///
 /// @access public
@@ -59,6 +61,6 @@
     @return null null null $value;
   }
 
-  @return throw-error("sides-for-keyword():: keyword #{inspect($side)} is"
+  @return throw-error("sides-shorthand():: keyword #{inspect($side)} is"
     + " not a recognized keyword for sides-lists. Returning `null`.");
 }
