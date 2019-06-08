@@ -76,10 +76,16 @@ $__memo-table__: () !default;
 @function memo-get( $ns, $key )
 {
   // return value that was stored using 'memo-set'
-  @if memo-has($ns, $key) {
+  @if memo-has($ns, $key)
+  {
+    // do not throw deep map access warnings when accessing the memo table
+    $suppress-deep-map-warnings: $__aleksi-suppress-deep-map-warnings__;
     $__aleksi-suppress-deep-map-warnings__: true !global;
+
     $res: map-get-deep($__memo-table__, $ns, $key);
-    $__aleksi-suppress-deep-map-warnings__: false !global;
+
+    // restore deep map access warnings
+    $__aleksi-suppress-deep-map-warnings__: $suppress-deep-map-warnings !global;
 
     @return $res;
   }

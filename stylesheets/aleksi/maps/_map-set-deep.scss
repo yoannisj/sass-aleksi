@@ -57,6 +57,7 @@
   }
 
   // do not log warnings when iterating
+  $suppress-deep-map-warnings: $__aleksi-suppress-deep-map-warnings__;
   $__aleksi-suppress-deep-map-warnings__: true !global;
 
   $length: length($keys);
@@ -112,7 +113,7 @@
   $map: map-merge($map, $merge);
 
   // restore logging of warnings when iterating
-  $__aleksi-suppress-deep-map-warnings__: false !global;
+  $__aleksi-suppress-deep-map-warnings__: $suppress-deep-map-warnings !global;
 
   @return $map;
 }
