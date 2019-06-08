@@ -3,15 +3,14 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
-@import "aleksi/general/throw";
-@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-purge";
 
 // =map-clean( $map )
 // -----------------------------------------------------------------------------
 /// Removes all falsy values from a map.
-/// **Note**: if all item shave been removed, it will return `()` to act like
+/// **Note**: if all items have been removed, it will return `()` to act like
 /// all other map filtering functions (emptying a list with `map-remove()` would
 /// normally return a *real* empty map ``);
 ///
@@ -26,20 +25,12 @@
 ///
 /// @access public
 /// @since 0.1.0
+///
+/// @deprecated Use map-purge instead
+/// @see {function} map-purge
 
 @function map-clean( $map )
 {
-  @if not is-map($map) {
-    @return throw-error('map-clean():: $map must be a map. Was #{inspect($map)}');
-  }
-
-  @each $key, $value in $map {
-    @if not $value {
-      $map: map-remove($map, $key);
-    }
-  }
-
-  // return the empty map `()` instead of `` if all map
-  // items have been remove.
-  @return if(length($map) == 0, (), $map);
+  $_: throw-warning('deprecated `map-clean()` function, use `map-purge()` instead');
+  @return map-purge($map);
 }
