@@ -1,0 +1,81 @@
+// =============================================================================
+// =ALEKSI - TEST
+// =============================================================================
+//// @group aleksi-numbers
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =is-greater( $a, $b )
+// -----------------------------------------------------------------------------
+/// Checks if value is greater than other value. Useful as callback to compare
+/// values using `list-filter` and `map-filter`.
+/// **Note**: if two string values are passed, it will compare the string lengths
+///
+/// @param {any} $a - value to compare
+/// @param {any} $b - value to compare `$a` with
+///
+/// @return {bool} - whether `$a` is greater than `$b`
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-greater($a, $b)
+{
+  @if type-of($a) == 'string' and type-of($b) == 'string'
+  {
+    $a: str-length($a);
+    $b: str-length($b);
+  }
+
+  @return ($a > $b);
+}
+
+// =gt( $a, $b )
+// -----------------------------------------------------------------------------
+/// @alias is-greater
+///
+/// @access public
+/// @since 0.6.0
+
+@function gt() {
+  @return is-greater($a, $b);
+}
+
+// =is-greater-or-equal( $a, $b )
+// -----------------------------------------------------------------------------
+/// Checks if value is greater than or equal to other value. Useful as callback
+/// to compare values using `list-filter` and `map-filter`.
+/// **Note**: if two string values are passed, it will compare the string lengths
+///
+/// @param {any} $a - value to compare
+/// @param {any} $b - value to compare `$a` with
+///
+/// @return {bool} - whether `$a` is greater than or equal to `$b`
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-greater-or-equal($a, $b)
+{
+  $type-a: type-of($a);
+  $type-b: type-of($b);
+
+  @if $type-a == 'string' and $type-b == 'string'
+  {
+    $a: str-length($a);
+    $b: str-length($b);
+  }
+
+  @return ($a >= $b);
+}
+
+// =gte( $a, $b )
+// -----------------------------------------------------------------------------
+/// @alias is-greater-or-equal
+///
+/// @access public
+/// @since 0.6.0
+
+@function gte() {
+  @return is-greater-or-equal($a, $b);
+}
+

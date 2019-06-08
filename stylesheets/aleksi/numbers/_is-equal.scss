@@ -1,0 +1,42 @@
+// =============================================================================
+// =ALEKSI - TEST
+// =============================================================================
+//// @group aleksi-numbers
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =is-equal( $a, $b )
+// -----------------------------------------------------------------------------
+/// Checks if two given values are equal. Useful as callback to compare values
+/// using `list-filter` and `map-filter`.
+/// **Note**: if two string values are passed, it will compare the string lengths
+///
+/// @param {any} $a - value to compare
+/// @param {any} $b - value to compare `$a` with
+///
+/// @return {bool} - whether `$b` is equal to `$a`
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-equal($a, $b)
+{
+  @if type-of($a) == 'string' and type-of($b) == 'string'
+  {
+    $a: str-length($a);
+    $b: str-length($b);
+  }
+
+  @return ($a == $b);
+}
+
+// =equals( $a, $b )
+// -----------------------------------------------------------------------------
+/// @alias is-equal
+///
+/// @access public
+/// @since 0.6.0
+
+@function equals($a, $b)
+{
+  @return is-equal($a, $b);
+}

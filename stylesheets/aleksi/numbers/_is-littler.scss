@@ -1,0 +1,50 @@
+// =============================================================================
+// =ALEKSI - TEST
+// =============================================================================
+//// @group aleksi-numbers
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+// =is-littler( $a, $b )
+// -----------------------------------------------------------------------------
+/// Checks if value is littler than other value. Useful as callback to compare
+/// values using `list-filter` and `map-filter`.
+/// **Note**: if two string values are passed, it will compare the string lengths
+///
+/// @param {any} $a - value to compare
+/// @param {any} $b - value to compare `$a` with
+///
+/// @return {bool} - whether `$a` is littler than `$b`
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-littler($a, $b)
+{
+  @return ($a < $b);
+}
+
+// =is-littler( $a, $b )
+// -----------------------------------------------------------------------------
+/// Checks if value is littler than or equal to other value. Useful as callback
+/// to compare values using `list-filter` and `map-filter`.
+/// **Note**: if two string values are passed, it will compare the string lengths
+///
+/// @param {any} $a - value to compare
+/// @param {any} $b - value to compare `$a` with
+///
+/// @return {bool} - whether `$a` is littler than or equal to `$b`
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-littler-or-equal($a, $b) {
+  @return ($a <= $b);
+}
+
+@function lt() {
+  @return is-littler($a, $b);
+}
+
+@function lte() {
+  @return is-littler-or-equal($a, $b);
+}

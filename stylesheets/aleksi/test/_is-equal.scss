@@ -1,9 +1,0 @@
-
-
-@function is-equal($a, $b) {
-  @return ($a == $b);
-}
-
-@function equals($a, $b) {
-  @return is-equal($a, $b);
-}

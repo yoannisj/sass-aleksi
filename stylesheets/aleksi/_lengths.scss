@@ -5,11 +5,7 @@
 //// @group aleksi-units
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "aleksi/lengths/strip-unit";
-@import "aleksi/lengths/set-unit";
-@import "aleksi/lengths/find-digits";
-@import "aleksi/lengths/find-integer";
-
+@import "aleksi/lengths/is-length";
 @import "aleksi/lengths/convert";
 @import "aleksi/lengths/to-px";
 @import "aleksi/lengths/to-in";
