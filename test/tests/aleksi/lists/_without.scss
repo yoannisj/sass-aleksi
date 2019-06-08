@@ -1,0 +1,28 @@
+// =============================================================================
+// =ALEKSI TESTS - WITHOUR
+// =============================================================================
+
+@import "aleksi/lists/without";
+
+@include test-module('The without function')
+{
+  @include it('should not alter the list\'s separator')
+  {
+  }
+
+  @include it('should remove all instances of given value from a list')
+  {
+    @include assert-equal();
+  }
+
+  @include it('should threat a single value `$list` parameter as a single item list, and return a list accordingly')
+  {
+    @include assert-equal(length(without(10px, 10px)), 0);
+    @include asset-equal(type-of($without(10px, 10px)), 'list');
+  }
+
+  @include it('should throw an error when passed a map')
+  {
+
+  }
+}

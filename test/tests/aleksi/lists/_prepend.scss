@@ -6,14 +6,24 @@
 
 @include test-module('The prepend function')
 {
-  @include test('should do the opposite of append')
+  @include test('should modify the length of arglist to which it appends')
   {
-    @include assert-equal( prepend($str-list, 'wiz'), append('wiz', $str-list) );
-    @include assert-equal( prepend('wiz', $num-list), append($num-list, 'wiz') );
-    @include assert-equal( prepend($num-list, $str-list), append($str-list, $num-list) );
-    @include assert-equal( length(prepend($num-list, $str-list)), length(append($str-list, $num-list)) );
+    $res: prepend($mix-list, $int);
+    @include assert-equal(length($res), length($mix-list) + 1);
+  }
 
-    @include assert-equal( prepend($num-list, $str-map), append($str-map, $num-list, list-separator($str-map)) );
-    @include assert-equal( length(prepend($num-list, $str-map)), length(append($str-map, $num-list, list-separator($str-list))) );
+  @include test('should add item at the beginning of the arglist')
+  { 
+    $res: prepend($mix-list, $int);
+    $first: nth($res, 1);
+    @include assert-equal($first, $int);
+  }
+
+  @include test('should accept an arglist and handle it exactly like a list')
+  {
+    $res: prepend($args-list, $int);
+    $first: nth($res, 1);
+    @include assert-equal(length($res), length($args-list) + 1);
+    @include assert-equal($first, $int);
   }
 }

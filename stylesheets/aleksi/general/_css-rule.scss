@@ -1,8 +1,10 @@
 // =============================================================================
 // =ALEKSI - CSS-RULE
 // =============================================================================
+////
+//// @group aleksi-general
 
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 
 // =css-value( $value[, $important, $func, $args... ])
 // -----------------------------------------------------------------------------
@@ -36,7 +38,7 @@
   // allow omitting the $important argument
   @if type-of($important) == 'string'
   {
-    $args: if($func != '__none__', $args, arglist-prepend($args, $fn), $args);
+    $args: if($func != '__none__', $args, prepend($args, $fn), $args);
     $func: $important;
     $important: false;
   }
@@ -48,7 +50,7 @@
         $func: get-function($func);
       }
 
-      $call-args: arglist-prepend($args, $value);
+      $call-args: prepend($args, $value);
       $value: call($func, $call-args...);
   }
 

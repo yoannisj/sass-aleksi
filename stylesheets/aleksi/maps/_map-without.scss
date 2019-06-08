@@ -1,17 +1,27 @@
 // =============================================================================
-// =ALEKSI - WITHOUT
+// =ALEKSI - MAP-WITHOUT
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
-//// @TODO: document and test these functions
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/maps/is-map";
 @import "aleksi/maps/map-set";
 
-// =map-without( $list, $val)
+// =map-without($list, $val)
 // -----------------------------------------------------------------------------
-/// Removes entry with given value from a map.
+/// Removes entries with given value from a map.
+/// **Note**: if you need to remove entries fro multiple values, use `map-purge`.
+///
+/// @param {map} $map - the map from wich to remove entries
+/// @param {any} $val - the value to remove from `$map`
+/// 
+/// @return {map} - the map without entries with `$val`
+///
+/// @access public
+/// @since 0.6.0
+///
+//// @todo unit test the map-without function
 
 @function map-without($map, $value)
 {

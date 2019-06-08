@@ -3,9 +3,7 @@
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.me)
-////
-//// @todo Move 'shortcut' functions to separate files ?
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/lists/is-list";
@@ -69,105 +67,3 @@
   @return set-list-separator( $list, $separator );
 }
 
-// =to-comma-list( $list )
-// -----------------------------------------------------------------------------
-/// Converts a list into a comma-separated list. If the list is already comma-
-/// separated, then it will be returned as is.
-///
-/// @param {list} $list - The list to convert
-///
-/// @return {list} - The modified list with comma separation.
-///
-/// @example scss
-///   $foo: to-comma-list( 10 true 'foo' );
-///     // => 10, true, 'foo'
-///   $bar: to-comma-list( (10, true, 'foo') );
-///     // => 10, true, 'foo'
-///   $baz: to-comma-list(10);
-///     // => (10,)
-///   type-of($baz);
-///     // => 'list'
-///   list-separator($baz)
-///     // => 'comma'
-///
-/// @access public
-/// @since 0.1.0
-
-@function to-comma-list( $list )
-{
-  @return set-list-separator($list, 'comma');
-}
-
-// =to-comma-list( $list )
-// -----------------------------------------------------------------------------
-/// Converts a list into a space-separated list. If the list is already space-
-/// separated, then it will be returned as is.
-///
-/// @param {list} $list - The list to convert
-///
-/// @return {list} - The modified list with space separation.
-///
-/// @example scss
-///   $foo: to-space-list( (10, true, 'foo') );
-///     // => 10 true 'foo'
-///   $bar: to-space-list( (10, true, 'foo') );
-///     // => 10 true 'foo'
-///   $baz: to-space-list(10);
-///     // => (10)
-///   type-of($baz);
-///     // => 'list'
-///   list-separator($baz)
-///     // => 'space'
-///
-/// @access public
-/// @since 0.1.0
-
-@function to-space-list( $list )
-{
-  @return set-list-separator($list, 'space');
-}
-
-// =switch-list-separator( $list )
-// -----------------------------------------------------------------------------
-/// Changes the separator of a given list, from 'space' to 'comma', and from
-/// 'comma' to space.
-/// **Note**: simple values are considered to be space-separated lists, as for
-/// all native sass list functions.
-/// **Note**: map values are considered to be comma-separated lists, as for
-/// all native sass list functions.
-///
-/// @param {list} $list - The list on which to switch separator.
-///
-/// @return {list} - The space-separated version of `$list` if it is comma-separated, and vice-versa.
-///
-/// @example scss
-///   $foo: switch-list-separator(10 true 'foo');
-///     // => 10, true 'foo'
-///   $bar: switch-list-separator((10, true, 'foo'));
-///     // => 10 true 'foo'
-///   $baz: switch-list-separator(false);
-///     // => (false,)
-///   type-of($baz);
-///     // => 'list'
-///   list-separator($baz)
-///     // => 'comma'
-///
-/// @access public
-/// @since 0.1.0
-
-@function switch-list-separator( $list )
-{
-  @return if(list-separator($list) == 'comma', to-space-list($list), to-comma-list($list));
-}
-
-// =switch-separator( $list )
-// -----------------------------------------------------------------------------
-/// @alias switch-list-separator
-///
-/// @access public
-/// @since 0.1.0
-
-@function switch-separator( $list )
-{
-  @return switch-list-separator($list);
-}

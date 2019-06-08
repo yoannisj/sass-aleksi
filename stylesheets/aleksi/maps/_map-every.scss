@@ -3,9 +3,9 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 
 // =map-every( $map, $test[, $args... ])
 // -----------------------------------------------------------------------------
@@ -43,7 +43,7 @@
   @each $key, $val in $map
   {
     // return false as soon as one value does not pass given test
-    $test-args: arglist-prepend($args, $val);
+    $test-args: prepend($args, $val);
 
     @if not call($test, $test-args...) {
       @return false;

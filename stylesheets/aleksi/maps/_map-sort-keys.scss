@@ -3,7 +3,7 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
@@ -20,7 +20,8 @@
 /// @param {map} $map - The map to order.
 /// @param {list} $order (alphabetic order) - An ordered list of key names.
 ///
-/// @return {type|...} - The map with it's keys in the same order as `$order`.
+/// @return {map|null} - The map with it's keys in the same order as `$order`.
+///
 /// @throw Error if `$map` is not a map.
 /// @throw Error if `$order` is not a list, a string, null or false.
 ///

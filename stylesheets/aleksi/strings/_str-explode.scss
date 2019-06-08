@@ -3,9 +3,11 @@
 // =============================================================================
 ////
 //// @group aleksi-strings
-//// @author [Hugo Giraudel](http://hugogiraudel.com)
 //// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Hugo Giraudel](http://hugogiraudel.com)
 //// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+@import "aleksi/general/throw";
 
 // =str-explode( $str[, $delimiter ])
 // -----------------------------------------------------------------------------
@@ -43,14 +45,18 @@
   $running: true;
   $remaining: $str;
 
-  @while $running {
+  @while $running
+  {
     $index: str-index($remaining, $delimiter);
 
-    @if $index {
+    @if $index
+    {
       $slice: str-slice($remaining, 1, $index - 1);
       $result: append($result, $slice);
       $remaining: str-slice($remaining, $index + str-length($delimiter));
-    } @else {
+    }
+
+    @else {
       $running: false;
     }
   }

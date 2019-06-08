@@ -1,5 +1,5 @@
 // =============================================================================
-// =ALEKSI - DEPTH
+// =ALEKSI - SLICE
 // =============================================================================
 ////
 //// @group aleksi-lists
@@ -7,22 +7,51 @@
 //// @author [Hugo Giraudel](http://hugogiraudel.com)
 
 @import "aleksi/general/throw";
+@import "aleksi/cast/to-list";
 @import "aleksi/lists/is-list";
+@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-slice";
 
 // =slice( $list, $start[, $end ])
 // -----------------------------------------------------------------------------
 /// Returns a part of a list, based on given range of indexes.
 ///
-/// @param {list|map} $list - The list to slice
+/// @param {any} $list - The list to slice
 /// @param {number} $start - The index of the first item to include
 /// @param {number} $end [length($list)] - The indef of the last item to include
 ///
 /// @return {list} - The resulting list
 ///
 /// @access public
-/// @since 0.1.0
+/// @since 0.6.0
 
 @function slice( $list, $start, $end: -1 )
+{
+  @if is-map($list) {
+    @return map-slice($list, $start, $end);
+  }
+
+  @if not is-list($list) {
+    $list: to-list($list);
+  }
+
+  @return list-slice($list, $start, $end);
+}
+
+// =list-slice( $list, $start[, $end ])
+// -----------------------------------------------------------------------------
+/// Returns a part of a list, based on given range of indexes.
+///
+/// @param {any} $list - The list to slice
+/// @param {number} $start - The index of the first item to include
+/// @param {number} $end [length($list)] - The indef of the last item to include
+///
+/// @return {list} - The resulting list
+///
+/// @access public
+/// @since 0.6.0
+
+@function list-slice( $list, $start, $end: -1 )
 {
   @if $list == () {
     @return ();
@@ -51,19 +80,23 @@
 
   // check if indexes are in list's boundaries
   @if $start <= 0 {
-    @return throw-error('slice(): `$start` index `#{$start}` out of bound – must be greater than `0`');
-  }
-
-  @if $end <= 0 {
-    @return throw-error('slice(): `$end` index `#{$end}` out of bound – must be greater than `0`');
+    @return throw-error('list-slice(): `$start` index `#{$start}` out of bound – can not be less than list\'s negative length');
   }
 
   @if $start > $ln {
-    @return throw-error('slice(): `$start` index `#{$start}` out of bound – can not be greater than list\'s length');
+    @return throw-error('list-slice(): `$start` index `#{$start}` out of bound – can not be greater than list\'s length');
+  }
+
+  @if $end <= 0 {
+    @return throw-error('list-slice(): `$end` index `#{$end}` out of bound – can not be less than list\'s negative length');
+  }
+
+  @if $end > $ln {
+    @return throw-error('map-slice(): `$start` index `#{$start}` out of bound – can not be greater than list\'s length');
   }
 
   @if $start > $end {
-    @return throw-error('slice(): `$start` must be smaller than `$end`');
+    @return throw-error('list-slice(): `$start` must be smaller than `$end`');
   }
 
   // build new list with selected items

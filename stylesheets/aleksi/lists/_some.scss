@@ -1,13 +1,12 @@
-
 // =============================================================================
 // =ALEKSI - SOME
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](http://yoannis.com)
 
 @import "aleksi/general/throw";
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 @import "aleksi/lists/is-list";
 @import "aleksi/maps/map-some";
 
@@ -47,7 +46,7 @@
   }
 
   // run test on single value
-  $test-args: arglist-prepend($args, $list);
+  $test-args: prepend($args, $list);
   @if type-of($test) == 'string' {
     $test: get-function($test);
   }
@@ -93,7 +92,7 @@
   @each $item in $list
   {
     // return true as soon as one item passes given test
-    $test-args: arglist-prepend($args, $item);
+    $test-args: prepend($args, $item);
     @if call($test, $test-args...) {
       @return true;
     }

@@ -3,7 +3,7 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/general/default-to";
@@ -18,7 +18,7 @@
 /// **Note**: items with a value that is not in the ordered list will be added
 /// at the end of the resulting map, in the same order as in the original map.
 ///
-/// @param {type|...} $name [default] - Description
+/// @param {map} $map - The map to sort
 ///
 /// @return {type|...} - Description
 /// @throw Error if `$map` is not a map

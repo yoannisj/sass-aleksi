@@ -71,4 +71,4 @@ Now you can import aleksi's stylesheets in your sass files using the `aleksi` pr
 
 ## API
 
-Read about the utility functions offered by sass aleksi on the [documentation site](https://yoannis.com/code/sass-aleksi/docs).
+Read about the utility functions offered by sass aleksi on the [documentation site](http://yoannis.com/code/sass-aleksi/docs).

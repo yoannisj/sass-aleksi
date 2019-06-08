@@ -1,6 +1,7 @@
 // =============================================================================
 // =ALEKSI - MEMO
 // =============================================================================
+////
 //// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 
@@ -20,7 +21,7 @@ $__memo-table__: () !default;
 ///
 /// @return {bool} - true
 ///
-/// @api public
+/// @access public
 /// @since 0.4.0
 
 @function memo-set( $ns, $key, $value )
@@ -39,7 +40,7 @@ $__memo-table__: () !default;
 ///
 /// @return {bool} - whether a value was stored already or not
 ///
-/// @api public
+/// @access public
 /// @since 0.4.0
 
 @function memo-has( $ns, $key )
@@ -69,7 +70,7 @@ $__memo-table__: () !default;
 ///
 /// @throw {error} - if no value was found
 ///
-/// @api public
+/// @access public
 /// @since 0.4.0
 
 @function memo-get( $ns, $key )

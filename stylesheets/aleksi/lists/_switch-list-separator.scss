@@ -1,0 +1,53 @@
+// =============================================================================
+// =ALEKSI - SWITCH-LIST-SEPARATOR
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/set-list-separator";
+
+// =switch-list-separator( $list )
+// -----------------------------------------------------------------------------
+/// Changes the separator of a given list, from 'space' to 'comma', and from
+/// 'comma' to space.
+/// **Note**: simple values are considered to be space-separated lists, as for
+/// all native sass list functions.
+/// **Note**: map values are considered to be comma-separated lists, as for
+/// all native sass list functions.
+///
+/// @param {list} $list - The list on which to switch separator.
+///
+/// @return {list} - The space-separated version of `$list` if it is comma-separated, and vice-versa.
+///
+/// @example scss
+///   $foo: switch-list-separator(10 true 'foo');
+///     // => 10, true 'foo'
+///   $bar: switch-list-separator((10, true, 'foo'));
+///     // => 10 true 'foo'
+///   $baz: switch-list-separator(false);
+///     // => (false,)
+///   type-of($baz);
+///     // => 'list'
+///   list-separator($baz)
+///     // => 'comma'
+///
+/// @access public
+/// @since 0.1.0
+
+@function switch-list-separator( $list )
+{
+  @return if(list-separator($list) == 'comma', set-list-separator($list, 'space'), set-list-separator($list, 'comma'));
+}
+
+// =switch-separator( $list )
+// -----------------------------------------------------------------------------
+/// @alias switch-list-separator
+///
+/// @access public
+/// @since 0.1.0
+
+@function switch-separator( $list )
+{
+  @return switch-list-separator($list);
+}

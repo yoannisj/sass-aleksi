@@ -1,6 +1,7 @@
 // =============================================================================
 // =ALEKSI - CONST
 // =============================================================================
+////
 //// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Hugo Giraudel]((http://hugogiraudel.com)
@@ -14,7 +15,7 @@ $constants: () !default;
 // -----------------------------------------------------------------------------
 /// Retrieves the value of a given constant
 ///
-/// @param $name {string} - the name of the constant to retrieve
+/// @param {string} $name - the name of the constant to retrieve
 ///
 /// @return {any} - the constants value
 /// @throw {error} - if the constant is not defined
@@ -32,12 +33,4 @@ $constants: () !default;
   }
 
   @return map-get($constants, $name);
-}
-
-// =const( $name, $value )
-// -----------------------------------------------------------------------------
-/// @alias {function} const
-
-@mixin const($name, $value) {
-  $c: const($name, $value);
 }

@@ -10,6 +10,8 @@
 
 // =arglist-prepend( $arglist, $value[, $separator ])
 // -----------------------------------------------------------------------------
+/// @deprecated Use sass aleksi's `prepend()` function instead
+/// @see {function} prepend
 
 @function arglist-prepend($arglist, $value, $separator: list-separator($arglist))
 {

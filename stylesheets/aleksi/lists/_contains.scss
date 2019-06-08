@@ -1,15 +1,21 @@
 // =============================================================================
 // =ALEKSI - CONTAINS
 // =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/maps/is-map";
 
 // =contains( $list, $value )
 // -----------------------------------------------------------------------------
-/// Checks if a list contains given value.
+/// Checks if a list contains given value. If a map is given instead of a list,
+/// it will inspect the map's values.
 ///
-/// @param {type|...} $name [default] - Description
+/// @param {list|map} $list - list to search in
+/// @param {any} $value - value to search for
 ///
-/// @return {type|...} - Description
-/// @throw Description
+/// @return {bool} - whether `$value` exists in `$list`
 ///
 /// @example scss
 ///   $foo: contains(10px 'foo', 10px);
@@ -18,11 +24,19 @@
 ///     // => false
 ///
 /// @access public
-/// @since version
+/// @since 0.6.0
 ///
-/// @todo Test the 'contains' function
+/// @todo unit test the 'contains' function
 
 @function contains( $list, $value )
 {
+  @if $list == () {
+    @return false;
+  }
+
+  @if is-map($list) {
+    $list: map-values($list);
+  }
+
   @return (index($list, $value) != null);
 }

@@ -1,8 +1,11 @@
 // =============================================================================
 // =ALEKSI - MAPS
 // =============================================================================
-//// Tools to work with maps.
+////
+//// @group aleksi-maps
 //// @author [Yoannis Jamar](http://yoannis.me)
+////
+//// Tools to work with maps.
 
 // validating/debugging maps
 @import "aleksi/maps/is-map";
@@ -34,9 +37,13 @@
 @import "aleksi/maps/map-sort-values";
 @import "aleksi/maps/map-sort-keys";
 @import "aleksi/maps/map-unique";
+@import "aleksi/maps/map-purge";
 @import "aleksi/maps/map-clean";
 @import "aleksi/maps/map-filter-values";
 @import "aleksi/maps/map-filter-keys";
 @import "aleksi/maps/map-select-keys";
+@import "aleksi/maps/map-without";
 @import "aleksi/lists/map-remove-nth";
+@import "aleksi/lists/map-slice";
 @import "aleksi/lists/map-replace-nth";
+@import "aleksi/maps/map-insert";

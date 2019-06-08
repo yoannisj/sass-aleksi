@@ -1,13 +1,19 @@
 // =============================================================================
 // =ALEKSI - STRINGS
 // =============================================================================
-//// Tools to work with sass strings.
+////
+//// @group aleksi-strings
 //// @author [Hugo Giraudel](http://hugogiraudel.com)
 //// @author [Yoannis Jamar](http://yoannis.me)
+////
+//// Tools to work with sass strings.
 
 @import "aleksi/strings/char-at";
-@import "aleksi/strings/str-replace";
+@import "aleksi/strings/str-compare";
+@import "aleksi/strings/str-find";
 @import "aleksi/strings/str-remove";
-@import "aleksi/strings/str-explode";
+@import "aleksi/strings/str-replace";
 @import "aleksi/strings/str-prepend";
 @import "aleksi/strings/str-append";
+@import "aleksi/strings/str-trim";
+@import "aleksi/strings/str-explode";

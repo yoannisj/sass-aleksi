@@ -1,7 +1,7 @@
 {
   "name": "sass-aleksi",
   "title": "Aleksi Sass",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A collection of Sass helper functions and mixins.",
   "keywords": [
     "eyeglass-module"
@@ -31,5 +31,6 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
     "test-rubysass": "./node_modules/sass-true/bin/true-cli ./test/test.scss"
-  }
+  },
+  "dependencies": {}
 }

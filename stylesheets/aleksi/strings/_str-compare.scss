@@ -20,7 +20,7 @@
 ///
 /// @return {list} - whether $str-a comes before $str-b in given $order
 ///
-/// @api public
+/// @access public
 /// @since 0.4.1
 
 @function str-compare($str-a, $str-b, $order: const('ORDER_LATIN_CHARS_ASC'))

@@ -3,12 +3,14 @@
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.com)
+//// @author [Yoannis Jamar](https://yoannis.com)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/const/falsey-values";
 @import "aleksi/cast/to-list";
 @import "aleksi/lists/is-list";
+@import "aleksi/maps/map-purge";
 
 // =purge( $list[, $prohibited ])
 // -----------------------------------------------------------------------------
@@ -20,9 +22,9 @@
 /// @param {any} $list - the list to purge
 /// @param {list} $prohibited [const(FALSEY_VALUES)] - values to remove
 ///
-/// @return {list} - the list without falsey/null values
+/// @return {list} - the list without prohibited values
 ///
-/// @api public
+/// @access public
 /// @since 0.4.1
 
 @function purge($list, $prohibited: const('FALSEY_VALUES'))
@@ -31,12 +33,11 @@
     @return map-purge($list, $prohibited);
   }
 
-  @if is-list($list) {
-    @return list-purge($list, $prohibited);
+  @if not is-list($list) {
+    $list: to-list($list);
   }
 
-  $_: throw-warning('purge(): puring a single value `#{inspect($list)}` – result will be the value inside a list, or an empty list if value is to be purged');
-  @return list-purge(to-list($list), $prohibited);
+  @return list-purge($list, $prohibited);
 }
 
 // =list-purge( $list[, $prohibited ])
@@ -49,7 +50,7 @@
 ///
 /// @return {list} - the list without falsey/null values
 ///
-/// @api public
+/// @access public
 /// @since 0.4.1
 
 @function list-purge($list, $prohibited: const('FALSEY_VALUES'))

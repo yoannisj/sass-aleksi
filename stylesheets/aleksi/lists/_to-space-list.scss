@@ -1,0 +1,37 @@
+// =============================================================================
+// =ALEKSI - TO-SPACE-LIST
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/set-list-separator";
+
+// =to-comma-list( $list )
+// -----------------------------------------------------------------------------
+/// Converts a list into a space-separated list. If the list is already space-
+/// separated, then it will be returned as is.
+///
+/// @param {list} $list - The list to convert
+///
+/// @return {list} - The modified list with space separation.
+///
+/// @example scss
+///   $foo: to-space-list( (10, true, 'foo') );
+///     // => 10 true 'foo'
+///   $bar: to-space-list( (10, true, 'foo') );
+///     // => 10 true 'foo'
+///   $baz: to-space-list(10);
+///     // => (10)
+///   type-of($baz);
+///     // => 'list'
+///   list-separator($baz)
+///     // => 'space'
+///
+/// @access public
+/// @since 0.1.0
+
+@function to-space-list( $list )
+{
+  @return set-list-separator($list, 'space');
+}

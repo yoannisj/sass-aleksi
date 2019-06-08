@@ -1,16 +1,22 @@
 // =============================================================================
 // =ALEKSI - SIDES
 // =============================================================================
+////
+//// @group aleksi-sides
+//// @author [Yoannis Jamar](https://yoannis.com)
+////
+//// Tools to work with values for sides in CSS box-model
 
 @import "sides/sides-shorthand";
 @import "sides/side-name";
-@import "sides/to-sides-map";
-@import "sides/to-sides-list";
-@import "sides/reduce-sides";
-@import "sides/output-sides";
-
 @import "sides/side-value";
 @import "sides/top";
 @import "sides/right";
 @import "sides/bottom";
 @import "sides/left";
+@import "sides/to-sides-map";
+@import "sides/to-sides-list";
+@import "sides/reduce-sides";
+@import "sides/expand-sides";
+
+@import "sides/output-sides";

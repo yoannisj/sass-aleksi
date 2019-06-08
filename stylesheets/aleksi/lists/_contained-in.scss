@@ -1,16 +1,24 @@
 // =============================================================================
 // =ALEKSI - CONTAINED-IN
 // =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](https://yoannis.com)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
+
+@import "aleksi/maps/is-map";
 
 // =contained-in( $value, $list )
 // -----------------------------------------------------------------------------
 /// Checks if the given value is contained in a list. Behaves like `sl-contain`,
 /// but with the value as first argument. Useful to check for specific values
-/// when walking over a list or map.
+/// when walking over a list or map. If a map is given, it will search in the
+/// map's values.
 ///
-/// @param {type|...} $name [default] - Description
+/// @param {any} $value - Value to search for
+/// @param {list|map} $list - List to search in
 ///
-/// @return {type|...} - Description
+/// @return {bool} - whether `$value` exists in `$list`
 /// @throw Description
 ///
 /// @example scss
@@ -24,11 +32,19 @@
 ///     // => true
 ///
 /// @access public
-/// @since version
+/// @since 0.6.0
 ///
-/// @todo Test the 'contained-in' function
+/// @todo unit test the 'contained-in' function
 
 @function contained-in( $value, $list )
 {
+  @if $list == () {
+    @return false;
+  }
+
+  @if is-map($list) {
+    $list: map-values($list);
+  }
+
   @return (index($list, $value) != null);
 }

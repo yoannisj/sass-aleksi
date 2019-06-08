@@ -3,9 +3,12 @@
 // =============================================================================
 ////
 //// @group aleksi-strings
-//// @author [Hugo Giraudel](http://hugogiraudel.com)
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
+//// @author [Hugo Giraudel](https://hugogiraudel.com)
 //// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
+
+@import "aleksi/general/throw";
+@import "aleksi/lists/is-list";
 
 // =str-ltrim( $str[, $chars ])
 // -----------------------------------------------------------------------------
@@ -23,6 +26,10 @@
 
 @function str-ltrim( $str, $chars: ' ')
 {
+  @if type-of($str) != 'string' {
+    @return throw-error('str-ltrim(): `$str` must be a string – was #{inspect($str)}');
+  }
+
   // allow empty string
   @if $str == '' {
     @return $str;
@@ -31,6 +38,10 @@
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
+  }
+
+  @else if not is-list($chars) {
+    @return throw-error('str-ltrim(): `$chars` must be a string or a list – was #{inspect($str)}');
   }
 
   // remove leading chars
@@ -57,6 +68,10 @@
 
 @function str-rtrim( $str, $chars: ' ')
 {
+  @if type-of($str) != 'string' {
+    @return throw-error('str-rtrim(): `$str` must be a string – was #{inspect($str)}');
+  }
+
   // allow empty string
   @if $str == '' {
     @return $str;
@@ -65,6 +80,10 @@
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
+  }
+
+  @else if not is-list($chars) {
+    @return throw-error('str-rtrim(): `$chars` must be a string or a list – was #{inspect($str)}');
   }
 
   // remove trailing chars
@@ -91,6 +110,10 @@
 
 @function str-trim( $str, $chars: ' ')
 {
+  @if type-of($str) != 'string' {
+    @return throw-error('str-trim(): `$str` must be a string – was #{inspect($str)}');
+  }
+
   // allow empty string
   @if $str == '' {
     @return $str;
@@ -99,6 +122,10 @@
   // transform single character into a list
   @if type-of($chars) == 'string' {
     $chars: append((), $chars);
+  }
+
+  @else if not is-list($chars) {
+    @return throw-error('str-trim(): `$chars` must be a string or a list – was #{inspect($str)}');
   }
 
   // remove leading and trailing occurences of chars and return result

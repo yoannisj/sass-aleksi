@@ -11,17 +11,17 @@ $__unique-ids__: () !default;
 
 // =unique-id-for( $ns, $val )
 // -----------------------------------------------------------------------------
-/// Creates a unique if for given value, or returns the one that was previously
-/// created for it – if any. Allows to associate a given value to a unique css
+/// Creates a unique id for given value, or returns the one that was previously
+/// created for it – if any. Allows associating a given value to a unique css
 /// identifier.
 ///
-/// @param $ns {string} - a namespace in which to store val <=> id associaition
-/// @param $val {any} - the value for which to get a unique id
+/// @param {string} $ns - a namespace in which to store val <=> id association
+/// @param {any} $val - the value for which to get a unique id
 ///
-/// @return {any} - the unique id associatef to $val inside $ns
-/// @throw {error} - if $ns is not a string
+/// @return {any} - the unique id associated to `$val` inside `$ns`
+/// @throw {error} - if `$ns` is not a string
 ///
-/// @api public
+/// @access public
 /// @since 0.4.2
 
 @function unique-id-for($ns, $val)
@@ -30,21 +30,21 @@ $__unique-ids__: () !default;
     @return throw('unique-id-for(): `$ns` must be a string – was `#{inspect($ns)}`');
   }
 
-  $vals: default-to(map-get($__unique-ids__, $ns), ();
+  $values: default-to(map-get($__unique-ids__, $ns), ();
   $key: '#{inspect($val)}';
-  
+
   // and given value already has a unique id in $ns
-  @if map-has-key($vals, $key) {
+  @if map-has-key($values, $key) {
     // return that id
-    @return map-get($vals, $key);
+    @return map-get($values, $key);
   }
 
   // create unique id for given value
   $id: unique-id();
   // add it to other values in given namespace
-  $vals: map-merge($vals, ('#{$key}': $id));
+  $values: map-merge($values, ('#{$key}': $id));
   // update namespace in global map of ids
-  $__unique-ids__: map-merge($__unique-ids__, ('#{$ns}': $vals)) !global;
+  $__unique-ids__: map-merge($__unique-ids__, ('#{$ns}': $values)) !global;
 
   return $id;
 }

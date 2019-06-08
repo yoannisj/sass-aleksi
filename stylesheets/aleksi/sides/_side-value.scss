@@ -1,12 +1,13 @@
 // =============================================================================
 // =ALEKSI - SIDE-VALUE
 // =============================================================================
+////
 //// @group aleksi-sides
 //// @author [Yoannis Jamar](https://yoannis.com)
 
+@import "aleksi/general/throw";
 @import "aleksi/general/const";
 @import "aleksi/const/css/layout-sides";
-@import "aleksi/general/throw";
 @import "aleksi/lists/contains";
 @import "aleksi/maps/is-map";
 

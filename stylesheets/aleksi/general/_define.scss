@@ -14,11 +14,14 @@ $constants: () !default;
 // -----------------------------------------------------------------------------
 /// Defines a constant
 ///
-/// @param $name {string} - the name of the constant to define
-/// @param $value {any} - the value of the new constant
+/// @param {string} $name - the name of the constant to define
+/// @param {any} $value - the value of the new constant
 ///
 /// @return {any} - the constant's value
 /// @throw {warning} - if the constant is already defined
+///
+/// @access public
+/// @since 0.6.0
 
 @function define($name, $value)
 {
@@ -34,7 +37,15 @@ $constants: () !default;
 
 // =define( $name, $value)
 // -----------------------------------------------------------------------------
-/// @alias {function} define
+/// Mixin to invoke the define function
+///
+/// @param {string} $name - the name of the constant to define
+/// @param {any} $value - the value of the new constant
+///
+/// @throw {warning} - if the constant is already defined
+///
+/// @access public
+/// @since 0.6.0
 
 @mixin define($name, $value) {
   $c: define($name, $value);

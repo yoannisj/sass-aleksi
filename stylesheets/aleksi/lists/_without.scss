@@ -3,15 +3,29 @@
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.me)
-//// @TODO: document and test these functions
+//// @author [Yoannis Jamar](https://yoannis.com)
 
+@import "aleksi/cast/to-list";
+@import "aleksi/lists/is-list";
 @import "aleksi/maps/map-without";
 
-// =without( $list, $func[, $args... ])
+// =without( $list, $value )
 // -----------------------------------------------------------------------------
-// Removes given value from a list or map. If a single value is passed, it will
-// return null if to same values where given.
+/// Removes given value from a list or map. If a single value is passed, it will
+/// return null if to same values where given.
+/// **Note**: if a single value is given, a single item list will be returned.
+/// **Note**: if a single value is given, and it value equals the value that
+/// should be removed, it will return the empty list `()`.
+///
+/// @param {any} $list - the list from which to remove value
+/// @param {any} $value - the value fro remove from `$list`
+///
+/// @return {list}
+///
+/// @access public
+/// @since 0.6.0
+///
+/// @todo unit test the without functions
 
 @function without($list, $value)
 {
@@ -23,7 +37,7 @@
     @return list-without($value);
   }
 
-  @return if($list == $value, null, $list);
+  @return if($list == $value, (), to-list($list));
 }
 
 // =list-without( $list, $val)
@@ -32,10 +46,25 @@
 /// **Note** SasssyLists has a similar 'sl-without' method, but it replaces
 /// all occurences of `$val` with `null` while 'list-without' removes occurences 
 /// of the list and changes its length.
+///
+/// @param {any} $list - the list from which to remove value
+/// @param {any} $value - the value fro remove from `$list`
+///
+/// @return {list}
+///
+/// @access public
+/// @since 0.6.0
+///
+/// @todo unit test the list-without function
 
 @function list-without($list, $value)
 {
+  @if not is-list($list) {
+    @return throw('list-without(): `$list` argument must be a list – was #{inspect($list)}');
+  }
+
   $res: ();
+
   @each $item in $list
   {
     @if $item != $value {

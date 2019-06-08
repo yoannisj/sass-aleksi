@@ -3,17 +3,17 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 @import "aleksi/maps/is-map";
 
 // =map-filter-keys( $map, $test, $args... )
 // -----------------------------------------------------------------------------
 /// Removes items in a map with a key that doesn't pass a given test function.
-/// **Note**: to pass the test, the test function must return a truethy value —
-/// not per se the boolean `true`.
+/// **Note**: to include a key in the result, the test function must return a
+/// truethy value — not per-se the boolean `true`.
 ///
 /// @param {map} $map - The map with the item keys to test.
 /// @param {string} $test - The name of the test function to run on each item's key.
@@ -42,7 +42,7 @@
 
   @each $key, $val in $map
   {
-    $test-args: arglist-prepend($args, $key);
+    $test-args: prepend($args, $key);
 
     @if call($test, $test-args...) {
       $res: map-merge($res, ($key: $val));

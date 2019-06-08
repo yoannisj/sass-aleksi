@@ -3,7 +3,7 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/lists/slice";
@@ -11,7 +11,14 @@
 // =map-extend( $maps... )
 // -----------------------------------------------------------------------------
 /// Merges the given maps successively. Allows to merge more then two maps
-/// together.
+/// at once.
+///
+/// @param {$map} $maps... - maps to merge
+///
+/// @return {map}
+///
+/// @access public
+/// @since 0.6.0
 
 @function map-extend( $maps... )
 {

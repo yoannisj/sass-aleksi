@@ -1,0 +1,46 @@
+// =============================================================================
+// =ALEKSI - MAP-PURGE
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/throw";
+@import "aleksi/general/const";
+@import "aleksi/const/falsey-values";
+@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-set";
+
+// =map-purge( $map[, $prohibited ])
+// -----------------------------------------------------------------------------
+/// Removes entries with given prohibited values from a map. By default, it will
+/// remove all falsey/empty values (i.e. `null` `false` `''` and `0`).
+/// **Note**: if all items have been removed, it will return `()` to act like
+/// all other map filtering functions (emptying a list with `map-remove()` would
+/// normally return a *real* empty map ``);
+///
+/// @param {map} $map - the map from wich to remove entries
+/// @param {list} $prohibited [const(FALSEY_VALUES)] - values to remove
+///
+/// @return {map} - the map without entries with prohibited values
+///
+/// @access public
+/// @since 0.6.0
+
+@function map-purge($map, $prohibited: const('FALSEY_VALUES'))
+{
+  @if not is-map($map) {
+    @return throw-error('map-purge():: $map must be a map, was #{inspect($map)}.');
+  }
+
+  $res: ();
+
+  @each $key, $val in $map
+  {
+    @if not index($prohibited, $val) {
+      $res: map-set($res, $key, $val);
+    }
+  }
+
+  @return $res;
+}

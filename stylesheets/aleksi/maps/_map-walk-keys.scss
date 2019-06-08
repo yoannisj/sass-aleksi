@@ -3,10 +3,10 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 @import "aleksi/maps/is-map";
 
 // =map-walk-keys( $map, $func[, $args... ])
@@ -42,7 +42,7 @@
 
   @each $key, $val in $map
   {
-    $call-args: arglist-prepend($args, $key);
+    $call-args: prepend($args, $key);
     $key: call($func, $call-args...);
     $res: map-merge($res, ($key: $val));
   }

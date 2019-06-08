@@ -1,14 +1,17 @@
 // =============================================================================
 // =ALEKSI - SORT
 // =============================================================================
+////
 //// @group aleksi-lists
 //// @author [Hugo Giraudel](http://hugogiraudel.com)
 //// @link http://thesassway.com/advanced/implementing-bubble-sort-with-sass
 
 @import "aleksi/general/const";
+@import "aleksi/general/throw";
 @import "aleksi/const/order-latin-chars-asc";
 @import "aleksi/cast/to-list";
 @import "aleksi/strings/str-compare";
+@import "aleksi/maps/is-map";
 
 // =sort( $list[, $order ])
 // -----------------------------------------------------------------------------
@@ -16,19 +19,29 @@
 /// contains non-string values, those will be cast to a string during the
 /// comparison.
 /// **Note**: uses the [quick-sort](https://en.wikipedia.org/wiki/Quicksort).
-/// **NOT**: to sort numbers with custom order, make sure you pass the numbers
-/// as strings in the `$order` parameter.
+/// **NOT**: to sort numbers with custom order, make sure you pass the ordered
+/// numbers as strings in the `$order` parameter.
 ///
 /// @param {list} $list - the list of items to sort
 /// @param {list} $order [const('ORDER_LATIN_CHARS_ASC')] - the order of characters to use when comparing strings
 ///
-/// @return {list} - the list with items ordered
+/// @return {list|map} - the list with items ordered
 ///
-/// @api public
+/// @throw Error if map is given
+///
+/// @access public
 /// @since 0.4.1
 
 @function sort($list, $order: const('ORDER_LATIN_CHARS_ASC'))
 {
+  @if $list == () {
+    @return $list;
+  }
+
+  @if is-map($list) {
+    @return throw-error('`sort()` does not support sorting maps. Use `map-sort-keys()` or `map-sort-values()` instead.');
+  }
+
   $less: ();
   $equal: ();
   $more: ();

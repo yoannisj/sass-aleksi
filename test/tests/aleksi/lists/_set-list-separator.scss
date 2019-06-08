@@ -4,6 +4,9 @@
 
 @import "aleksi/cast/to-list";
 @import "aleksi/lists/set-list-separator";
+@import "aleksi/lists/to-comma-list";
+@import "aleksi/lists/to-space-list";
+@import "aleksi/lists/switch-list-separator";
 
 @include test-module('The set-list-separator function')
 {

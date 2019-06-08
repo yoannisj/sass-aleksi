@@ -3,12 +3,12 @@
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/cast/to-list";
-@import "aleksi/arglists/arglist-prepend";
 @import "aleksi/lists/is-list";
+@import "aleksi/lists/prepend";
 @import "aleksi/lists/set-list-separator";
 @import "aleksi/maps/map-walk-values";
 
@@ -93,7 +93,7 @@
 
   @each $item in $list 
   {
-    $call-args: arglist-prepend($args, $item);
+    $call-args: prepend($args, $item);
 
     $new: call($func, $call-args...);
     $res: append($res, $new);

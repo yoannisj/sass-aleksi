@@ -3,7 +3,7 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/maps/map-merge-deep";
@@ -11,6 +11,15 @@
 
 // =map-extend-deep( $maps... )
 // -----------------------------------------------------------------------------
+/// Merges the given maps successively, and recursively. Allows to merge more
+/// then two maps at once, and will extend nested maps as well.
+///
+/// @param {$map} $maps... - maps to merge
+///
+/// @return {map}
+///
+/// @access public
+/// @since 0.6.0
 
 @function map-extend-deep( $maps... )
 {

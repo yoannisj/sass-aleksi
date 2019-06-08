@@ -1,11 +1,19 @@
 // =============================================================================
 // =ALEKSI - LISTS
 // =============================================================================
-//// Tools to work with lists.
+////
+//// @group aleksi-lists
 //// @author [Yoannis Jamar](http://yoannis.me)
+////
+//// Tools to work with lists.
 
 @import "aleksi/lists/is-list";
+
 @import "aleksi/lists/set-list-separator";
+@import "aleksi/lists/switch-list-separator";
+@import "aleksi/lists/to-comma-list";
+@import "aleksi/lists/to-space-list";
+
 @import "aleksi/lists/prepend";
 @import "aleksi/lists/slice";
 @import "aleksi/lists/implode";

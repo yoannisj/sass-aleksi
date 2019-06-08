@@ -1,10 +1,11 @@
 // =============================================================================
 // =ALEKSI - APPLY
 // =============================================================================
+////
 //// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
 
-@import "aleksi/arglists/arglist-prepend";
+@import "aleksi/lists/prepend";
 @import "aleksi/lists/walk";
 
 // =apply( $value, $func[, $args... ])
@@ -37,7 +38,7 @@
     @return walk($value, $func, $args...);
   }
 
-  $args: arglist-prepend($args, $value);
+  $args: prepend($args, $value);
   @if type-of($func) == 'string' {
     $func: get-function($func);
   }

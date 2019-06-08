@@ -1,6 +1,7 @@
 // =============================================================================
 // =ALEKSI - TO-NUMBER
 // =============================================================================
+////
 //// @group aleksi-cast
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Hugo Giraudel]((http://hugogiraudel.com)
@@ -8,9 +9,9 @@
 @import "aleksi/general/throw";
 @import "aleksi/general/const";
 @import "aleksi/const/decimal-space";
-@import "aleksi/lengths/find-integer";
-@import "aleksi/lengths/find-digits";
-@import "aleksi/lengths/set-unit";
+@import "aleksi/numbers/find-integer";
+@import "aleksi/numbers/find-digits";
+@import "aleksi/numbers/set-unit";
 
 // =to-number( $value )
 // -----------------------------------------------------------------------------

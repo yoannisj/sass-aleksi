@@ -3,7 +3,8 @@
 // =============================================================================
 ////
 //// @group aleksi-lists
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
+//// @author [Hugo Giraudel]((http://hugogiraudel.com)
 
 // =prepend( $list, $value[, $separator ])
 // -----------------------------------------------------------------------------
@@ -36,5 +37,11 @@
 
 @function prepend( $list, $value, $separator: list-separator($list) )
 {
-  @return append($value, $list, $separator);
+  $res: set-list-separator(($value,), $separator);
+
+  @each $val in $list {
+    $res: append($res, $val);
+  }
+
+  @return $res;
 }

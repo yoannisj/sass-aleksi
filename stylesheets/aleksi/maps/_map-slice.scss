@@ -1,0 +1,94 @@
+// =============================================================================
+// =ALEKSI - MAP-SLICE
+// =============================================================================
+////
+//// @group aleksi-maps
+//// @author [Yoannis Jamar](http://yoannis.com)
+
+@import "aleksi/general/throw";
+@import "aleksi/maps/is-map";
+@import "aleksi/maps/map-set";
+
+// =map-remove-nth( $map, $start[, $end ])
+// -----------------------------------------------------------------------------
+/// Returns section of given map, based on the map entries' index. If `$start`
+/// or '$end` are negative, it will count from the end of the map (-1 is the
+/// index of the last entry in the map).
+///
+/// @param {map} $map - The map from which to remove the tuple
+/// @param {number} $start - The index of the first entry to include
+/// @param {number} $end [ -1] - The index of the last entry to include
+///
+/// @return {map} - The selected part of the map
+///
+/// @throw Error if `$map` is not a map
+/// @throw Error if `$start` or `$end` are out of bounds for $map
+///
+/// @example scss
+///   $map: ('a': 'foo', 'b': 'bar', 'c': 'baz', 'd': 'wiz');
+///   $foo: map-slice($map, 2, 3);
+///     // => ('b': 'foo', 'c': 'baz')
+///   $foo: map-slice($map, 2, -1);
+///     // => ('b': 'foo', 'c': 'baz', 'd': 'wiz')
+///   $foo: map-slice($map, -2);
+///     // => ('c': 'baz', 'd': 'wiz')
+///   $foo: map-slice($map, 2, -2);
+///     // => ('b': 'foo', 'c': 'baz',)
+///
+/// @access public
+/// @since 0.6.0
+
+@function map-slice( $map, $start, $end: -1 )
+{
+  @if not is-map($map) {
+    @return throw-error('map-slice(): `$map` must be a map – was #{inspect($map)}');
+  }
+
+  $ln: length($map);
+
+  // accept negative indexes
+  @if $start < 0 { $start: $ln + $start + 1; }
+  @if $end < 0 { $end: $ln + $end + 1; }
+  // make sure 'end' index is in bound
+  @else if $end > $ln { $end: $ln; }
+
+  // check if indexes are in list's boundaries
+  @if $start <= 0 {
+    @return throw-error('map-slice(): `$start` index `#{$start}` out of bound – can not be less than map\'s negative length');
+  }
+
+  @if $start > $ln {
+    @return throw-error('map-slice(): `$start` index `#{$start}` out of bound – can not be greater than map\'s length');
+  }
+
+  @if $end <= 0 {
+    @return throw-error('map-slice(): `$end` index `#{$end}` out of bound – can not be less than map\'s negative length');
+  }
+
+  @if $end > $ln {
+    @return throw-error('map-slice(): `$start` index `#{$start}` out of bound – can not be greater than map\'s length');
+  }
+
+  @if $start > $end {
+    @return throw-error('map-slice(): `$start` must be smaller than `$end`');
+  }
+
+  // build new map with selected items
+  $res: ();
+  $i: 0;
+
+  @each $key, $val in $map
+  {
+    $i: $i + 1;
+
+    @if $i >= $start {
+      $res: map-set($res, $key, $val);
+    }
+
+    @if $i > $ln {
+      @return $res;
+    }
+  }
+
+  @return $res;
+}

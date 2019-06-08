@@ -1,9 +1,13 @@
 // =============================================================================
 // =ALEKSI - GENERAL
 // =============================================================================
-//// Imports all general tools.
+////
+//// @group aleksi-general
 //// @author [Yoannis Jamar](http://yoannis.me)
+////
+//// General Sass tools
 
+@import "aleksi/general/const";
 @import "aleksi/general/throw";
 @import "aleksi/general/is-of-type";
 @import "aleksi/general/default-to";

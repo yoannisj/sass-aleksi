@@ -3,10 +3,11 @@
 // =============================================================================
 ////
 //// @group aleksi-strings
-//// @author [Hugo Giraudel](http://hugogiraudel.com)
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
+//// @author [Hugo Giraudel](https://hugogiraudel.com)
 //// @link https://github.com/HugoGiraudel/SassyStrings/tree/master/stylesheets/public
 
+@import "aleksi/general/throw";
 @import "aleksi/strings/str-replace";
 
 // =str-remove( $str, $search )

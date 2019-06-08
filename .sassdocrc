@@ -1,11 +1,22 @@
 dest: ./sassdoc
 package: ./package.json
+descriptionPath: ./README.md
+basePath: https://github.com/yoannisj/sass-aleksi/tree/master
 theme: default
+display:
+  alias: true
+  access:
+    - public
 groups:
-  aleksi-settings: Settings
   aleksi-general: General
+  aleksi-const: Constants
+  aleksi-cast: Cast
   aleksi-math: Math
-  aleksi-strings: Strings
+  aleksi-numbers: Numbers
   aleksi-lengths: Lengths
+  aleksi-strings: Strings
+  aleksi-colors: Colors
   aleksi-lists: Lists
+  aleksi-arglists: Arglists
   aleksi-maps: Maps
+  aleksi-sides: Sides

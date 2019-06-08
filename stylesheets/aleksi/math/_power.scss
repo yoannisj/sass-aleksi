@@ -1,6 +1,7 @@
 // =============================================================================
 // =ALEKSI - POW
 // =============================================================================
+////
 //// @group aleksi-math
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Hugo Giraudel]((http://hugogiraudel.com)
@@ -9,12 +10,12 @@
 // -----------------------------------------------------------------------------
 /// Power function
 ///
-/// @param {Number} $x - number
-/// @param {Number} $n - power
+/// @param {number} $x - number
+/// @param {number} $n - power
 ///
-/// @return {Number} $x ^ $n
+/// @return {number} $x ^ $n
 ///
-/// @api public
+/// @access public
 /// @since 0.6.0
 ///
 /// @author [Hugo Giraudel]((http://hugogiraudel.com)
@@ -42,7 +43,7 @@
 // -----------------------------------------------------------------------------
 /// @alias power
 ///
-/// @api public
+/// @access public
 /// @since 0.6.0
 
 @function pow($x, $n)

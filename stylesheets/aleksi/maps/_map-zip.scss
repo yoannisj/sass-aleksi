@@ -3,10 +3,11 @@
 // =============================================================================
 ////
 //// @group aleksi-maps
-//// @author [Yoannis Jamar](http://yoannis.me)
+//// @author [Yoannis Jamar](https://yoannis.com)
 
 @import "aleksi/general/throw";
 @import "aleksi/lists/wrap-in-list";
+@import "aleksi/lists/to-space-list";
 @import "aleksi/maps/is-map";
 
 // =map-zip( $keys, $values)
@@ -16,6 +17,7 @@
 /// **Note**: in case `$keys` and `$values` are not the same length, additional
 /// values will be discarded and it will throw a warning.
 /// @author [Hugo Giraudel](http://hugogiraudel.com)
+/// @link https://sass-lang.com/documentation/functions/list#zip
 ///
 /// @param {list} $keys - The keys for the built map.
 /// @param {list} $values - The values for the built map, in same order.
@@ -29,8 +31,6 @@
 ///     // => ('a': 10, 'b': 'foo')
 ///   $baz: map-zip('a', 'b', 10 true 'foo');
 ///     // => ('a': 10, 'b': true)
-///
-/// @see http://sass-lang.com/documentation/Sass/Script/Functions.html#zip-instance_method
 ///
 /// @access public
 /// @since 0.1.0

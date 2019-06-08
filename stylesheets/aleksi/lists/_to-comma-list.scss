@@ -1,0 +1,37 @@
+// =============================================================================
+// =ALEKSI - TO-COMMA-LIST
+// =============================================================================
+////
+//// @group aleksi-lists
+//// @author [Yoannis Jamar](https://yoannis.com)
+
+@import "aleksi/lists/set-list-separator";
+
+// =to-comma-list( $list )
+// -----------------------------------------------------------------------------
+/// Converts a list into a comma-separated list. If the list is already comma-
+/// separated, then it will be returned as is.
+///
+/// @param {list} $list - The list to convert
+///
+/// @return {list} - The modified list with comma separation.
+///
+/// @example scss
+///   $foo: to-comma-list( 10 true 'foo' );
+///     // => 10, true, 'foo'
+///   $bar: to-comma-list( (10, true, 'foo') );
+///     // => 10, true, 'foo'
+///   $baz: to-comma-list(10);
+///     // => (10,)
+///   type-of($baz);
+///     // => 'list'
+///   list-separator($baz)
+///     // => 'comma'
+///
+/// @access public
+/// @since 0.1.0
+
+@function to-comma-list( $list )
+{
+  @return set-list-separator($list, 'comma');
+}

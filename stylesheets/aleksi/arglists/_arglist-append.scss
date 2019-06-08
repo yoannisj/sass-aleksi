@@ -2,7 +2,6 @@
 // =ALEKSI - ARGLIST-APPEND
 // =============================================================================
 ////
-////
 //// @group aleksi-arglists
 //// @author [Yoannis Jamar](http://yoannis.com)
 
@@ -10,6 +9,7 @@
 
 // =arglist-append( $arglist, $value[, $separator ])
 // -----------------------------------------------------------------------------
+/// @deprecated Use sass's builtin `append()` function instead
 
 @function arglist-append($arglist, $value, $separator: auto)
 { 

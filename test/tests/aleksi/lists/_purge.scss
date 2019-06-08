@@ -19,6 +19,6 @@
 
   @include test('should remove all falsey values by default')
   {
-    @include assert-equal(purge(10 true '' false 30 'foo' null 0), 10 true 30 'foo');
+    @include assert-equal(purge(10 true '' false 30 'foo' null 0), 10 true '' 30 'foo' 0);
   }
 }
