@@ -16,13 +16,11 @@ Open the Terminal and install the node package:
 
 ### Bower
 
+**DEPRECATED**: bower is now deprecated. It is highly recommended you instead use `npm` to install this dependency, or any other modern dependency manager relying on node modules such as [yarn](https://yarnpkg.com/en/).
+
 Open the Terminal, `cd` to your project folder and enter the following command:
 
-    bower install sass-aleksi --save
-
-Import files in your project's stylesheets
-
-    @import "path/to/bower_components/sass-aleksi/aleksi";
+    bower install sass-aleksi --save-dev
 
 ## Usage
 
@@ -34,12 +32,22 @@ This can be done using [eyeglass](https://www.npmjs.com/package/eyeglass)'s impo
 
     var sass = require('node-sass');
     var eyeglass = require('eyeglass');
+    
     sass.render(eyeglass({
         /* .. */
         eyeglas: {
             modules: [
                 {
                     path: './node_modules/sass-aleksi'
+                }
+                // or, if you installed sass-aleksi with bower
+                {
+                    name: "aleksi",
+                    main: function(eyeglass, sass) {
+                        return {
+                            sassDir: './bower_components/sass-aleksi/stylesheets/aleksi',
+                        }
+                    }
                 }
             ],
             engines: {
@@ -54,17 +62,21 @@ Alternatively, you can use something like [node-sass-import-once](https://www.np
 
     var sass = require('node-sass');
     var importOnce = require('node-sass-import-once');
+
     sass.render({
         /* .. */
         importer: importOnce,
         loadPaths: [
             './node_modules/sass-aleksi/stylesheets',
+            // or, if you installed sass-aleksi with bower
+            './bower_components/sass-aleksi/stylesheets'
         ]
     }, function(err, res) { /* ... */ });
 
 Now you can import aleksi's stylesheets in your sass files using the `aleksi` prefix:
 
     @import "aleksi/lengths/to-rem";
+
     body {
         font-size: to-rem(12px, 16px);
     }
