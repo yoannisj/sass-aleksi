@@ -5,31 +5,47 @@
 //// @author [Yoannis Jamar](http://yoannis.me)
 //// @author [Hugo Giraudel]((http://hugogiraudel.com)
 
-// =pow( $x, $n )
+// =power( $x, $n )
 // -----------------------------------------------------------------------------
 /// Power function
-/// @access private
 ///
 /// @param {Number} $x - number
 /// @param {Number} $n - power
 ///
 /// @return {Number} $x ^ $n
 ///
+/// @api public
+/// @since 0.6.0
+///
 /// @author [Hugo Giraudel]((http://hugogiraudel.com)
+///
+/// @todo unit test `power` function
 
-@function pow($x, $n)
+@function power($x, $n)
 {
-  $ret: 1;
+  $res: 1;
 
   @if $n >= 0 {
     @for $i from 1 through $n {
-      $ret: ($ret * $x);
+      $res: ($res * $x);
     }
   } @else {
     @for $i from $n to 0 {
-      $ret: ($ret / $x);
+      $res: ($res / $x);
     }
   }
 
-  @return $ret;
+  @return $res;
+}
+
+// =pow( $x, $n )
+// -----------------------------------------------------------------------------
+/// @alias power
+///
+/// @api public
+/// @since 0.6.0
+
+@function pow($x, $n)
+{
+  @return power($x, $n);
 }
