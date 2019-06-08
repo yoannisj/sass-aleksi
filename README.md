@@ -2,23 +2,17 @@
 
 Aleksi is a collection of Sass helper functions and mixins. It bundles other libraries and provides its own functions and mixins on top.
 
-The russian firstname *Aleksi* means *helper of man*.
+The russian firstname *Aleksi* carries the meaning *helper of man*.
+
+**CAUTION**: this library is still in beta, and the API may change before it reaches its first stable release. Use with caution, and make sure you check the documentation when updating.
 
 ## Installation
 
-### RubyGem & Compass
+### NPM
 
-Open the Terminal and install the ruby gem:
+Open the Terminal and install the node package:
 
-    gem install sass-aleksi
-
-Require gem in your compass project configuration file
-
-    require sass-aleksi;
-
-Import files in your project's stylesheets
-
-    @import "aleksi";
+    npm install sass-aleksi --save-dev
 
 ### Bower
 
@@ -30,11 +24,51 @@ Import files in your project's stylesheets
 
     @import "path/to/bower_components/sass-aleksi/aleksi";
 
-## Dependencies and Bundling
+## Usage
 
-Aleski requires Compass and will import only the needed parts from compass. Additionally, it depends on the following Sass/Compass extensions:
+Aleksi relies on a custom sass importer, to import stylehseet files only once.
 
-+ [Sass (~> 3.3)](https://github.com/sass/sass)
-+ [SassyLists (~> 2.2)](https://github.com/at-import/SassyLists)
+### Eyeglass
 
-These extensions are bundled with Aleksi, adding `@import "aleksi";` to your stylesheet will give you access to all their functionalities. Be sure to check out their respective documentations to take the most out of Aleksi.
+This can be done using [eyeglass](https://www.npmjs.com/package/eyeglass)'s importer: 
+
+    var sass = require('node-sass');
+    var eyeglass = require('eyeglass');
+    sass.render(eyeglass({
+        /* .. */
+        eyeglas: {
+            modules: [
+                {
+                    path: './node_modules/sass-aleksi'
+                }
+            ],
+            engines: {
+                sass: sass
+            }
+        },
+    }), function(err, res) { /* ... */ });
+
+### Custom importer
+
+Alternatively, you can use something like [node-sass-import-once](https://www.npmjs.com/package/node-sass-import-once), and add aleksi's stylesheets path to sass's `loadPaths` option:
+
+    var sass = require('node-sass');
+    var importOnce = require('node-sass-import-once');
+    sass.render({
+        /* .. */
+        importer: importOnce,
+        loadPaths: [
+            './node_modules/sass-aleksi/stylesheets',
+        ]
+    }, function(err, res) { /* ... */ });
+
+Now you can import aleksi's stylesheets in your sass files using the `aleksi` prefix:
+
+    @import "aleksi/lengths/to-rem";
+    body {
+        font-size: to-rem(12px, 16px);
+    }
+
+## API
+
+Read about the utility functions offered by sass aleksi on the [documentation site](https://yoannis.com/code/sass-aleksi/docs).
