@@ -6,18 +6,13 @@
 //// @group aleksi-arglists
 //// @author [Yoannis Jamar](http://yoannis.com)
 
+@import "aleksi/general/throw";
+
 // =arglist-append( $arglist, $value[, $separator ])
 // -----------------------------------------------------------------------------
 
-@function arglist-append($arglist, $value, $separator: list-separator($arglist))
+@function arglist-append($arglist, $value, $separator: auto)
 { 
-  // build list manually
-  @each $arg in $arglist {
-    $args: append($args, $arg, $separator);
-  }
-
-  // add value at the end
-  $args: append((), $value, $separator);
-
-  @return $args;
+  $_: throw-warning('Deprecated `arglist-append()` function, use sass\'s built-in `append()` function instead');
+  @return append($arglist, $value, $separator);
 }
