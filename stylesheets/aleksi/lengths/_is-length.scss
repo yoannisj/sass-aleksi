@@ -1,0 +1,35 @@
+// =============================================================================
+// =ALEKSI - IS-LENGTH
+// =============================================================================
+//// @group aleksi-lengths
+//// @author [Yoannis Jamar](http://yoannis.me)
+
+@import "aleksi/general/const";
+@import "aleksi/const/css/length-units";
+
+// =is-length( $val )
+// -----------------------------------------------------------------------------
+/// Checks if given value is a length value
+///
+/// @param {any} $val - value to check
+/// @return {bool} - whether $val is a valid length value
+///
+/// @access public
+/// @since 0.6.0
+
+@function is-length($val)
+{
+  @if not type-of($val) == 'number' {
+    @return false;
+  }
+
+  @if unitless($val) {
+    @return true;
+  }
+
+  @if index(const('CSS_LENGTH_UNITS'), unit($val)) {
+    @return true;
+  }
+
+  @return false;
+}
