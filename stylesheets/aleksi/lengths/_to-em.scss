@@ -8,6 +8,11 @@
 @import "aleksi/lengths/convert";
 @import "aleksi/lists/is-list";
 
+// Base font size in pixels, if not already defined.
+// Should be the same as the font-size of the body element.
+
+$base-font-size: 16px !default;
+
 // =to-em( $length[, $from-context, $to-context ])
 // -----------------------------------------------------------------------------
 /// Convert any CSS <length> or <percentage> value to ems. Accepts a list of

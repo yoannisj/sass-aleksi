@@ -8,6 +8,11 @@
 @import "aleksi/general/const";
 @import "aleksi/const/css/length-units";
 
+// Base font size in pixels, if not already defined.
+// Should be the same as the font-size of the body element.
+
+$base-font-size: 16px !default;
+
 // =is-length( $val )
 // -----------------------------------------------------------------------------
 /// Checks if given value is a length value

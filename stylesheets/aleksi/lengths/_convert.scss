@@ -134,8 +134,7 @@ $root-font-size: $base-font-size !default;
   // use 'root-font-size' setting as context for 'rem' conversions
   @if $to-unit == 'rem' or $from-unit == 'rem'
   {
-    $rfs: if(global-variable-exists('root-font-size'), $root-font-size,
-        if(global-variable-exists('base-font-size'), $base-font-size, 16px));
+    $rfs: if(global-variable-exists('root-font-size'), $root-font-size, 16px);
     $to-context: if($from-context == $to-context, $rfs, $to-context);
   }
 

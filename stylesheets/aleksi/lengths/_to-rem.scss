@@ -8,6 +8,11 @@
 @import "aleksi/lengths/convert";
 @import "aleksi/lists/is-list";
 
+// Root font size in pixels, if not already defined
+// Should be the same as the font-size of the html element.
+
+$root-font-size: 16px !default;
+
 // =to-rem( $length[, $from-context, $to-context ])
 // -----------------------------------------------------------------------------
 /// Convert any CSS <length> or <percentage> value to pixels. Accepts a list of
@@ -22,7 +27,7 @@
 /// @access public
 /// @since 0.3.1
 
-@function to-rem( $length, $from-context: $base-font-size, $to-context: $from-context)
+@function to-rem( $length, $from-context: $root-font-size, $to-context: $from-context)
 {
   @if is-list($length) {
     @return convert-lengths($length, 'rem', $from-context, $to-context);
