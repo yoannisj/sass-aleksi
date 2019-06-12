@@ -1,0 +1,34 @@
+// =============================================================================
+// =ALEKSI TESTS - TO-REM
+// =============================================================================
+
+@import "aleksi/lengths/to-rem";
+
+@include test-module('The to-rem function')
+{
+  @include test('should convert a length to rem units')
+  {
+    $root-font-size: 10px !global;
+    $base-font-size: 15px !global;
+
+    @include assert-equal(to-rem(20px), 2rem);
+    @include assert-equal(to-rem(2em, 15px), 3rem);
+  }
+
+  @include test('should use the global `$root-font-size` value as default `$from` and `$to`')
+  {
+    $root-font-size: 20px !global;
+
+    @include assert-equal(to-rem(20px), 1rem);
+  }
+
+  @include test('should convert each length value when given a list')
+  {
+    $root-font-size: 10px !global;
+
+    @include assert-equal(to-rem(0 20px), 0 2rem);
+    @include assert-equal(to-rem(10px 20px 15px), 1rem 2rem 1.5rem);
+    @include assert-equal(to-rem(foo 20px true 15px), foo 2rem true 1.5rem);
+    @include assert-equal(to-rem(foo 20px true 15px), foo 2rem true 1.5rem);
+  }
+}
